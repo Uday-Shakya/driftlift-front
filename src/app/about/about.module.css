@@ -1,0 +1,35 @@
+.aboutContainer {
+  background-color: #fff; /* Ensure background is white */
+  color: #333; /* Ensure text is dark */
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.heading {
+  color: #0070f3; /* Make sure heading is a bright color */
+  margin-bottom: 20px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.image {
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.text {
+  color: #ffffff; /* Ensure text is dark enough to be visible */
+  background-color: #f9f9f9; /* Light background for the text */
+  padding: 20px;
+  margin-top: 20px;
+  max-width: 600px;
+  line-height: 1.6;
+}
+.text p {
+  margin: 10px 0;
+  line-height: 1.6;
+}
