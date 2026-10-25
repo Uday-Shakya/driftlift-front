@@ -1,20 +1,117 @@
-/* Footer.module.css */
 .footer {
-    background-color: #333;
-    color: white;
-    padding: 2rem;
-    text-align: center;
-    position: relative;
-    bottom: 0;
-    width: 100%;
+  width: 100%;
+  background: #080c14;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 60px 20px 30px;
+  margin-top: 80px;
+}
+
+.footerContainer {
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.footerTop {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 40px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.logoRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.brandName {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.brandHighlight {
+  color: var(--primary);
+}
+
+.brandMotto {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  max-width: 420px;
+}
+
+.linksCol h4, .contactCol h4 {
+  font-size: 1rem;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+  font-weight: 700;
+}
+
+.linksCol ul, .contactCol ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.linksCol a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.linksCol a:hover {
+  color: var(--primary);
+}
+
+.contactCol li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.contactCol a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.contactCol a:hover {
+  color: var(--primary);
+}
+
+.footerBottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding-top: 24px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.loveTag {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.heartIcon {
+  color: var(--accent-rose);
+}
+
+@media (max-width: 800px) {
+  .footerTop {
+    grid-template-columns: 1fr;
+    gap: 30px;
   }
-  
-  .footer h2 {
-    font-size: 1.5rem;
-  }
-  
-  .footer p {
-    font-size: 1rem;
-    margin: 5px 0;
-  }
-  
+}

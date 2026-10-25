@@ -1,37 +1,136 @@
-.swiper-slide {
-    width: 200px;
-    height: 200px;
-    border-radius: 20px;
-    border: 1px solid #e6e6e6;  
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-size: cover;
+.workout-categories-section {
+  max-width: 1240px;
+  margin: 60px auto 100px;
+  padding: 0 20px;
 }
 
-
-.swiper-slide .swiper-slide-content{
-    background-color: rgba(0, 0, 0, 0.385);
-    color: white;
-    position: relative;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+.workout-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 24px;
 }
 
-.swiper-slide .swiper-slide-content h2{
-    font-size: 1.5rem;
-    font-weight: 900;
-    text-align: center;
+.workout-program-card {
+  position: relative;
+  height: 290px;
+  border-radius: 20px;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.swiper-slide .swiper-slide-content  p{
-    font-size: 1rem;
-    font-weight: 500;
-    text-align: center;
+.card-gradient-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(8, 11, 17, 0.2) 0%, rgba(8, 11, 17, 0.85) 100%);
+  transition: background 0.3s ease;
+  z-index: 1;
+}
+
+.workout-program-card:hover .card-gradient-overlay {
+  background: linear-gradient(180deg, rgba(8, 11, 17, 0.1) 0%, rgba(8, 11, 17, 0.92) 100%);
+}
+
+.workout-program-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(16, 185, 129, 0.5);
+  box-shadow: 0 16px 36px -10px rgba(16, 185, 129, 0.25);
+}
+
+.workout-card-badge {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hd-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: rgba(16, 185, 129, 0.2);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: #10b981;
+  padding: 4px 10px;
+  border-radius: 6px;
+  backdrop-filter: blur(8px);
+}
+
+.intensity-tag {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  backdrop-filter: blur(8px);
+}
+
+.intensity-tag.medium {
+  background: rgba(245, 158, 11, 0.2);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+}
+
+.intensity-tag.high, .intensity-tag.extreme {
+  background: rgba(244, 63, 94, 0.2);
+  color: #f43f5e;
+  border: 1px solid rgba(244, 63, 94, 0.4);
+}
+
+.play-button-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  color: #ffffff;
+  opacity: 0.85;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.workout-program-card:hover .play-button-overlay {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.15);
+  color: var(--primary);
+  filter: drop-shadow(0 0 16px rgba(16, 185, 129, 0.8));
+}
+
+.workout-card-bottom {
+  position: relative;
+  z-index: 2;
+}
+
+.workout-program-name {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.workout-program-meta {
+  display: flex;
+  gap: 16px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.workout-program-meta span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
