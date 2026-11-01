@@ -1,7 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  webpack: (config) => {
+    config.ignoreWarnings = [
+      { module: /react-toastify/ },
+      { file: /react-toastify\.esm\.mjs\.map$/ },
+    ];
+    return config;
+  },
 };
 
 export default nextConfig;

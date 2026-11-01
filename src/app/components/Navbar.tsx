@@ -98,6 +98,12 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToFooter }) => {
             <Link href="/" className={`nav-link ${pathname === '/' ? 'active' : ''}`}>
               Dashboard
             </Link>
+            <Link href="/heatmap" className={`nav-link ${pathname === '/heatmap' ? 'active' : ''}`}>
+              3D Heatmap
+            </Link>
+            <Link href="/vision-coach" className={`nav-link ${pathname === '/vision-coach' ? 'active' : ''}`}>
+              AI Vision Coach
+            </Link>
             <Link href="/workout/chest" className={`nav-link ${pathname?.startsWith('/workout') ? 'active' : ''}`}>
               Workouts & Tutorials
             </Link>
@@ -165,6 +171,12 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToFooter }) => {
           <div className="mobile-menu-drawer glass-panel">
             <Link href="/" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link">
               Dashboard
+            </Link>
+            <Link href="/heatmap" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link">
+              3D Muscle Heatmap
+            </Link>
+            <Link href="/vision-coach" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link">
+              AI Vision Rep Counter
             </Link>
             <Link href="/workout/chest" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link">
               Workouts & Tutorials

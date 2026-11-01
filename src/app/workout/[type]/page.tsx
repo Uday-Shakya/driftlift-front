@@ -13,7 +13,8 @@ import {
   IoInformationCircleOutline,
   IoSparkles,
   IoVolumeHighOutline,
-  IoVolumeMuteOutline
+  IoVolumeMuteOutline,
+  IoCameraOutline
 } from 'react-icons/io5'
 import { toast } from 'react-toastify'
 import './workoutPage.css'
@@ -251,15 +252,31 @@ const WorkoutPage = () => {
 
             <div className="hero-actions">
               {!isLiveMode ? (
-                <button
-                  className="btn-primary start-workout-btn"
-                  onClick={() => {
-                    setIsLiveMode(true)
-                    setActiveExerciseIdx(0)
-                  }}
-                >
-                  <IoPlayCircleOutline size={22} /> Start Live Workout
-                </button>
+                <>
+                  <button
+                    className="btn-primary start-workout-btn"
+                    onClick={() => {
+                      setIsLiveMode(true)
+                      setActiveExerciseIdx(0)
+                    }}
+                  >
+                    <IoPlayCircleOutline size={22} /> Start Live Workout
+                  </button>
+                  <Link
+                    href="/vision-coach"
+                    className="btn-secondary"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '0.5rem',
+                      background: 'rgba(16, 185, 129, 0.12)',
+                      borderColor: 'rgba(16, 185, 129, 0.4)',
+                      color: '#6ee7b7',
+                    }}
+                  >
+                    <IoCameraOutline size={20} /> AI Vision Rep Counter
+                  </Link>
+                </>
               ) : (
                 <div className="live-workout-controls">
                   <button

@@ -12,7 +12,8 @@ import {
   IoEyeOffOutline,
   IoShieldCheckmark,
   IoPlayCircleOutline,
-  IoFlameOutline
+  IoFlameOutline,
+  IoCalendarOutline
 } from 'react-icons/io5'
 import { toast } from 'react-toastify'
 import './AuthPopup.css'
@@ -57,16 +58,17 @@ const AuthPopup: React.FC<AuthPopupProps> = ({ setShowpopup }) => {
         }),
       })
 
-      const data = await res.json()
-      if (data.ok) {
+      const data = await res.json().catch(() => null)
+      if (res.ok && data?.ok) {
         toast.success(data.message || 'Welcome back to DriftLift! 🔥')
         setShowpopup(false)
         window.location.reload()
       } else {
-        toast.error(data.message || 'Invalid email or password')
+        toast.error(data?.message || 'Invalid email or password')
       }
-    } catch (err) {
-      toast.error('Network error connecting to auth service')
+    } catch (err: any) {
+      console.error('Login error:', err)
+      toast.error(err?.message || 'Network error connecting to auth service')
     } finally {
       setLoading(false)
     }
@@ -93,16 +95,17 @@ const AuthPopup: React.FC<AuthPopupProps> = ({ setShowpopup }) => {
         }),
       })
 
-      const data = await res.json()
-      if (data.ok) {
-        toast.success('Account created successfully! Please sign in.')
+      const data = await res.json().catch(() => null)
+      if (res.ok && data?.ok) {
+        toast.success(data.message || 'Account created successfully! Please sign in.')
         setIsSignup(false)
         setLoginEmail(email)
       } else {
-        toast.error(data.message || 'Signup failed')
+        toast.error(data?.message || 'Signup failed')
       }
-    } catch (err) {
-      toast.error('Network error registering account')
+    } catch (err: any) {
+      console.error('Signup error:', err)
+      toast.error(err?.message || 'Network error registering account')
     } finally {
       setLoading(false)
     }
@@ -314,12 +317,21 @@ const AuthPopup: React.FC<AuthPopupProps> = ({ setShowpopup }) => {
                   </div>
                   <div className="auth-input-group">
                     <label>Date of Birth</label>
-                    <input
-                      type="date"
-                      value={dob}
-                      onChange={(e) => setDob(e.target.value)}
-                      required
-                    />
+                    <div className="input-with-icon">
+                      <IoCalendarOutline className="field-icon" />
+                      <input
+                        type="date"
+                        value={dob}
+                        max={new Date().toISOString().split('T')[0]}
+                        onChange={(e) => setDob(e.target.value)}
+                        onClick={(e) => {
+                          try {
+                            e.currentTarget.showPicker?.()
+                          } catch {}
+                        }}
+                        required
+                      />
+                    </div>
                   </div>
                 </div>
 

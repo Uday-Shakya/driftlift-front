@@ -30,7 +30,8 @@
 .heroContent {
   position: relative;
   z-index: 1;
-  max-width: 860px;
+  max-width: 1140px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -43,11 +44,13 @@
   line-height: 1.08;
   letter-spacing: -0.03em;
   margin: 20px 0 16px;
+  max-width: 860px;
 }
 
 .heroGradient {
   background: linear-gradient(135deg, #10b981 0%, #06b6d4 50%, #3b82f6 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -55,7 +58,7 @@
   font-size: clamp(1rem, 2vw, 1.18rem);
   color: var(--text-secondary);
   line-height: 1.6;
-  max-width: 680px;
+  max-width: 720px;
   margin-bottom: 32px;
 }
 
@@ -64,55 +67,104 @@
   gap: 16px;
   flex-wrap: wrap;
   justify-content: center;
-  margin-bottom: 48px;
+  margin-bottom: 40px;
 }
 
-.statsStrip {
+/* Redesigned Bento Feature Cards Strip */
+.featuresBentoGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  width: 100%;
+  max-width: 1140px;
+}
+
+.featureCard {
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  text-align: left;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.featureCard::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.05) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+.featureCard:hover {
+  transform: translateY(-4px);
+  background: rgba(15, 23, 42, 0.85);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4), 0 0 20px rgba(6, 182, 212, 0.08);
+}
+
+.featureCard:hover::after {
+  opacity: 1;
+}
+
+.featureIconWrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 32px;
-  flex-wrap: wrap;
-  padding: 16px 28px;
-  border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(12px);
+  flex-shrink: 0;
+  border: 1px solid;
+  transition: transform 0.25s ease;
 }
 
-.statItem {
+.featureCard:hover .featureIconWrapper {
+  transform: scale(1.08);
+}
+
+.featureText {
   display: flex;
-  align-items: center;
-  gap: 12px;
-  text-align: left;
+  flex-direction: column;
 }
 
-.statIcon {
-  color: var(--primary);
-  font-size: 1.6rem;
+.featureText strong {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin-bottom: 2px;
 }
 
-.statItem strong {
-  display: block;
-  font-size: 0.9rem;
-  color: #ffffff;
+.featureText span {
+  font-size: 0.76rem;
+  color: #94a3b8;
+  line-height: 1.35;
 }
 
-.statItem span {
-  font-size: 0.78rem;
-  color: var(--text-muted);
+@media (max-width: 1024px) {
+  .featuresBentoGrid {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 680px;
+  }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 640px) {
   .heroSection {
     margin: 20px auto 40px;
     padding: 30px 16px;
   }
-  .statsStrip {
-    border-radius: 16px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-    width: 100%;
+  .featuresBentoGrid {
+    grid-template-columns: 1fr;
+    max-width: 100%;
   }
 }
