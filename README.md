@@ -4,15 +4,17 @@
 
 ### *Elevate Your Form. Master Your Fitness.*
 
-Next-generation biometric tracking, HD workout video tutorials, intelligent live rest timers, and metabolic profiling—engineered for high-performance health optimization.
+Next-generation biometric tracking, 3D anatomical recovery heatmaps, computer vision rep counting & form checking, HD workout video tutorials, and metabolic profiling—engineered for high-performance health optimization.
 
 [![Next.js](https://img.shields.io/badge/Next.js-15.0-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-18.3-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://reactjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Three.js](https://img.shields.io/badge/Three.js-WebGL-black?style=for-the-badge&logo=three.js&logoColor=white)](https://threejs.org/)
+[![MediaPipe](https://img.shields.io/badge/MediaPipe-Pose%20AI-06b6d4?style=for-the-badge&logo=google&logoColor=white)](https://developers.google.com/mediapipe)
 [![MUI](https://img.shields.io/badge/MUI%20X--Charts-6.19-007FFF?style=for-the-badge&logo=mui&logoColor=white)](https://mui.com/x/react-charts/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
 
-[Features](#-key-features) • [Tech Stack](#-tech-stack) • [Getting Started](#-getting-started) • [Environment Variables](#-environment-variables) • [Project Structure](#-project-structure) • [Roadmap](#-roadmap)
+[Features](#-key-features) • [Tech Stack](#-tech-stack) • [Getting Started](#-getting-started) • [Environment Variables](#-environment-variables) • [Project Structure](#-project-structure) • [Contributing](#-contributing)
 
 ---
 
@@ -20,19 +22,69 @@ Next-generation biometric tracking, HD workout video tutorials, intelligent live
 
 ## 📖 Overview
 
-**DriftLift** is a modern, high-performance web platform designed to streamline daily fitness tracking and workout execution. Built with the **Next.js App Router**, **TypeScript**, and **Material UI (Joy & X-Charts)**, the frontend delivers a responsive cyber-dark aesthetic with real-time biometric visualization, form execution cues, and personalized metabolic calculations.
+**DriftLift** is a cutting-edge web platform uniting computer vision AI, real-time 3D anatomical biometrics, and guided exercise science. Built on **Next.js 15 App Router**, **TypeScript**, **Three.js**, and **Google MediaPipe**, the application delivers a cyber-dark, glassmorphic experience that empowers lifters with hands-free optical form correction, 3D muscle recovery heatmaps, and metabolic analytics.
 
 ---
 
 ## ✨ Key Features
 
-### 🏋️ 1. Guided Workout Hub & Form Execution
+### 👁️ 1. Computer Vision Rep Counter & Form Checker *(AI Pose Engine)*
+- **Optical Landmark Tracking**: Harnesses **Google MediaPipe Pose** running 100% client-side via WebAssembly & WebGL (zero server latency, complete video privacy).
+- **Trigonometric Joint Angle Detection**: Computes flexion/extension angles (knee, elbow, shoulder, hip) at 60 FPS.
+- **Exercise State Machines**:
+  - 🏋️‍♂️ **Barbell & Bodyweight Squats**: Tracks knee angle depth (< 90° parallel/deep check) and warns against excessive torso forward lean.
+  - 💪 **Bicep Curls**: Measures peak contraction (< 45°) and full bottom extension (> 155°).
+  - 🤸 **Chest Push-ups**: Enforces 90° elbow bend and monitors spinal plank alignment to detect sagging hips.
+  - 🏋️ **Overhead Shoulder Press**: Tracks full overhead lockouts without lower lumbar arching.
+  - 🦅 **Dumbbell Lateral Raises**: Monitors shoulder abduction and tempo control.
+- **Synthesizer Chimes & AI Voice Coach**:
+  - Web Audio API procedural sound cues trigger on every valid rep.
+  - Web Speech API announces rep counts aloud (*"1"*, *"2"*, *"3"...*) and provides live diagnostic coaching cues (*"Sink deeper"*, *"Full extension"*).
+- **Dual-Mode System**:
+  - 📹 **Live Camera Mode**: Mirrors your webcam with a glowing neon cyber-skeleton and real-time degree plaque on the pivot joint.
+  - ⚡ **Kinetic Simulator Mode**: Built-in procedural lifter demo allows testing without standing in front of a camera.
+- **Automated Rest Countdown**: Completing a set triggers an automated 60-second recovery timer and logs set performance directly to your profile.
+
+---
+
+### 🧬 2. 3D Interactive Muscle Fatigue & Recovery Heatmap
+- **Procedural Anatomical 3D Mannequin**: Engineered with **Three.js** and smooth OrbitControls (rotate, zoom, pan).
+- **Segmented Muscle Geometries**: Covers Pectorals, Lats, Traps, Erectors, Rectus Abdominis (6-pack), Obliques, Deltoids, Biceps, Triceps, Forearms, Glutes, Quads, Hamstrings, and Calves.
+- **Real-Time Biometric Heatmap Shaders**:
+  - 🟢 **0–25% (Emerald)**: Fully Recovered & Primed
+  - 🔵 **26–50% (Cyan)**: Optimal Training Capacity
+  - 🟡 **51–70% (Amber)**: Stimulated / Active Recovery
+  - 🟠 **71–85% (Orange)**: High Fatigue / DOMS Warning
+  - 🔴 **86–100% (Laser Crimson)**: Exhausted / Rest Needed
+- **Raycast Hover & Muscle Intel**:
+  - Hovering displays a floating HUD tooltip near the cursor.
+  - Clicking any muscle opens its **Muscle Intelligence Card**, detailing biomechanical role, estimated recovery countdown (e.g. `~36 Hours`), top exercises, and active recovery stretches.
+- **Simulation Scenarios & Real-Time Sync**:
+  - Quick presets: 🔥 *Push Day*, ⚡ *Pull Day*, 🦵 *Leg Day*, ✨ *Full Reset*.
+  - Live calibration slider to test muscle glow sensitivity.
+  - One-click sync with recent workout logs (`/workouttrack/getworkoutbylimit`).
+
+---
+
+### 🍱 3. Interactive Bento Showcase Grid
+- Balanced 4-pillar interactive navigation strip on the landing page hero:
+  - 📹 **AI Vision Coach** (`/vision-coach`)
+  - 🧬 **3D Muscle Heatmap** (`/heatmap`)
+  - 🎬 **HD Form Tutorials** (`/workout/chest`)
+  - 📊 **Smart Tracking** (`/report/calorie`)
+- Designed with subtle glassmorphic reflections, themed glowing icon badges, and smooth hover lift micro-animations.
+
+---
+
+### 🏋️ 4. Guided Workout Hub & Form Execution
 - **Targeted Muscle Categories**: Comprehensive routines for **Chest**, **Back**, **Abs & Core**, **Shoulders**, **Arms**, and **Legs**.
 - **HD Video Tutorials**: Embedded high-definition video demonstrations with targeted muscle cues and execution tips.
-- **Smart Rest Interval Timer**: Live rest timers between sets with audio & haptic feedback to maximize workout intensity.
-- **Direct Workout Logging**: Instantly record completed sets, reps, and workout duration directly to your profile.
+- **Smart Rest Interval Timer**: Live rest timers between sets with audio feedback to maximize workout intensity.
+- **Direct Workout Logging**: Record completed sets, reps, and workout duration directly to your profile.
 
-### 📊 2. Biometric Analytics & Dynamic Reports
+---
+
+### 📊 5. Biometric Analytics & Dynamic Reports
 - **MUI X-Charts Visualizations**: Interactive trend lines and graphs for tracking progress over daily, weekly, or monthly periods.
 - **Track 6 Core Health Vectors**:
   - 💧 **Hydration Tracker** (Daily water intake vs. dynamic hydration goals in mL)
@@ -42,33 +94,36 @@ Next-generation biometric tracking, HD workout video tutorials, intelligent live
   - ⚖️ **Weight Tracking** (Body mass progression curve)
   - ⏱️ **Workout Duration** (Session length and consistency tracking)
 
-### ⚡ 3. Quick Log Modal
-- Log any daily metric (water, sleep, calories, steps, weight, workout) with a single click from the navigation bar without page reloading.
+---
 
-### 🧮 4. Metabolic & TDEE Calculator
+### 🧮 6. Metabolic & TDEE Calculator
 - **Mifflin-St Jeor Equation**: Computes **BMR (Basal Metabolic Rate)** and **TDEE (Total Daily Energy Expenditure)** based on age, gender, height, weight, and activity multiplier.
 - **Goal-Adaptive Targets**: Tailors recommended daily caloric targets for **Weight Loss** (-500 kcal deficit), **Maintenance**, and **Muscle Hypertrophy** (+300 kcal surplus).
 - **Instant BMI Breakdown**: Real-time BMI calculation and classification.
 
-### 🔐 5. Secure Authentication
-- Modal-based **JWT Cookie Authentication** (Login & Registration).
-- Persistent user sessions and user data synchronization with the backend.
+---
 
-### 🎨 6. Premium Cyber-Dark Aesthetic
-- Sleek glassmorphism, glowing accents (`#00f5d4` cyan, `#3b82f6` electric blue, `#f59e0b` amber), modern typography (`Outfit` / `Inter`), and responsive design for mobile, tablet, and desktop.
+### 🔐 7. Secure Authentication & Quick Log
+- Modal-based **JWT Cookie Authentication** (Login & Registration with interactive calendar birthdate selection).
+- Persistent user sessions and cross-origin synchronization with the Express backend.
+- Quick Log popover to record metrics in seconds from any page.
 
 ---
 
 ## 🛠 Tech Stack
 
-| Domain | Technology |
-|---|---|
-| **Framework** | [Next.js](https://nextjs.org/) (App Router, Turbopack) |
-| **Language** | [TypeScript](https://www.typescriptlang.org/) |
-| **UI Library & Components** | [Material UI (MUI Joy / Base)](https://mui.com/joy-ui/getting-started/), [MUI X-Charts](https://mui.com/x/react-charts/), [MUI X-Date-Pickers](https://mui.com/x/react-date-pickers/) |
-| **Styling** | Emotion (`@emotion/react`, `@emotion/styled`), CSS Modules, Custom Design Tokens |
-| **Icons & Media** | [React Icons](https://react-icons.github.io/react-icons/) (Ionicons 5), [Swiper](https://swiperjs.com/) |
-| **Utilities** | [Day.js](https://day.js.org/) (Date manipulation), [React Toastify](https://fkhadra.github.io/react-toastify/) (Notifications) |
+| Domain | Technology | Purpose |
+|---|---|---|
+| **Framework** | [Next.js 15](https://nextjs.org/) (App Router, Turbopack) | Server & Client Components, Dynamic Routing |
+| **Language** | [TypeScript 5](https://www.typescriptlang.org/) | End-to-end type safety |
+| **3D Graphics** | [Three.js](https://threejs.org/) | 3D procedural anatomical mannequin, WebGL shaders |
+| **Computer Vision** | [Google MediaPipe Pose](https://developers.google.com/mediapipe) | Optical 33-point skeletal pose tracking & rep counter |
+| **UI & Charts** | [MUI Joy](https://mui.com/joy-ui/) & [MUI X-Charts](https://mui.com/x/react-charts/) | High-performance interactive metric visualization |
+| **Date Pickers** | [MUI X-Date-Pickers](https://mui.com/x/react-date-pickers/) & [Day.js](https://day.js.org/) | Calendar birthdate and date range pickers |
+| **Audio Synthesis** | Web Audio API & Web Speech API | Procedural sound chimes & spoken rep counts |
+| **Styling** | Emotion, CSS Modules & Custom Glassmorphic Tokens | Cyber-dark aesthetic, responsive design |
+| **Icons & Media** | [React Icons](https://react-icons.github.io/react-icons/) (Ionicons 5), [Swiper](https://swiperjs.com/) | UI iconography and responsive sliders |
+| **Notifications** | [React Toastify](https://fkhadra.github.io/react-toastify/) | Non-blocking user feedback alerts |
 
 ---
 
@@ -92,18 +147,13 @@ Ensure you have the following installed on your machine:
 2. **Install dependencies**:
    ```bash
    npm install
-   # or
-   yarn install
-   # or
-   pnpm install
    ```
 
 3. **Set up Environment Variables**:
    Create a `.env.local` file in the root directory:
-   ```bash
-   cp .env.example .env.local # or create .env.local manually
+   ```env
+   NEXT_PUBLIC_BACKEND_API=http://localhost:8000
    ```
-   Add your backend server URL (see [Environment Variables](#-environment-variables)).
 
 4. **Run the development server**:
    ```bash
@@ -115,19 +165,6 @@ Ensure you have the following installed on your machine:
 
 ---
 
-## ⚙️ Environment Variables
-
-Create a `.env.local` file in the root directory to configure the backend API endpoint:
-
-```env
-# Backend API Base URL
-NEXT_PUBLIC_BACKEND_API=http://localhost:8000
-```
-
-> **Note:** If `NEXT_PUBLIC_BACKEND_API` is omitted, the frontend automatically falls back to `http://localhost:8000`.
-
----
-
 ## 📂 Project Structure
 
 ```text
@@ -136,9 +173,8 @@ driftlift-front/
 ├── src/
 │   ├── app/
 │   │   ├── about/          # About DriftLift team & mission
-│   │   ├── assets/         # App asset references
 │   │   ├── components/     # Reusable modular UI components
-│   │   │   ├── AuthPopup/       # Login / Signup authentication modal
+│   │   │   ├── AuthPopup/       # Login / Signup modal with calendar DOB picker
 │   │   │   ├── Footer/          # Application footer
 │   │   │   ├── Homebanner1/     # Biometric highlight cards & quick metrics
 │   │   │   ├── HomeBanner2/     # Muscle category exercise carousels (Swiper)
@@ -146,18 +182,23 @@ driftlift-front/
 │   │   │   ├── QuickLogModal/   # Instant metric logging popover
 │   │   │   ├── ReportFormPopup/ # Biometric entry form modal
 │   │   │   └── ToastProvider.tsx# Global toast notification container
-│   │   ├── fonts/          # Local font imports
+│   │   ├── heatmap/        # 3D Interactive Muscle Fatigue & Recovery Heatmap (Three.js)
+│   │   │   ├── HeatmapCanvas.tsx# Procedural anatomical mannequin & WebGL shaders
+│   │   │   ├── heatmap.css      # Cyberpunk HUD & responsive styling
+│   │   │   └── page.tsx         # Heatmap control center & muscle intelligence
+│   │   ├── vision-coach/   # Computer Vision Rep Counter & Form Checker
+│   │   │   ├── VisionEngine.tsx # MediaPipe Pose optical tracking & audio synthesis
+│   │   │   ├── vision.css       # Biometric camera HUD & live telemetry gauges
+│   │   │   └── page.tsx         # Vision Coach set controller & rest modal
 │   │   ├── profile/        # User profile, BMR & TDEE metabolic calculators
 │   │   ├── report/
 │   │   │   └── [type]/     # Dynamic biometric report views (charts, trends, history)
 │   │   ├── workout/
 │   │   │   └── [type]/     # Muscle category video workouts with live rest timers
-│   │   ├── globals.css     # Global styles, variables, cyber-dark theme definitions
-│   │   ├── layout.tsx      # Root application layout with navigation & toast wrappers
-│   │   ├── page.tsx        # Landing / Home page
+│   │   ├── globals.css     # Global variables, tokens, cyber-dark theme definitions
+│   │   ├── layout.tsx      # Root application layout
+│   │   ├── page.tsx        # Landing / Home page with Bento Feature Showcase
 │   │   └── page.module.css # Landing page scoped styles
-│   └── types/              # Global TypeScript interfaces & types
-├── next.config.ts          # Next.js build and image optimization configuration
 ├── tsconfig.json           # TypeScript configuration
 └── package.json            # Scripts & project dependencies
 ```
@@ -165,8 +206,6 @@ driftlift-front/
 ---
 
 ## 📜 Available Scripts
-
-In the project directory, you can run:
 
 | Command | Description |
 |---|---|
@@ -179,19 +218,7 @@ In the project directory, you can run:
 
 ## 🔗 Related Repositories
 
-- **Backend API**: [driftlift-backend](https://github.com/Uday-Shakya/driftlift-backend) (Node.js / Express / MongoDB)
-
----
-
-## 🤝 Contributing
-
-Contributions are always welcome! If you'd like to improve DriftLift:
-
-1. Fork the Project (`gh repo fork Uday-Shakya/driftlift-front`)
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'feat: Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+- **Backend API**: [driftlift_backend](https://github.com/Uday-Shakya/driftlift_backend) (Node.js / Express / MongoDB)
 
 ---
 
