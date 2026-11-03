@@ -1,5 +1,7 @@
 import Navbar from '@/app/components/Navbar'
 import ToastProvider from '@/app/components/ToastProvider'
+import { AuthProvider } from '@/context/AuthContext'
+import RouteGuard from '@/app/components/AuthGuard/RouteGuard'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
@@ -19,9 +21,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Navbar />
-        {children}
-        <ToastProvider />
+        <AuthProvider>
+          <Navbar />
+          <RouteGuard>
+            {children}
+          </RouteGuard>
+          <ToastProvider />
+        </AuthProvider>
       </body>
     </html>
   )

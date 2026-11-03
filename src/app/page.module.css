@@ -1,170 +1,602 @@
+/* ═══════════════════════════════════════════════════════
+   DriftLift Home Hero — Architectural Athletic Command Center
+   ═══════════════════════════════════════════════════════ */
+
 .main {
   width: 100%;
   overflow-x: hidden;
+  min-height: 100vh;
 }
 
+/* ── Hero Master Section ────────────────────────────── */
 .heroSection {
   position: relative;
   max-width: 1240px;
-  margin: 40px auto 60px;
-  padding: 60px 20px 40px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  margin: 0 auto;
+  padding: 100px 24px 60px;
 }
 
-.heroGlow {
+/* Atmospheric Ambient Glows */
+.ambientGlowLeft {
   position: absolute;
-  top: -100px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 600px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(16, 185, 129, 0.18) 0%, rgba(6, 182, 212, 0.08) 50%, transparent 70%);
-  filter: blur(50px);
+  top: 40px;
+  left: -80px;
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.09) 0%, transparent 68%);
+  filter: blur(80px);
   pointer-events: none;
   z-index: 0;
 }
 
-.heroContent {
+.ambientGlowRight {
+  position: absolute;
+  top: 100px;
+  right: -60px;
+  width: 560px;
+  height: 560px;
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.08) 0%, transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Asymmetric Two-Column Command Layout ───────────── */
+.heroGrid {
   position: relative;
   z-index: 1;
-  max-width: 1140px;
-  width: 100%;
+  display: grid;
+  grid-template-columns: 1.08fr 0.92fr;
+  gap: 56px;
+  align-items: center;
+  margin-bottom: 72px;
+}
+
+/* ── Left Column: Editorial Headline & Actions ──────── */
+.leadColumn {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: 28px;
 }
 
+/* Architectural System Tracker Tag */
+.systemTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  align-self: flex-start;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.pulseDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--primary);
+  box-shadow: 0 0 10px var(--primary);
+  animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.85);
+  }
+}
+
+.systemVersion {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+/* Main Heading — Sharp, High-Contrast, Authoritative */
 .heroTitle {
-  font-size: clamp(2.4rem, 5.5vw, 4.4rem);
-  font-weight: 900;
-  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: clamp(2.4rem, 4.4vw, 4rem);
+  font-weight: 800;
   line-height: 1.08;
   letter-spacing: -0.03em;
-  margin: 20px 0 16px;
-  max-width: 860px;
+  color: #ffffff;
 }
 
-.heroGradient {
-  background: linear-gradient(135deg, #10b981 0%, #06b6d4 50%, #3b82f6 100%);
+.heroTitleEm {
+  font-style: normal;
+  display: block;
+  background: linear-gradient(135deg, #10b981 0%, #06b6d4 60%, #38bdf8 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.heroDescription {
-  font-size: clamp(1rem, 2vw, 1.18rem);
+/* Editorial Body Copy */
+.heroSubtitle {
+  font-size: 1.06rem;
+  line-height: 1.72;
   color: var(--text-secondary);
-  line-height: 1.6;
-  max-width: 720px;
-  margin-bottom: 32px;
+  max-width: 520px;
 }
 
-.heroCtaGroup {
+/* Decisive Primary & Secondary Action Pair */
+.ctaRow {
   display: flex;
+  align-items: center;
   gap: 16px;
   flex-wrap: wrap;
-  justify-content: center;
-  margin-bottom: 40px;
 }
 
-/* Redesigned Bento Feature Cards Strip */
-.featuresBentoGrid {
+.primaryCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 26px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--primary) 0%, #059669 100%);
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.96rem;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.primaryCta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(16, 185, 129, 0.5);
+  background: linear-gradient(135deg, #34d399 0%, #059669 100%);
+}
+
+.secondaryCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 24px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-primary);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  border: 1px solid var(--border-subtle);
+  transition: all 0.25s ease;
+}
+
+.secondaryCta:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.22);
+  transform: translateY(-2px);
+}
+
+/* Micro Telemetry Spec Strip */
+.specsStrip {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border-subtle);
+  flex-wrap: wrap;
+}
+
+.specItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.specValue {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.specLabel {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.specDivider {
+  width: 1px;
+  height: 24px;
+  background: var(--border-subtle);
+}
+
+/* ── Right Column: Interactive Biometrics Telemetry Deck ── */
+.consoleWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.consoleCard {
+  background: rgba(14, 19, 31, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.6), 0 0 35px rgba(16, 185, 129, 0.05);
+}
+
+/* Top Telemetry Header */
+.consoleHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  background: rgba(7, 9, 14, 0.6);
+  border-bottom: 1px solid var(--border-subtle);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+.consoleStatus {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.liveBadgeDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 8px var(--primary);
+}
+
+.consoleId {
+  color: var(--text-muted);
+}
+
+/* Segmented Module Switcher */
+.moduleTabs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: rgba(7, 9, 14, 0.4);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 4px;
+  gap: 4px;
+}
+
+.moduleTabBtn {
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  padding: 9px 4px;
+  font-family: var(--font-heading);
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.moduleTabBtn:hover:not(.moduleTabActive) {
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.moduleTabActive {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Active Telemetry Body */
+.telemetryBody {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.moduleHeaderRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.moduleMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.moduleBadge {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+
+.moduleTitle {
+  font-family: var(--font-heading);
+  font-size: 1.22rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.moduleSummary {
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.moduleIconPill {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+  border: 1px solid;
+}
+
+/* Telemetry Metrics Data Grid */
+.telemetryGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.telemetryCell {
+  background: rgba(7, 9, 14, 0.6);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.telemetryLabel {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.telemetryVal {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.telemetrySub {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+}
+
+/* Console Launch Footer Button */
+.consoleFooter {
+  padding-top: 6px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.consoleLaunchLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-heading);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.consoleLaunchLink:hover {
+  background: rgba(16, 185, 129, 0.16);
+  color: #34d399;
+  transform: translateX(3px);
+}
+
+/* ── Performance Architecture Grid (Bottom Strip) ──── */
+.pipelineSection {
+  position: relative;
+  z-index: 1;
+}
+
+.pipelineHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding: 0 4px;
+}
+
+.pipelineTitle {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.76rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.pipelineStatus {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.72rem;
+  color: var(--primary);
+}
+
+.pipelineGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
-  width: 100%;
-  max-width: 1140px;
 }
 
-.featureCard {
-  background: rgba(15, 23, 42, 0.55);
+.pipelineCard {
+  background: rgba(14, 19, 31, 0.65);
   backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 18px;
-  padding: 16px 18px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 22px 20px;
   text-decoration: none;
-  text-align: left;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-}
-
-.featureCard::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 18px;
-  background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.05) 0%, transparent 60%);
-  opacity: 0;
-  transition: opacity 0.25s ease;
-  pointer-events: none;
-}
-
-.featureCard:hover {
-  transform: translateY(-4px);
-  background: rgba(15, 23, 42, 0.85);
-  border-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4), 0 0 20px rgba(6, 182, 212, 0.08);
-}
-
-.featureCard:hover::after {
-  opacity: 1;
-}
-
-.featureIconWrapper {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  border: 1px solid;
-  transition: transform 0.25s ease;
-}
-
-.featureCard:hover .featureIconWrapper {
-  transform: scale(1.08);
-}
-
-.featureText {
   display: flex;
   flex-direction: column;
+  gap: 14px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.featureText strong {
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: #f8fafc;
-  margin-bottom: 2px;
+.pipelineCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: transparent;
+  transition: background 0.25s ease;
 }
 
-.featureText span {
+.pipelineCard:hover {
+  transform: translateY(-4px);
+  background: rgba(14, 19, 31, 0.9);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.5), 0 0 24px rgba(16, 185, 129, 0.08);
+}
+
+.pipelineCard:hover::before {
+  background: var(--primary);
+}
+
+.cardTopRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cardIndex {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: 0.76rem;
-  color: #94a3b8;
-  line-height: 1.35;
+  font-weight: 700;
+  color: var(--text-muted);
 }
 
-@media (max-width: 1024px) {
-  .featuresBentoGrid {
-    grid-template-columns: repeat(2, 1fr);
+.cardIconBox {
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cardTitle {
+  font-family: var(--font-heading);
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cardArrow {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.pipelineCard:hover .cardArrow {
+  color: var(--primary);
+  transform: translateX(4px);
+}
+
+.cardDesc {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ── Responsive Adaptations ─────────────────────────── */
+@media (max-width: 1040px) {
+  .heroGrid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .leadColumn {
     max-width: 680px;
   }
+
+  .pipelineGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 680px) {
   .heroSection {
-    margin: 20px auto 40px;
-    padding: 30px 16px;
+    padding: 80px 16px 40px;
   }
-  .featuresBentoGrid {
+
+  .heroTitle {
+    font-size: 2.2rem;
+  }
+
+  .pipelineGrid {
     grid-template-columns: 1fr;
-    max-width: 100%;
+  }
+
+  .moduleTabs {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ctaRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .primaryCta,
+  .secondaryCta {
+    justify-content: center;
+  }
+
+  .telemetryGrid {
+    grid-template-columns: 1fr;
   }
 }

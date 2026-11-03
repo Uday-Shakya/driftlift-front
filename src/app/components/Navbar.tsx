@@ -11,52 +11,31 @@ import { usePathname } from 'next/navigation'
 import AuthPopup from './AuthPopup/AuthPopup'
 import QuickLogModal from './QuickLogModal/QuickLogModal'
 import { toast } from 'react-toastify'
+import { useAuth } from '@/context/AuthContext'
 
 interface NavbarProps {
   scrollToFooter?: () => void
 }
 
 const Navbar: React.FC<NavbarProps> = ({ scrollToFooter }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
-  const [user, setUser] = useState<any>(null)
+  const { isLoggedIn, user, logout, checkLogin } = useAuth()
   const [showAuthPopup, setShowAuthPopup] = useState<boolean>(false)
   const [showQuickLog, setShowQuickLog] = useState<boolean>(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false)
 
   const pathname = usePathname()
-  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_API || 'http://localhost:8000'
-
-  const checkLogin = async () => {
-    try {
-      const res = await fetch(`${backendUrl}/auth/checklogin`, {
-        method: 'POST',
-        credentials: 'include',
-      })
-      const data = await res.json()
-      if (data.ok) {
-        setIsLoggedIn(true)
-        setUser(data.user || null)
-      } else {
-        setIsLoggedIn(false)
-        setUser(null)
-      }
-    } catch (err) {
-      setIsLoggedIn(false)
-    }
-  }
 
   const handleLogout = async () => {
-    try {
-      await fetch(`${backendUrl}/auth/logout`, {
-        method: 'POST',
-        credentials: 'include',
-      })
-      setIsLoggedIn(false)
-      setUser(null)
-      toast.info('Logged out successfully')
-      window.location.reload()
-    } catch (err) {
-      toast.error('Logout failed')
+    await logout()
+    window.location.reload()
+  }
+
+  const handleQuickLogClick = () => {
+    if (!isLoggedIn) {
+      toast.info('Please sign in to log your physical metrics')
+      setShowAuthPopup(true)
+    } else {
+      setShowQuickLog(true)
     }
   }
 
@@ -123,7 +102,7 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToFooter }) => {
             {/* Quick Log Button */}
             <button
               className="quicklog-trigger-btn"
-              onClick={() => setShowQuickLog(true)}
+              onClick={handleQuickLogClick}
               title="Quick Log Metric"
             >
               <IoAddCircleOutline size={18} />
