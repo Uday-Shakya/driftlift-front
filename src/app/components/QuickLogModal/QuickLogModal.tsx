@@ -23,20 +23,20 @@ const QuickLogModal: React.FC<QuickLogModalProps> = ({ isOpen, onClose, onSucces
   const [quantity, setQuantity] = useState('1')
 
   // Water form
-  const [waterMl, setWaterMl] = useState('250')
+  const [waterMl, setWaterMl] = useState('')
 
   // Sleep form
-  const [sleepHours, setSleepHours] = useState('8')
+  const [sleepHours, setSleepHours] = useState('')
 
   // Steps form
-  const [stepCount, setStepCount] = useState('5000')
+  const [stepCount, setStepCount] = useState('')
 
   // Weight form
-  const [weightVal, setWeightVal] = useState('70')
+  const [weightVal, setWeightVal] = useState('')
 
   // Workout form
   const [workoutName, setWorkoutName] = useState('')
-  const [workoutDuration, setWorkoutDuration] = useState('45')
+  const [workoutDuration, setWorkoutDuration] = useState('')
 
   if (!isOpen) return null
 

@@ -17,7 +17,6 @@ import {
   IoCheckmarkDoneCircleOutline
 } from 'react-icons/io5'
 import QuickLogModal from '@/app/components/QuickLogModal/QuickLogModal'
-import { toast } from 'react-toastify'
 import './Reportpage.css'
 
 interface MetricConfig {
@@ -66,7 +65,7 @@ const METRIC_CONFIGS: Record<string, MetricConfig> = {
     name: 'Step Count',
     slug: 'steps',
     unit: 'steps',
-    endpoint: '/steptrack/getstepbylimit',
+    endpoint: '/steptrack/getstepsbylimit',
     defaultGoal: 10000,
     color: '#10b981',
     icon: IoFootstepsOutline,
@@ -86,7 +85,7 @@ const METRIC_CONFIGS: Record<string, MetricConfig> = {
     name: 'Workout Duration',
     slug: 'workout',
     unit: 'mins',
-    endpoint: '/workouttrack/getworkoutbylimit',
+    endpoint: '/workouttrack/getworkoutsbylimit',
     defaultGoal: 45,
     color: '#3b82f6',
     icon: IoFitnessOutline,
@@ -108,24 +107,8 @@ const ReportPage = () => {
   const [chartData, setChartData] = useState<{ x: string[]; y: number[] }>({ x: [], y: [] })
   const [loading, setLoading] = useState<boolean>(true)
   const [showLogModal, setShowLogModal] = useState<boolean>(false)
-  const [isSampleData, setIsSampleData] = useState<boolean>(false)
 
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_API || 'http://localhost:8000'
-
-  const generateFallbackData = (days: number, defVal: number) => {
-    const x: string[] = []
-    const y: number[] = []
-    const now = new Date()
-    for (let i = days - 1; i >= 0; i--) {
-      const d = new Date(now)
-      d.setDate(d.getDate() - i)
-      x.push(d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }))
-      // realistic small variance
-      const variance = (Math.random() - 0.5) * (defVal * 0.25)
-      y.push(Math.round(defVal + variance))
-    }
-    return { x, y }
-  }
 
   const fetchMetricData = async () => {
     setLoading(true)
@@ -154,20 +137,12 @@ const ReportPage = () => {
           }
         })
 
-        if (dates.length > 0) {
-          setChartData({ x: dates, y: values })
-          setIsSampleData(false)
-        } else {
-          setChartData(generateFallbackData(daysLimit, config.defaultGoal))
-          setIsSampleData(true)
-        }
+        setChartData({ x: dates, y: values })
       } else {
-        setChartData(generateFallbackData(daysLimit, config.defaultGoal))
-        setIsSampleData(true)
+        setChartData({ x: [], y: [] })
       }
-    } catch (err) {
-      setChartData(generateFallbackData(daysLimit, config.defaultGoal))
-      setIsSampleData(true)
+    } catch {
+      setChartData({ x: [], y: [] })
     } finally {
       setLoading(false)
     }
@@ -177,7 +152,7 @@ const ReportPage = () => {
     fetchMetricData()
   }, [currentMetricKey, daysLimit])
 
-  // Computed KPIs
+  // Computed KPIs based strictly on real logged data
   const total = chartData.y.reduce((acc, val) => acc + val, 0)
   const avg = chartData.y.length > 0 ? Math.round(total / chartData.y.length) : 0
   const peak = chartData.y.length > 0 ? Math.max(...chartData.y) : 0
@@ -221,7 +196,6 @@ const ReportPage = () => {
           <div>
             <div className="report-badge-row">
               <span className="badge-glow">Performance Analytics</span>
-              {isSampleData && <span className="sample-indicator">Sample Data Preview</span>}
             </div>
             <h1>{config.name}</h1>
             <p>Historical trends, daily averages, and progress variance over time</p>
@@ -323,7 +297,59 @@ const ReportPage = () => {
               margin={{ left: 50, right: 20, top: 20, bottom: 40 }}
             />
           ) : (
-            <div className="no-data-notice">No entries recorded in this timeframe.</div>
+            <div
+              className="no-data-notice"
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                minHeight: '300px',
+                gap: '14px',
+                color: '#94a3b8',
+                textAlign: 'center',
+                padding: '40px 20px',
+              }}
+            >
+              <div
+                style={{
+                  width: '56px',
+                  height: '56px',
+                  borderRadius: '16px',
+                  background: `${config.color}15`,
+                  color: config.color,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '1.75rem',
+                  border: `1px solid ${config.color}35`,
+                }}
+              >
+                <Icon size={28} />
+              </div>
+              <div style={{ maxWidth: '420px' }}>
+                <h4 style={{ color: '#f8fafc', fontSize: '1.1rem', marginBottom: '6px', fontWeight: 600 }}>
+                  No {config.name} Recorded Yet
+                </h4>
+                <p style={{ fontSize: '0.88rem', color: '#64748b', lineHeight: 1.5 }}>
+                  You haven&apos;t logged any {config.name.toLowerCase()} entries in the selected {daysLimit}-day timeframe.
+                  Log your first entry to start generating analytics.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowLogModal(true)}
+                className="btn-primary"
+                style={{
+                  marginTop: '6px',
+                  background: `linear-gradient(135deg, ${config.color} 0%, #059669 100%)`,
+                  boxShadow: `0 4px 16px ${config.color}30`,
+                }}
+              >
+                <IoAddCircleOutline size={18} />
+                <span>Log {config.name}</span>
+              </button>
+            </div>
           )}
         </div>
       </div>

@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import styles from "./About.module.css";
+import styles from "./about.module.css";
 import teamImage from "@/app/assets/team.jpg";
 import Footer from "@/app/components/Footer/Footer";
 import {
