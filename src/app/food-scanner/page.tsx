@@ -686,3 +686,4 @@ export default function FoodScannerPage() {
     </div>
   )
 }
+

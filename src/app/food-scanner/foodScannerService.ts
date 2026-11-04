@@ -284,3 +284,4 @@ export function analyzeFoodWithHeuristic(): FoodAnalysisResult {
   const randomIndex = Math.floor(Math.random() * SAMPLE_MEALS.length)
   return SAMPLE_MEALS[randomIndex]
 }
+
