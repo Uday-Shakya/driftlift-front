@@ -75,9 +75,15 @@ const QuickLogModal: React.FC<QuickLogModalProps> = ({ isOpen, onClose, onSucces
         payload.durationInMinutes = Number(workoutDuration)
       }
 
+      const token = typeof window !== 'undefined' ? localStorage.getItem('driftlift_token') : null
+      const headers: Record<string, string> = { 'Content-Type': 'application/json' }
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`
+      }
+
       const res = await fetch(`${backendUrl}${endpoint}`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         credentials: 'include',
         body: JSON.stringify(payload),
       })

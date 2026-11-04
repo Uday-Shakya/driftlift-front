@@ -44,14 +44,24 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const checkLogin = useCallback(async (): Promise<boolean> => {
     try {
+      const storedToken = typeof window !== 'undefined' ? localStorage.getItem('driftlift_token') : null
+      const headers: Record<string, string> = {}
+      if (storedToken) {
+        headers['Authorization'] = `Bearer ${storedToken}`
+      }
+
       const res = await fetch(`${backendUrl}/auth/checklogin`, {
         method: 'POST',
+        headers,
         credentials: 'include',
       })
       const data = await res.json().catch(() => null)
       if (res.ok && data?.ok) {
         setIsLoggedIn(true)
         setUser(data.user || null)
+        if (typeof window !== 'undefined' && data.user) {
+          localStorage.setItem('user', JSON.stringify(data.user))
+        }
         return true
       } else {
         setIsLoggedIn(false)
@@ -83,8 +93,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       if (res.ok && data?.ok) {
         setIsLoggedIn(true)
+        if (data.data?.authToken && typeof window !== 'undefined') {
+          localStorage.setItem('driftlift_token', data.data.authToken)
+        }
         if (data.data?.user) {
           setUser(data.data.user)
+          if (typeof window !== 'undefined') {
+            localStorage.setItem('user', JSON.stringify(data.data.user))
+          }
         } else {
           await checkLogin()
         }
@@ -119,13 +135,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const logout = async () => {
     try {
+      const storedToken = typeof window !== 'undefined' ? localStorage.getItem('driftlift_token') : null
+      const headers: Record<string, string> = {}
+      if (storedToken) {
+        headers['Authorization'] = `Bearer ${storedToken}`
+      }
       await fetch(`${backendUrl}/auth/logout`, {
         method: 'POST',
+        headers,
         credentials: 'include',
       })
     } catch {
       // ignore
     } finally {
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('driftlift_token')
+        localStorage.removeItem('user')
+      }
       setIsLoggedIn(false)
       setUser(null)
       toast.info('Logged out')
@@ -150,4 +176,3 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 }
 
 export const useAuth = () => useContext(AuthContext)
-

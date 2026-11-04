@@ -109,11 +109,17 @@ class SyncManager {
         await updateQueueItemStatus(item.id, 'syncing');
 
         try {
+          const token = typeof window !== 'undefined' ? localStorage.getItem('driftlift_token') : null;
+          const headers: Record<string, string> = {
+            'Content-Type': 'application/json'
+          };
+          if (token) {
+            headers['Authorization'] = `Bearer ${token}`;
+          }
+
           const res = await fetch(`${backendBase}${item.endpoint}`, {
             method: item.method,
-            headers: {
-              'Content-Type': 'application/json'
-            },
+            headers,
             body: JSON.stringify(item.payload),
             credentials: 'include'
           });
