@@ -15,10 +15,11 @@ import {
   IoShieldCheckmarkOutline,
   IoFlameOutline,
   IoSpeedometerOutline,
-  IoLayersOutline
+  IoLayersOutline,
+  IoScanOutline
 } from 'react-icons/io5'
 
-type ModuleType = 'vision' | 'heatmap' | 'tutorials' | 'biometrics'
+type ModuleType = 'vision' | 'foodScanner' | 'heatmap' | 'tutorials' | 'biometrics'
 
 interface TelemetryConfig {
   badge: string
@@ -49,6 +50,23 @@ const TELEMETRY_MODULES: Record<ModuleType, TelemetryConfig> = {
       { label: 'Set Cadence', value: '2.1s', sub: 'Eccentric control steady' },
       { label: 'Completed Reps', value: '12 / 15', sub: 'Set in progress' },
       { label: 'Optical Feed', value: '60 FPS', sub: 'Zero latency stream' },
+    ],
+  },
+  foodScanner: {
+    badge: 'MULTIMODAL AI VISION',
+    title: 'Snap & Log Food Scanner',
+    summary: 'Instant macro breakdown (protein, carbs, fats, fiber) from any meal photo or barcode.',
+    icon: IoScanOutline,
+    iconColor: '#10b981',
+    iconBg: 'rgba(16, 185, 129, 0.12)',
+    borderColor: 'rgba(16, 185, 129, 0.35)',
+    linkHref: '/food-scanner',
+    linkText: 'Launch Plate Scanner',
+    cells: [
+      { label: 'Plate Analysis', value: 'Gemini 1.5', sub: 'Multimodal Vision API' },
+      { label: 'Macro Precision', value: '4 Pillars', sub: 'Protein, Carbs, Fats, Fiber' },
+      { label: 'Barcode Registry', value: '3M+ Foods', sub: 'OpenFoodFacts database' },
+      { label: 'Profile Sync', value: '1-Tap Log', sub: 'Instant calorie tracking' },
     ],
   },
   heatmap: {
@@ -143,6 +161,11 @@ const Home = () => {
                 <IoArrowForward size={16} />
               </Link>
 
+              <Link href="/food-scanner" className={styles.secondaryCta} style={{ borderColor: 'rgba(16, 185, 129, 0.4)', color: '#34d399' }}>
+                <IoScanOutline size={18} />
+                <span>Snap & Log Food</span>
+              </Link>
+
               <Link href="/heatmap" className={styles.secondaryCta}>
                 <IoSparklesOutline size={18} />
                 <span>3D Heatmap</span>
@@ -182,7 +205,7 @@ const Home = () => {
 
               {/* Module Switcher Tabs */}
               <div className={styles.moduleTabs}>
-                {(['vision', 'heatmap', 'tutorials', 'biometrics'] as ModuleType[]).map((tab) => (
+                {(['vision', 'foodScanner', 'heatmap', 'tutorials', 'biometrics'] as ModuleType[]).map((tab) => (
                   <button
                     key={tab}
                     type="button"
@@ -190,9 +213,10 @@ const Home = () => {
                     className={`${styles.moduleTabBtn} ${activeTab === tab ? styles.moduleTabActive : ''}`}
                   >
                     {tab === 'vision' && '01. Vision'}
-                    {tab === 'heatmap' && '02. Heatmap'}
-                    {tab === 'tutorials' && '03. Guides'}
-                    {tab === 'biometrics' && '04. Metrics'}
+                    {tab === 'foodScanner' && '02. Food AI'}
+                    {tab === 'heatmap' && '03. Heatmap'}
+                    {tab === 'tutorials' && '04. Guides'}
+                    {tab === 'biometrics' && '05. Metrics'}
                   </button>
                 ))}
               </div>

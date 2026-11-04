@@ -3,10 +3,8 @@ import ToastProvider from '@/app/components/ToastProvider'
 import { AuthProvider } from '@/context/AuthContext'
 import RouteGuard from '@/app/components/AuthGuard/RouteGuard'
 import './globals.css'
+import '@fontsource/inter'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-
-const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'DriftLift - Pro Fitness Platform',
@@ -20,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body>
         <AuthProvider>
           <Navbar />
           <RouteGuard>

@@ -1,7 +1,8 @@
 'use client'
 
 import React, { useState } from 'react'
-import { IoClose, IoWaterOutline, IoFlameOutline, IoMoonOutline, IoFootstepsOutline, IoFitnessOutline, IoScaleOutline } from 'react-icons/io5'
+import Link from 'next/link'
+import { IoClose, IoWaterOutline, IoFlameOutline, IoMoonOutline, IoFootstepsOutline, IoFitnessOutline, IoScaleOutline, IoCameraOutline } from 'react-icons/io5'
 import { toast } from 'react-toastify'
 import './QuickLogModal.css'
 
@@ -185,6 +186,29 @@ const QuickLogModal: React.FC<QuickLogModalProps> = ({ isOpen, onClose, onSucces
 
           {activeTab === 'calorie' && (
             <div className="tab-pane">
+              <Link
+                href="/food-scanner"
+                onClick={onClose}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '0.5rem',
+                  padding: '0.65rem 1rem',
+                  marginBottom: '1rem',
+                  background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(6, 182, 212, 0.2) 100%)',
+                  border: '1px solid rgba(16, 185, 129, 0.4)',
+                  borderRadius: '12px',
+                  color: '#34d399',
+                  fontSize: '0.85rem',
+                  fontWeight: 700,
+                  textDecoration: 'none',
+                }}
+              >
+                <IoCameraOutline size={18} />
+                <span>📸 Snap & Log with AI Food Scanner</span>
+              </Link>
+
               <label>Meal / Food Item</label>
               <input
                 type="text"

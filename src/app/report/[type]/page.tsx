@@ -14,7 +14,8 @@ import {
   IoScaleOutline,
   IoFitnessOutline,
   IoTrendingUp,
-  IoCheckmarkDoneCircleOutline
+  IoCheckmarkDoneCircleOutline,
+  IoCameraOutline
 } from 'react-icons/io5'
 import QuickLogModal from '@/app/components/QuickLogModal/QuickLogModal'
 import './Reportpage.css'
@@ -214,6 +215,24 @@ const ReportPage = () => {
               </button>
             ))}
           </div>
+          {currentMetricKey === 'calorie' && (
+            <Link
+              href="/food-scanner"
+              className="btn-secondary"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.4rem',
+                borderColor: 'rgba(16, 185, 129, 0.4)',
+                color: '#34d399',
+                background: 'rgba(16, 185, 129, 0.1)',
+                textDecoration: 'none',
+              }}
+            >
+              <IoCameraOutline size={18} />
+              <span>AI Food Scanner</span>
+            </Link>
+          )}
           <button className="btn-primary log-new-btn" onClick={() => setShowLogModal(true)}>
             <IoAddCircleOutline size={20} /> Log Entry
           </button>

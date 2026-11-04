@@ -83,6 +83,9 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToFooter }) => {
             <Link href="/vision-coach" className={`nav-link ${pathname === '/vision-coach' ? 'active' : ''}`}>
               AI Vision Coach
             </Link>
+            <Link href="/food-scanner" className={`nav-link ${pathname === '/food-scanner' ? 'active' : ''}`}>
+              AI Food Scanner
+            </Link>
             <Link href="/workout/chest" className={`nav-link ${pathname?.startsWith('/workout') ? 'active' : ''}`}>
               Workouts & Tutorials
             </Link>
@@ -156,6 +159,9 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToFooter }) => {
             </Link>
             <Link href="/vision-coach" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link">
               AI Vision Rep Counter
+            </Link>
+            <Link href="/food-scanner" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link">
+              AI Food Scanner (Snap & Log)
             </Link>
             <Link href="/workout/chest" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link">
               Workouts & Tutorials

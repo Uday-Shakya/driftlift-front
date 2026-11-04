@@ -66,7 +66,23 @@ Next-generation biometric tracking, 3D anatomical recovery heatmaps, computer vi
 
 ---
 
-### 🍱 3. Interactive Bento Showcase Grid
+### 🥗 3. "Snap & Log" Multi-Modal AI Food Scanner
+- **Camera Snapshot & Photo Upload**: Capture food plate photos or upload meal images with circular reticle guidance and audio shutter feedback.
+- **Dual Multimodal Recognition Engine**:
+  - ⚡ **Google Gemini 1.5 Flash Vision**: Direct structured JSON multimodal analysis breaking down dish components, grams, calories, and macros.
+  - ✨ **Smart Culinary Heuristic AI**: Fast built-in nutritional recognition engine with a library of common healthy fitness dishes.
+- **Live Barcode Scanner**:
+  - Scan packaged goods with automated red laser crosshair line.
+  - Instant lookup in the **OpenFoodFacts global database** (3M+ products) retrieving exact Nutri-Score, calories, protein, carbs, fats, and fiber.
+- **Interactive Component & Portion Tuning**:
+  - Fine-tune portion sizes (+ / - 20g) per recognized item with real-time automatic macro recalculation.
+- **1-Tap Direct Logging**:
+  - Directly syncs meal calorie totals to the user's DriftLift profile (`/calorieintake/addcalorieintake`).
+- **One-Click Demo Meals**: 4 curated athletic sample dishes to test the scanner instantly.
+
+---
+
+### 🍱 4. Interactive Bento Showcase Grid
 - Balanced 4-pillar interactive navigation strip on the landing page hero:
   - 📹 **AI Vision Coach** (`/vision-coach`)
   - 🧬 **3D Muscle Heatmap** (`/heatmap`)
@@ -182,6 +198,10 @@ driftlift-front/
 │   │   │   ├── QuickLogModal/   # Instant metric logging popover
 │   │   │   ├── ReportFormPopup/ # Biometric entry form modal
 │   │   │   └── ToastProvider.tsx# Global toast notification container
+│   │   ├── food-scanner/   # Multi-Modal AI Food & Barcode Scanner (Gemini Vision)
+│   │   │   ├── foodScannerService.ts # Gemini 1.5 Flash Vision API & OpenFoodFacts lookup
+│   │   │   ├── food-scanner.css # Viewfinder targeting reticle & macro telemetry HUD
+│   │   │   └── page.tsx         # Camera stream, barcode scanner, portion tuner & 1-tap logger
 │   │   ├── heatmap/        # 3D Interactive Muscle Fatigue & Recovery Heatmap (Three.js)
 │   │   │   ├── HeatmapCanvas.tsx# Procedural anatomical mannequin & WebGL shaders
 │   │   │   ├── heatmap.css      # Cyberpunk HUD & responsive styling
