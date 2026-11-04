@@ -34,8 +34,13 @@ const ProfilePage = () => {
   const fetchProfile = async () => {
     setLoading(true)
     try {
+      const token = typeof window !== 'undefined' ? localStorage.getItem('driftlift_token') : null
+      const headers: Record<string, string> = {}
+      if (token) headers['Authorization'] = `Bearer ${token}`
+
       const res = await fetch(`${backendUrl}/auth/getuser`, {
         method: 'GET',
+        headers,
         credentials: 'include',
       })
       const data = await res.json()
@@ -100,9 +105,13 @@ const ProfilePage = () => {
   const handleSaveProfile = async (e: React.FormEvent) => {
     e.preventDefault()
     try {
+      const token = typeof window !== 'undefined' ? localStorage.getItem('driftlift_token') : null
+      const headers: Record<string, string> = { 'Content-Type': 'application/json' }
+      if (token) headers['Authorization'] = `Bearer ${token}`
+
       const res = await fetch(`${backendUrl}/auth/updateuser`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         credentials: 'include',
         body: JSON.stringify({
           name,

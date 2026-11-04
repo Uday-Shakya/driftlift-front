@@ -35,7 +35,7 @@ export default function AuthGateScreen({
 }: AuthGateScreenProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const { login, register, checkLogin } = useAuth()
+  const { login, register, checkLogin, isLoggedIn } = useAuth()
 
   const [mode, setMode] = useState<'login' | 'signup'>(initialMode)
   const [showPassword, setShowPassword] = useState(false)
@@ -58,27 +58,51 @@ export default function AuthGateScreen({
 
   const targetRedirect = redirectPath || searchParams?.get('redirect') || ''
 
+  const navigateAfterAuth = () => {
+    if (onSuccess) {
+      onSuccess()
+      return
+    }
+    const dest =
+      targetRedirect && targetRedirect !== '/login' && targetRedirect !== '/signup'
+        ? targetRedirect
+        : '/'
+    if (typeof window !== 'undefined') {
+      window.location.href = dest
+    } else {
+      router.push(dest)
+    }
+  }
+
+  // If already authenticated and sitting on /login or /signup, redirect immediately
+  React.useEffect(() => {
+    if (isLoggedIn) {
+      if (typeof window !== 'undefined' && (window.location.pathname === '/login' || window.location.pathname === '/signup')) {
+        const dest =
+          targetRedirect && targetRedirect !== '/login' && targetRedirect !== '/signup'
+            ? targetRedirect
+            : '/'
+        window.location.href = dest
+      }
+    }
+  }, [isLoggedIn, targetRedirect])
+
   const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!loginEmail || !loginPassword) {
+    const trimmedEmail = loginEmail.trim()
+    if (!trimmedEmail || !loginPassword) {
       toast.warn('Please fill in both email and password')
       return
     }
 
     setLoading(true)
-    const res = await login(loginEmail, loginPassword)
+    const res = await login(trimmedEmail, loginPassword)
     setLoading(false)
 
     if (res.ok) {
       toast.success(res.message || 'Welcome back to DriftLift Pro!')
       await checkLogin()
-      if (onSuccess) {
-        onSuccess()
-      } else if (targetRedirect) {
-        router.push(targetRedirect)
-      } else {
-        router.refresh()
-      }
+      navigateAfterAuth()
     } else {
       toast.error(res.message || 'Login failed')
     }
@@ -86,15 +110,17 @@ export default function AuthGateScreen({
 
   const handleSignupSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!name || !email || !password) {
+    const trimmedEmail = email.trim()
+    const trimmedName = name.trim()
+    if (!trimmedName || !trimmedEmail || !password) {
       toast.warn('Name, email and password are required')
       return
     }
 
     setLoading(true)
     const payload = {
-      name,
-      email,
+      name: trimmedName,
+      email: trimmedEmail,
       password,
       weightInKg: parseFloat(weightKg) || 70,
       heightInCm: parseFloat(heightCm) || 175,
@@ -110,19 +136,13 @@ export default function AuthGateScreen({
     if (res.ok) {
       toast.success('Athlete account created! Signing you in...')
       // Auto login right after registration
-      const loginRes = await login(email, password)
+      const loginRes = await login(trimmedEmail, password)
       if (loginRes.ok) {
         await checkLogin()
-        if (onSuccess) {
-          onSuccess()
-        } else if (targetRedirect) {
-          router.push(targetRedirect)
-        } else {
-          router.refresh()
-        }
+        navigateAfterAuth()
       } else {
         setMode('login')
-        setLoginEmail(email)
+        setLoginEmail(trimmedEmail)
       }
     } else {
       toast.error(res.message || 'Registration failed')

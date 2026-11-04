@@ -16,6 +16,7 @@ import {
   IoCalendarOutline
 } from 'react-icons/io5'
 import { toast } from 'react-toastify'
+import { useAuth } from '@/context/AuthContext'
 import './AuthPopup.css'
 
 interface AuthPopupProps {
@@ -23,6 +24,7 @@ interface AuthPopupProps {
 }
 
 const AuthPopup: React.FC<AuthPopupProps> = ({ setShowpopup }) => {
+  const { login, register, checkLogin } = useAuth()
   const [isSignup, setIsSignup] = useState<boolean>(false)
   const [showPassword, setShowPassword] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
@@ -42,72 +44,70 @@ const AuthPopup: React.FC<AuthPopupProps> = ({ setShowpopup }) => {
   const [activityLevel, setActivityLevel] = useState('moderate')
   const [dob, setDob] = useState('2000-01-01')
 
-  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_API || 'http://localhost:8000'
-
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
-    setLoading(true)
-    try {
-      const res = await fetch(`${backendUrl}/auth/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({
-          email: loginEmail,
-          password: loginPassword,
-        }),
-      })
+    const trimmedEmail = loginEmail.trim()
+    if (!trimmedEmail || !loginPassword) {
+      toast.warn('Please provide email and password')
+      return
+    }
 
-      const data = await res.json().catch(() => null)
-      if (res.ok && data?.ok) {
-        toast.success(data.message || 'Welcome back to DriftLift! 🔥')
-        setShowpopup(false)
+    setLoading(true)
+    const res = await login(trimmedEmail, loginPassword)
+    setLoading(false)
+
+    if (res.ok) {
+      toast.success(res.message || 'Welcome back to DriftLift! 🔥')
+      setShowpopup(false)
+      await checkLogin()
+      if (typeof window !== 'undefined') {
         window.location.reload()
-      } else {
-        toast.error(data?.message || 'Invalid email or password')
       }
-    } catch (err: any) {
-      console.error('Login error:', err)
-      toast.error(err?.message || 'Network error connecting to auth service')
-    } finally {
-      setLoading(false)
+    } else {
+      toast.error(res.message || 'Invalid email or password')
     }
   }
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault()
-    setLoading(true)
-    try {
-      const res = await fetch(`${backendUrl}/auth/register`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({
-          name,
-          email,
-          password,
-          weightInKg: parseFloat(weightKg) || 70,
-          heightInCm: parseFloat(heightCm) || 175,
-          gender,
-          dob,
-          goal,
-          activityLevel,
-        }),
-      })
+    const trimmedEmail = email.trim()
+    const trimmedName = name.trim()
+    if (!trimmedName || !trimmedEmail || !password) {
+      toast.warn('Name, email and password are required')
+      return
+    }
 
-      const data = await res.json().catch(() => null)
-      if (res.ok && data?.ok) {
-        toast.success(data.message || 'Account created successfully! Please sign in.')
-        setIsSignup(false)
-        setLoginEmail(email)
-      } else {
-        toast.error(data?.message || 'Signup failed')
-      }
-    } catch (err: any) {
-      console.error('Signup error:', err)
-      toast.error(err?.message || 'Network error registering account')
-    } finally {
+    setLoading(true)
+    const payload = {
+      name: trimmedName,
+      email: trimmedEmail,
+      password,
+      weightInKg: parseFloat(weightKg) || 70,
+      heightInCm: parseFloat(heightCm) || 175,
+      gender,
+      dob,
+      goal,
+      activityLevel,
+    }
+
+    const res = await register(payload)
+    if (res.ok) {
+      toast.success('Account created successfully! Signing you in...')
+      const loginRes = await login(trimmedEmail, password)
       setLoading(false)
+      if (loginRes.ok) {
+        setShowpopup(false)
+        await checkLogin()
+        if (typeof window !== 'undefined') {
+          window.location.reload()
+        }
+      } else {
+        setIsSignup(false)
+        setLoginEmail(trimmedEmail)
+      }
+    } else {
+      setLoading(false)
+      toast.error(res.message || 'Signup failed')
     }
   }
 

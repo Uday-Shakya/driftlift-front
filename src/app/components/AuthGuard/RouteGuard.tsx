@@ -6,7 +6,7 @@ import { useAuth } from '@/context/AuthContext'
 import AuthGateScreen from '../AuthGate/AuthGateScreen'
 
 // List of public routes accessible without signing in
-const PUBLIC_ROUTES = ['/', '/about', '/login', '/signup']
+const PUBLIC_ROUTES = ['/', '/about', '/login', '/signup', '/offline']
 
 export default function RouteGuard({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
@@ -14,6 +14,15 @@ export default function RouteGuard({ children }: { children: React.ReactNode }) 
 
   // Always allow public routes
   const isPublic = PUBLIC_ROUTES.includes(pathname || '/')
+
+  // If user is already logged in and visits login or signup, redirect home
+  React.useEffect(() => {
+    if (isLoggedIn && (pathname === '/login' || pathname === '/signup')) {
+      if (typeof window !== 'undefined') {
+        window.location.href = '/'
+      }
+    }
+  }, [isLoggedIn, pathname])
 
   if (isPublic) {
     return <>{children}</>
@@ -68,7 +77,15 @@ export default function RouteGuard({ children }: { children: React.ReactNode }) 
 
     return (
       <Suspense fallback={<div style={{ minHeight: '80vh' }} />}>
-        <AuthGateScreen featureName={featureName} redirectPath={pathname || '/'} />
+        <AuthGateScreen
+          featureName={featureName}
+          redirectPath={pathname || '/'}
+          onSuccess={() => {
+            if (typeof window !== 'undefined') {
+              window.location.reload()
+            }
+          }}
+        />
       </Suspense>
     )
   }

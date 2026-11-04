@@ -303,9 +303,13 @@ export default function FoodScannerPage() {
     const backendUrl = process.env.NEXT_PUBLIC_BACKEND_API || 'http://localhost:8000'
 
     try {
+      const token = typeof window !== 'undefined' ? localStorage.getItem('driftlift_token') : null
+      const headers: Record<string, string> = { 'Content-Type': 'application/json' }
+      if (token) headers['Authorization'] = `Bearer ${token}`
+
       const res = await fetch(`${backendUrl}/calorieintake/addcalorieintake`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         credentials: 'include',
         body: JSON.stringify({
           item: currentMeal.mealName,

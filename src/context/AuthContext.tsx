@@ -42,10 +42,31 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_API || 'http://localhost:8000'
 
-  const checkLogin = useCallback(async (): Promise<boolean> => {
+  // Hydrate immediately from localStorage on client mount
+  useEffect(() => {
     try {
-      const storedToken = typeof window !== 'undefined' ? localStorage.getItem('driftlift_token') : null
-      const headers: Record<string, string> = {}
+      if (typeof window !== 'undefined') {
+        const storedToken = localStorage.getItem('driftlift_token')
+        const storedUser = localStorage.getItem('user')
+        if (storedToken && storedUser) {
+          setIsLoggedIn(true)
+          setUser(JSON.parse(storedUser))
+          setLoading(false)
+        }
+      }
+    } catch (e) {
+      // ignore
+    }
+  }, [])
+
+  const checkLogin = useCallback(async (): Promise<boolean> => {
+    const storedToken = typeof window !== 'undefined' ? localStorage.getItem('driftlift_token') : null
+    const storedUserStr = typeof window !== 'undefined' ? localStorage.getItem('user') : null
+
+    try {
+      const headers: Record<string, string> = {
+        'Content-Type': 'application/json',
+      }
       if (storedToken) {
         headers['Authorization'] = `Bearer ${storedToken}`
       }
@@ -63,12 +84,37 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           localStorage.setItem('user', JSON.stringify(data.user))
         }
         return true
+      } else if (res.status === 401 || res.status === 403) {
+        // Explicit unauthorized from backend
+        if (typeof window !== 'undefined') {
+          localStorage.removeItem('driftlift_token')
+          localStorage.removeItem('user')
+        }
+        setIsLoggedIn(false)
+        setUser(null)
+        return false
       } else {
+        // Other HTTP status (500, 502, cold start) - fall back to stored credentials if present
+        if (storedToken && storedUserStr) {
+          try {
+            setUser(JSON.parse(storedUserStr))
+            setIsLoggedIn(true)
+            return true
+          } catch {}
+        }
         setIsLoggedIn(false)
         setUser(null)
         return false
       }
     } catch {
+      // Network failure / offline / Render cold start
+      if (storedToken && storedUserStr) {
+        try {
+          setUser(JSON.parse(storedUserStr))
+          setIsLoggedIn(true)
+          return true
+        } catch {}
+      }
       setIsLoggedIn(false)
       setUser(null)
       return false

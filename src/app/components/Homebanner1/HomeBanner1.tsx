@@ -86,8 +86,13 @@ const HomeBanner1 = () => {
 
   const fetchLiveReport = async () => {
     try {
+      const token = typeof window !== 'undefined' ? localStorage.getItem('driftlift_token') : null
+      const headers: Record<string, string> = {}
+      if (token) headers['Authorization'] = `Bearer ${token}`
+
       const res = await fetch(`${backendUrl}/report/getreport`, {
         method: 'GET',
+        headers,
         credentials: 'include',
       })
       const data = await res.json()

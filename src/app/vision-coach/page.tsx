@@ -124,9 +124,13 @@ export default function VisionCoachPage() {
     // Attempt to log entry to backend
     const backendUrl = process.env.NEXT_PUBLIC_BACKEND_API || 'http://localhost:8000'
     try {
+      const token = typeof window !== 'undefined' ? localStorage.getItem('driftlift_token') : null
+      const headers: Record<string, string> = { 'Content-Type': 'application/json' }
+      if (token) headers['Authorization'] = `Bearer ${token}`
+
       await fetch(`${backendUrl}/workouttrack/addworkoutentry`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         credentials: 'include',
         body: JSON.stringify({
           date: new Date(),
