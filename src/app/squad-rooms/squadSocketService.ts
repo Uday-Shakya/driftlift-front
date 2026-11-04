@@ -50,6 +50,10 @@ export interface HypeReaction {
   timestamp: number;
 }
 
+function generateActivityId(): string {
+  return `act-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+}
+
 export type SquadEventHandler = {
   onRoomSync?: (room: SquadRoomData, yourMemberId: string) => void;
   onTimerState?: (timer: SquadTimer) => void;
@@ -417,7 +421,7 @@ export class SquadSocketClient {
         };
 
         const act: SquadActivity = {
-          id: `act-${Date.now()}`,
+          id: generateActivityId(),
           sender: member.name,
           text: `completed ${action.ex} · ${action.wt}kg × ${action.reps} reps 🔥`,
           type: 'SET_LOGGED',
@@ -456,7 +460,7 @@ export class SquadSocketClient {
     };
 
     const timerAct: SquadActivity = {
-      id: `act-${Date.now()}`,
+      id: generateActivityId(),
       sender: this.currentRoom.timer.startedBy || 'Squad',
       text: `Started ${seconds}s rest timer for the squad! ⏱️`,
       type: 'TIMER',
@@ -477,7 +481,7 @@ export class SquadSocketClient {
         if (this.demoTimerInterval) clearInterval(this.demoTimerInterval);
 
         const expAct: SquadActivity = {
-          id: `act-${Date.now()}`,
+          id: generateActivityId(),
           sender: 'Timer',
           text: 'Rest interval complete! Time to crush the next set! 💪⚡',
           type: 'TIMER',
@@ -510,7 +514,7 @@ export class SquadSocketClient {
     this.currentRoom.timer.secondsLeft = 0;
 
     const stopAct: SquadActivity = {
-      id: `act-${Date.now()}`,
+      id: generateActivityId(),
       sender: this.currentRoom.members.find((m) => m.id === this.yourId)?.name || 'You',
       text: 'Rest timer skipped. Ready for action! ⚡',
       type: 'TIMER',
@@ -553,7 +557,7 @@ export class SquadSocketClient {
     };
 
     const act: SquadActivity = {
-      id: `act-${Date.now()}`,
+      id: generateActivityId(),
       sender: member.name,
       text: `completed ${exercise} · ${weight}${unit} × ${reps} reps 🔥`,
       type: 'SET_LOGGED',
@@ -598,7 +602,7 @@ export class SquadSocketClient {
     if (!this.currentRoom) return;
     const member = this.currentRoom.members.find((m) => m.id === this.yourId);
     const act: SquadActivity = {
-      id: `act-${Date.now()}`,
+      id: generateActivityId(),
       sender: member ? member.name : 'You',
       text,
       type: 'CHAT',

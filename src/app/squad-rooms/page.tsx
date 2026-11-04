@@ -173,10 +173,11 @@ export default function SquadRoomsPage() {
         setRoomData((prev) => {
           if (!prev) return prev;
           const filtered = prev.members.filter((m) => m.id !== member.id);
+          const hasActivity = activity && prev.activities.some((a) => a.id === activity.id);
           return {
             ...prev,
             members: [...filtered, member],
-            activities: [...prev.activities, activity],
+            activities: activity && !hasActivity ? [...prev.activities, activity] : prev.activities,
           };
         });
       },
@@ -192,16 +193,18 @@ export default function SquadRoomsPage() {
       onMemberLeft: (memberId, activity) => {
         setRoomData((prev) => {
           if (!prev) return prev;
+          const hasActivity = activity && prev.activities.some((a) => a.id === activity.id);
           return {
             ...prev,
             members: prev.members.filter((m) => m.id !== memberId),
-            activities: [...prev.activities, activity],
+            activities: activity && !hasActivity ? [...prev.activities, activity] : prev.activities,
           };
         });
       },
       onActivityLog: (activity) => {
         setRoomData((prev) => {
           if (!prev) return prev;
+          if (activity && prev.activities.some((a) => a.id === activity.id)) return prev;
           return {
             ...prev,
             activities: [...prev.activities, activity],
@@ -644,13 +647,13 @@ export default function SquadRoomsPage() {
               </div>
 
               <div className="feed-stream">
-                {roomData?.activities?.map((act) => {
+                {roomData?.activities?.map((act, idx) => {
                   const timeStr = new Date(act.timestamp).toLocaleTimeString([], {
                     hour: '2-digit',
                     minute: '2-digit',
                   });
                   return (
-                    <div key={act.id} className={`feed-item ${act.type}`}>
+                    <div key={`${act.id || 'act'}-${idx}`} className={`feed-item ${act.type}`}>
                       <span className="feed-time">{timeStr}</span>
                       <span className="feed-sender">{act.sender}:</span>
                       <span className="feed-text">{act.text}</span>
