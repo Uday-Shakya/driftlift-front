@@ -1,0 +1,69 @@
+{
+  "name": "DriftLift Pro Fitness",
+  "short_name": "DriftLift",
+  "description": "Next-generation biometric tracking, 3D muscle heatmaps, AI computer vision rep counter, and offline gym session logging.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#07090e",
+  "theme_color": "#07090e",
+  "orientation": "portrait-primary",
+  "categories": ["fitness", "health", "sports", "productivity"],
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "AI Vision Coach",
+      "short_name": "Vision",
+      "description": "Real-time camera rep counter and joint angle form checker",
+      "url": "/vision-coach",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "AI Food Scanner",
+      "short_name": "Food AI",
+      "description": "Snap & log meal plate macros and calories",
+      "url": "/food-scanner",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "3D Muscle Heatmap",
+      "short_name": "Heatmap",
+      "description": "Biometric recovery mapping and DOMS status",
+      "url": "/heatmap",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Squad Rooms",
+      "short_name": "Squad",
+      "description": "Multiplayer workout rooms with synced rest timers",
+      "url": "/squad-rooms",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Offline Gym Hub",
+      "short_name": "Offline",
+      "description": "Log workouts without cellular reception and auto-sync later",
+      "url": "/offline",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

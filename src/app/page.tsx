@@ -17,10 +17,11 @@ import {
   IoSpeedometerOutline,
   IoLayersOutline,
   IoScanOutline,
-  IoPeopleOutline
+  IoPeopleOutline,
+  IoCloudOfflineOutline
 } from 'react-icons/io5'
 
-type ModuleType = 'vision' | 'foodScanner' | 'heatmap' | 'squad' | 'tutorials' | 'biometrics'
+type ModuleType = 'vision' | 'foodScanner' | 'heatmap' | 'squad' | 'offline' | 'tutorials' | 'biometrics'
 
 interface TelemetryConfig {
   badge: string
@@ -102,6 +103,23 @@ const TELEMETRY_MODULES: Record<ModuleType, TelemetryConfig> = {
       { label: 'Active Roster', value: '4 Lifters', sub: 'Shared session telemetry' },
       { label: 'Hype Engine', value: 'Instant', sub: 'Interactive cheers & audio' },
       { label: 'Gym Buddies', value: 'AI Peers', sub: 'Elena, Marcus & Tariq' },
+    ],
+  },
+  offline: {
+    badge: 'OFFLINE-FIRST PROGRESSIVE WEB APP',
+    title: 'Offline Gym Hub & Sync',
+    summary: 'Basement gym logging with zero cellular connection, local IndexedDB persistence & automatic cloud replay.',
+    icon: IoCloudOfflineOutline,
+    iconColor: '#f97316',
+    iconBg: 'rgba(249, 115, 22, 0.12)',
+    borderColor: 'rgba(249, 115, 22, 0.35)',
+    linkHref: '/offline',
+    linkText: 'Enter Offline Hub',
+    cells: [
+      { label: 'Storage Engine', value: 'IndexedDB', sub: 'Native zero-latency cache' },
+      { label: 'Cloud Replay', value: 'Auto-Sync', sub: 'Replays on reconnection' },
+      { label: 'Service Worker', value: 'v1.0 Ready', sub: 'Cache-first static shell' },
+      { label: 'Platform Mode', value: 'PWA App', sub: 'Installable on iOS & Android' },
     ],
   },
   tutorials: {
@@ -193,6 +211,11 @@ const Home = () => {
                 <IoPeopleOutline size={18} />
                 <span>Squad Rooms</span>
               </Link>
+
+              <Link href="/offline" className={styles.secondaryCta} style={{ borderColor: 'rgba(249, 115, 22, 0.4)', color: '#f97316' }}>
+                <IoCloudOfflineOutline size={18} />
+                <span>Offline Hub</span>
+              </Link>
             </div>
 
             {/* Platform Telemetry Specs Strip */}
@@ -228,7 +251,7 @@ const Home = () => {
 
               {/* Module Switcher Tabs */}
               <div className={styles.moduleTabs}>
-                {(['vision', 'foodScanner', 'heatmap', 'squad', 'tutorials', 'biometrics'] as ModuleType[]).map((tab) => (
+                {(['vision', 'foodScanner', 'heatmap', 'squad', 'offline', 'tutorials', 'biometrics'] as ModuleType[]).map((tab) => (
                   <button
                     key={tab}
                     type="button"
@@ -239,8 +262,9 @@ const Home = () => {
                     {tab === 'foodScanner' && '02. Food AI'}
                     {tab === 'heatmap' && '03. Heatmap'}
                     {tab === 'squad' && '04. Squad'}
-                    {tab === 'tutorials' && '05. Guides'}
-                    {tab === 'biometrics' && '06. Metrics'}
+                    {tab === 'offline' && '05. Offline'}
+                    {tab === 'tutorials' && '06. Guides'}
+                    {tab === 'biometrics' && '07. Metrics'}
                   </button>
                 ))}
               </div>

@@ -12,7 +12,8 @@ import {
   IoSparklesOutline,
   IoCameraOutline,
   IoScanOutline,
-  IoPeopleOutline
+  IoPeopleOutline,
+  IoCloudOfflineOutline
 } from 'react-icons/io5'
 import './Navbar.css'
 import Image from 'next/image'
@@ -90,7 +91,8 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToFooter }) => {
     pathname === '/vision-coach' ||
     pathname === '/food-scanner' ||
     pathname === '/heatmap' ||
-    pathname === '/squad-rooms'
+    pathname === '/squad-rooms' ||
+    pathname === '/offline'
 
   return (
     <>
@@ -181,6 +183,19 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToFooter }) => {
                       <span className="item-desc">Synced rest timers & live hype</span>
                     </div>
                   </Link>
+
+                  <Link
+                    href="/offline"
+                    className={`dropdown-item ${pathname === '/offline' ? 'active' : ''}`}
+                  >
+                    <div className="dropdown-item-icon icon-orange">
+                      <IoCloudOfflineOutline size={18} />
+                    </div>
+                    <div className="dropdown-item-text">
+                      <span className="item-title">Offline Gym Hub</span>
+                      <span className="item-desc">Basement workouts & cloud sync</span>
+                    </div>
+                  </Link>
                 </div>
               )}
             </div>
@@ -266,6 +281,9 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToFooter }) => {
             </Link>
             <Link href="/squad-rooms" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link sub">
               <IoPeopleOutline size={18} /> Multiplayer Squad Rooms
+            </Link>
+            <Link href="/offline" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link sub">
+              <IoCloudOfflineOutline size={18} /> Offline Gym Hub
             </Link>
 
             <div className="mobile-section-label">Core</div>

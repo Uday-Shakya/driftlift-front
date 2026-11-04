@@ -91,19 +91,37 @@ Next-generation biometric tracking, 3D anatomical recovery heatmaps, computer vi
 
 ---
 
-### 🍱 5. Interactive Bento Showcase Grid
+### 📴 5. Offline-First Progressive Web App (PWA & IndexedDB Sync)
+- **Installable Native PWA**: Full Web App Manifest (`manifest.json`) and service worker support (`sw.js`). Install DriftLift directly to home screens on iOS, Android, macOS, and Windows with custom high-res vector and raster app icons.
+- **Gym Dead-Zone Resiliency**: Complete offline capability for gyms located in basements or low-reception industrial areas.
+- **Local IndexedDB Persistence**:
+  - `workouts`: Offline workout sessions and set logs stored client-side with zero network latency.
+  - `metrics`: Offline hydration, calories, and lifestyle telemetry tracking.
+  - `sync_queue`: Automatically queues all write operations (`/workouttrack/addworkoutentry`, etc.) when network connectivity drops.
+- **Intelligent Background Cloud Replay**:
+  - Detects network transitions via `window.addEventListener('online')` and Service Worker `sync` events.
+  - Automatically replays queued logs in sequential order to the backend API once connection is restored.
+  - Floating status HUD indicates active offline mode, pending item count, and manual "Sync Now" controls.
+- **Pre-Cached Routine Vault & Offline Timer**:
+  - Preloaded basement workout routines (*Heavy Push*, *Pull & Deadlift*, *Iron Leg Day*) available 100% offline.
+  - Zero-network Web Audio synthesizer countdown timer with audible beeps on rest completion.
+
+---
+
+### 🍱 6. Interactive Bento Showcase Grid
 - Balanced interactive navigation console on the landing page hero:
   - 📹 **AI Vision Coach** (`/vision-coach`)
   - 🥗 **AI Food Scanner** (`/food-scanner`)
   - 🧬 **3D Muscle Heatmap** (`/heatmap`)
   - ⚡ **Multiplayer Squad Rooms** (`/squad-rooms`)
+  - 📴 **Offline Gym Hub** (`/offline`)
   - 🎬 **HD Form Tutorials** (`/workout/chest`)
   - 📊 **Smart Tracking** (`/report/calorie`)
 - Designed with subtle glassmorphic reflections, themed glowing icon badges, and smooth hover lift micro-animations.
 
 ---
 
-### 🏋️ 6. Guided Workout Hub & Form Execution
+### 🏋️ 7. Guided Workout Hub & Form Execution
 - **Targeted Muscle Categories**: Comprehensive routines for **Chest**, **Back**, **Abs & Core**, **Shoulders**, **Arms**, and **Legs**.
 - **HD Video Tutorials**: Embedded high-definition video demonstrations with targeted muscle cues and execution tips.
 - **Smart Rest Interval Timer**: Live rest timers between sets with audio feedback to maximize workout intensity.
