@@ -1,9 +1,18 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import logo from '@/app/assets/logo.png'
 import { IoIosBody } from 'react-icons/io'
-import { IoAddCircleOutline, IoLogOutOutline, IoMenu, IoClose } from 'react-icons/io5'
+import {
+  IoAddCircleOutline,
+  IoLogOutOutline,
+  IoMenu,
+  IoClose,
+  IoChevronDown,
+  IoSparklesOutline,
+  IoCameraOutline,
+  IoScanOutline
+} from 'react-icons/io5'
 import './Navbar.css'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -22,6 +31,8 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToFooter }) => {
   const [showAuthPopup, setShowAuthPopup] = useState<boolean>(false)
   const [showQuickLog, setShowQuickLog] = useState<boolean>(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false)
+  const [featuresDropdownOpen, setFeaturesDropdownOpen] = useState<boolean>(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
 
   const pathname = usePathname()
 
@@ -57,6 +68,26 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToFooter }) => {
     checkLogin()
   }, [showAuthPopup])
 
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setFeaturesDropdownOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
+
+  // Close dropdown on navigation
+  useEffect(() => {
+    setFeaturesDropdownOpen(false)
+    setMobileMenuOpen(false)
+  }, [pathname])
+
+  const isAiFeatureActive =
+    pathname === '/vision-coach' || pathname === '/food-scanner' || pathname === '/heatmap'
+
   return (
     <>
       <header className="navbar-wrapper">
@@ -64,7 +95,7 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToFooter }) => {
           {/* Logo & Brand */}
           <Link href="/" className="navbar-brand">
             <div className="brand-logo-glow">
-              <Image src={logo} alt="DriftLift Logo" width={38} height={38} priority />
+              <Image src={logo} alt="DriftLift Logo" width={32} height={32} priority />
             </div>
             <div className="brand-text">
               <span className="brand-title">DRIFT<span className="brand-highlight">LIFT</span></span>
@@ -77,17 +108,68 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToFooter }) => {
             <Link href="/" className={`nav-link ${pathname === '/' ? 'active' : ''}`}>
               Dashboard
             </Link>
-            <Link href="/heatmap" className={`nav-link ${pathname === '/heatmap' ? 'active' : ''}`}>
-              3D Heatmap
-            </Link>
-            <Link href="/vision-coach" className={`nav-link ${pathname === '/vision-coach' ? 'active' : ''}`}>
-              AI Vision Coach
-            </Link>
-            <Link href="/food-scanner" className={`nav-link ${pathname === '/food-scanner' ? 'active' : ''}`}>
-              AI Food Scanner
-            </Link>
+
+            {/* Clean AI Features Dropdown */}
+            <div className="nav-dropdown-wrapper" ref={dropdownRef}>
+              <button
+                type="button"
+                className={`nav-link nav-dropdown-btn ${isAiFeatureActive ? 'active' : ''}`}
+                onClick={() => setFeaturesDropdownOpen(!featuresDropdownOpen)}
+                aria-expanded={featuresDropdownOpen}
+              >
+                <span>AI Features</span>
+                <IoChevronDown
+                  size={13}
+                  className={`dropdown-chevron ${featuresDropdownOpen ? 'rotated' : ''}`}
+                />
+              </button>
+
+              {featuresDropdownOpen && (
+                <div className="nav-dropdown-menu">
+                  <Link
+                    href="/vision-coach"
+                    className={`dropdown-item ${pathname === '/vision-coach' ? 'active' : ''}`}
+                  >
+                    <div className="dropdown-item-icon icon-emerald">
+                      <IoCameraOutline size={18} />
+                    </div>
+                    <div className="dropdown-item-text">
+                      <span className="item-title">AI Vision Coach</span>
+                      <span className="item-desc">Optical rep counter & form check</span>
+                    </div>
+                  </Link>
+
+                  <Link
+                    href="/food-scanner"
+                    className={`dropdown-item ${pathname === '/food-scanner' ? 'active' : ''}`}
+                  >
+                    <div className="dropdown-item-icon icon-teal">
+                      <IoScanOutline size={18} />
+                    </div>
+                    <div className="dropdown-item-text">
+                      <span className="item-title">AI Food Scanner</span>
+                      <span className="item-desc">Snap & log plate macros</span>
+                    </div>
+                  </Link>
+
+                  <Link
+                    href="/heatmap"
+                    className={`dropdown-item ${pathname === '/heatmap' ? 'active' : ''}`}
+                  >
+                    <div className="dropdown-item-icon icon-cyan">
+                      <IoSparklesOutline size={18} />
+                    </div>
+                    <div className="dropdown-item-text">
+                      <span className="item-title">3D Muscle Heatmap</span>
+                      <span className="item-desc">Recovery & DOMS scanner</span>
+                    </div>
+                  </Link>
+                </div>
+              )}
+            </div>
+
             <Link href="/workout/chest" className={`nav-link ${pathname?.startsWith('/workout') ? 'active' : ''}`}>
-              Workouts & Tutorials
+              Workouts
             </Link>
             <Link href="/report/calorie" className={`nav-link ${pathname?.startsWith('/report') ? 'active' : ''}`}>
               Analytics
@@ -108,7 +190,7 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToFooter }) => {
               onClick={handleQuickLogClick}
               title="Quick Log Metric"
             >
-              <IoAddCircleOutline size={18} />
+              <IoAddCircleOutline size={17} />
               <span>Log</span>
             </button>
 
@@ -116,7 +198,7 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToFooter }) => {
               <div className="user-profile-cluster">
                 <Link href="/profile" className="profile-pill" title="View Profile">
                   <div className="avatar-circle">
-                    <IoIosBody size={18} />
+                    <IoIosBody size={16} />
                   </div>
                   <span className="user-name-label">{user?.name ? user.name.split(' ')[0] : 'Profile'}</span>
                 </Link>
@@ -125,7 +207,7 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToFooter }) => {
                   onClick={handleLogout}
                   title="Logout"
                 >
-                  <IoLogOutOutline size={20} />
+                  <IoLogOutOutline size={19} />
                 </button>
               </div>
             ) : (
@@ -154,15 +236,19 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToFooter }) => {
             <Link href="/" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link">
               Dashboard
             </Link>
-            <Link href="/heatmap" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link">
-              3D Muscle Heatmap
+
+            <div className="mobile-section-label">AI Features</div>
+            <Link href="/vision-coach" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link sub">
+              <IoCameraOutline size={18} /> AI Vision Coach
             </Link>
-            <Link href="/vision-coach" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link">
-              AI Vision Rep Counter
+            <Link href="/food-scanner" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link sub">
+              <IoScanOutline size={18} /> AI Food Scanner
             </Link>
-            <Link href="/food-scanner" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link">
-              AI Food Scanner (Snap & Log)
+            <Link href="/heatmap" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link sub">
+              <IoSparklesOutline size={18} /> 3D Muscle Heatmap
             </Link>
+
+            <div className="mobile-section-label">Core</div>
             <Link href="/workout/chest" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link">
               Workouts & Tutorials
             </Link>
