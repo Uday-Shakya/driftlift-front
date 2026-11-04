@@ -16,10 +16,11 @@ import {
   IoFlameOutline,
   IoSpeedometerOutline,
   IoLayersOutline,
-  IoScanOutline
+  IoScanOutline,
+  IoPeopleOutline
 } from 'react-icons/io5'
 
-type ModuleType = 'vision' | 'foodScanner' | 'heatmap' | 'tutorials' | 'biometrics'
+type ModuleType = 'vision' | 'foodScanner' | 'heatmap' | 'squad' | 'tutorials' | 'biometrics'
 
 interface TelemetryConfig {
   badge: string
@@ -84,6 +85,23 @@ const TELEMETRY_MODULES: Record<ModuleType, TelemetryConfig> = {
       { label: 'Anterior Deltoids', value: '58%', sub: 'Active recovery state' },
       { label: 'Latissimus Dorsi', value: '91%', sub: 'Full recovery threshold' },
       { label: 'Core / Abs', value: '45%', sub: 'Moderate exertion load' },
+    ],
+  },
+  squad: {
+    badge: 'WEBSOCKETS REAL-TIME MULTIPLAYER',
+    title: 'Multiplayer Squad Rooms',
+    summary: 'Train concurrently with your lifting squad: synchronized rest timers, live set logs & hype reactions.',
+    icon: IoPeopleOutline,
+    iconColor: '#f59e0b',
+    iconBg: 'rgba(245, 158, 11, 0.12)',
+    borderColor: 'rgba(245, 158, 11, 0.35)',
+    linkHref: '/squad-rooms',
+    linkText: 'Enter Squad Rooms',
+    cells: [
+      { label: 'Timer Sync', value: 'RFC 6455', sub: 'Sub-10ms rest cadence' },
+      { label: 'Active Roster', value: '4 Lifters', sub: 'Shared session telemetry' },
+      { label: 'Hype Engine', value: 'Instant', sub: 'Interactive cheers & audio' },
+      { label: 'Gym Buddies', value: 'AI Peers', sub: 'Elena, Marcus & Tariq' },
     ],
   },
   tutorials: {
@@ -170,6 +188,11 @@ const Home = () => {
                 <IoSparklesOutline size={18} />
                 <span>3D Heatmap</span>
               </Link>
+
+              <Link href="/squad-rooms" className={styles.secondaryCta} style={{ borderColor: 'rgba(245, 158, 11, 0.4)', color: '#fbbf24' }}>
+                <IoPeopleOutline size={18} />
+                <span>Squad Rooms</span>
+              </Link>
             </div>
 
             {/* Platform Telemetry Specs Strip */}
@@ -205,7 +228,7 @@ const Home = () => {
 
               {/* Module Switcher Tabs */}
               <div className={styles.moduleTabs}>
-                {(['vision', 'foodScanner', 'heatmap', 'tutorials', 'biometrics'] as ModuleType[]).map((tab) => (
+                {(['vision', 'foodScanner', 'heatmap', 'squad', 'tutorials', 'biometrics'] as ModuleType[]).map((tab) => (
                   <button
                     key={tab}
                     type="button"
@@ -215,8 +238,9 @@ const Home = () => {
                     {tab === 'vision' && '01. Vision'}
                     {tab === 'foodScanner' && '02. Food AI'}
                     {tab === 'heatmap' && '03. Heatmap'}
-                    {tab === 'tutorials' && '04. Guides'}
-                    {tab === 'biometrics' && '05. Metrics'}
+                    {tab === 'squad' && '04. Squad'}
+                    {tab === 'tutorials' && '05. Guides'}
+                    {tab === 'biometrics' && '06. Metrics'}
                   </button>
                 ))}
               </div>

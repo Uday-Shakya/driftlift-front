@@ -82,17 +82,28 @@ Next-generation biometric tracking, 3D anatomical recovery heatmaps, computer vi
 
 ---
 
-### 🍱 4. Interactive Bento Showcase Grid
-- Balanced 4-pillar interactive navigation strip on the landing page hero:
+### ⚡ 4. Multiplayer Workout Squad Rooms (Real-Time WebSockets)
+- **Synchronized Rest Cadence**: Sub-10ms synchronized rest countdown dials across all squad mates powered by RFC 6455 WebSockets.
+- **Shared Session Telemetry**: Real-time broadcast of current exercise, live status tags (`LIFTING`, `RESTING`, `HYDRATING`), and completed set logs (`100kg × 8 reps`).
+- **Hype Reaction Engine**: Interactive cheer reactions (`🔥`, `💪`, `⚡`, `👏`, `🦾`, `🚀`) trigger floating physics particle bursts and synthesized Web Audio sound effects on every peer's screen.
+- **AI Gym Buddies Simulation**: Built-in autonomous virtual peers (Elena, Marcus, Tariq) can lift alongside solo users when training alone or offline.
+- **Zero-Dependency Architecture**: Built on native browser WebSocket API and Node.js native `crypto` & `http` upgrade pipeline (no heavy socket packages required).
+
+---
+
+### 🍱 5. Interactive Bento Showcase Grid
+- Balanced interactive navigation console on the landing page hero:
   - 📹 **AI Vision Coach** (`/vision-coach`)
+  - 🥗 **AI Food Scanner** (`/food-scanner`)
   - 🧬 **3D Muscle Heatmap** (`/heatmap`)
+  - ⚡ **Multiplayer Squad Rooms** (`/squad-rooms`)
   - 🎬 **HD Form Tutorials** (`/workout/chest`)
   - 📊 **Smart Tracking** (`/report/calorie`)
 - Designed with subtle glassmorphic reflections, themed glowing icon badges, and smooth hover lift micro-animations.
 
 ---
 
-### 🏋️ 4. Guided Workout Hub & Form Execution
+### 🏋️ 6. Guided Workout Hub & Form Execution
 - **Targeted Muscle Categories**: Comprehensive routines for **Chest**, **Back**, **Abs & Core**, **Shoulders**, **Arms**, and **Legs**.
 - **HD Video Tutorials**: Embedded high-definition video demonstrations with targeted muscle cues and execution tips.
 - **Smart Rest Interval Timer**: Live rest timers between sets with audio feedback to maximize workout intensity.
@@ -100,7 +111,7 @@ Next-generation biometric tracking, 3D anatomical recovery heatmaps, computer vi
 
 ---
 
-### 📊 5. Biometric Analytics & Dynamic Reports
+### 📊 7. Biometric Analytics & Dynamic Reports
 - **MUI X-Charts Visualizations**: Interactive trend lines and graphs for tracking progress over daily, weekly, or monthly periods.
 - **Track 6 Core Health Vectors**:
   - 💧 **Hydration Tracker** (Daily water intake vs. dynamic hydration goals in mL)
@@ -112,7 +123,7 @@ Next-generation biometric tracking, 3D anatomical recovery heatmaps, computer vi
 
 ---
 
-### 🧮 6. Metabolic & TDEE Calculator
+### 🧮 8. Metabolic & TDEE Calculator
 - **Mifflin-St Jeor Equation**: Computes **BMR (Basal Metabolic Rate)** and **TDEE (Total Daily Energy Expenditure)** based on age, gender, height, weight, and activity multiplier.
 - **Goal-Adaptive Targets**: Tailors recommended daily caloric targets for **Weight Loss** (-500 kcal deficit), **Maintenance**, and **Muscle Hypertrophy** (+300 kcal surplus).
 - **Instant BMI Breakdown**: Real-time BMI calculation and classification.

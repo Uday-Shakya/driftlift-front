@@ -210,6 +210,12 @@
   color: #06b6d4;
 }
 
+.icon-amber {
+  background: rgba(245, 158, 11, 0.15);
+  border-color: rgba(245, 158, 11, 0.35);
+  color: #f59e0b;
+}
+
 .dropdown-item-text {
   display: flex;
   flex-direction: column;

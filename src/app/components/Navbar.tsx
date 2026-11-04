@@ -11,7 +11,8 @@ import {
   IoChevronDown,
   IoSparklesOutline,
   IoCameraOutline,
-  IoScanOutline
+  IoScanOutline,
+  IoPeopleOutline
 } from 'react-icons/io5'
 import './Navbar.css'
 import Image from 'next/image'
@@ -86,7 +87,10 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToFooter }) => {
   }, [pathname])
 
   const isAiFeatureActive =
-    pathname === '/vision-coach' || pathname === '/food-scanner' || pathname === '/heatmap'
+    pathname === '/vision-coach' ||
+    pathname === '/food-scanner' ||
+    pathname === '/heatmap' ||
+    pathname === '/squad-rooms'
 
   return (
     <>
@@ -162,6 +166,19 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToFooter }) => {
                     <div className="dropdown-item-text">
                       <span className="item-title">3D Muscle Heatmap</span>
                       <span className="item-desc">Recovery & DOMS scanner</span>
+                    </div>
+                  </Link>
+
+                  <Link
+                    href="/squad-rooms"
+                    className={`dropdown-item ${pathname === '/squad-rooms' ? 'active' : ''}`}
+                  >
+                    <div className="dropdown-item-icon icon-amber">
+                      <IoPeopleOutline size={18} />
+                    </div>
+                    <div className="dropdown-item-text">
+                      <span className="item-title">Multiplayer Squad Rooms</span>
+                      <span className="item-desc">Synced rest timers & live hype</span>
                     </div>
                   </Link>
                 </div>
@@ -246,6 +263,9 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToFooter }) => {
             </Link>
             <Link href="/heatmap" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link sub">
               <IoSparklesOutline size={18} /> 3D Muscle Heatmap
+            </Link>
+            <Link href="/squad-rooms" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link sub">
+              <IoPeopleOutline size={18} /> Multiplayer Squad Rooms
             </Link>
 
             <div className="mobile-section-label">Core</div>
