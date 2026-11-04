@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { getBackendUrl } from '@/utils/backendUrl'
 import {
   IoFlameOutline,
   IoWaterOutline,
@@ -82,7 +83,7 @@ const HomeBanner1 = () => {
     },
   ])
 
-  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_API || 'http://localhost:8000'
+  const backendUrl = getBackendUrl()
 
   const fetchLiveReport = async () => {
     try {

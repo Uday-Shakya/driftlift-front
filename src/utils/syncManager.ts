@@ -2,6 +2,7 @@
 // Intelligent offline replay & background sync orchestrator for DriftLift PWA
 
 import { getSyncQueue, removeQueueItem, updateQueueItemStatus, SyncQueueItem } from './offlineDb';
+import { getBackendUrl } from './backendUrl';
 
 export interface SyncStatus {
   isOnline: boolean;
@@ -103,7 +104,7 @@ class SyncManager {
         return { synced: 0, failed: 0 };
       }
 
-      const backendBase = process.env.NEXT_PUBLIC_BACKEND_API || 'http://localhost:8000';
+      const backendBase = getBackendUrl();
 
       for (const item of queue) {
         await updateQueueItemStatus(item.id, 'syncing');

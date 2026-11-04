@@ -18,6 +18,7 @@ import {
   IoCameraOutline
 } from 'react-icons/io5'
 import QuickLogModal from '@/app/components/QuickLogModal/QuickLogModal'
+import { getBackendUrl } from '@/utils/backendUrl'
 import './Reportpage.css'
 
 interface MetricConfig {
@@ -109,7 +110,7 @@ const ReportPage = () => {
   const [loading, setLoading] = useState<boolean>(true)
   const [showLogModal, setShowLogModal] = useState<boolean>(false)
 
-  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_API || 'http://localhost:8000'
+  const backendUrl = getBackendUrl()
 
   const fetchMetricData = async () => {
     setLoading(true)

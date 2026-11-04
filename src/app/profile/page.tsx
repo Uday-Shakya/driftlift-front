@@ -14,6 +14,7 @@ import {
   IoCheckmarkCircle
 } from 'react-icons/io5'
 import { toast } from 'react-toastify'
+import { getBackendUrl } from '@/utils/backendUrl'
 import './profile.css'
 
 const ProfilePage = () => {
@@ -29,7 +30,7 @@ const ProfilePage = () => {
   const [heightCm, setHeightCm] = useState('175')
   const [age, setAge] = useState('24')
 
-  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_API || 'http://localhost:8000'
+  const backendUrl = getBackendUrl()
 
   const fetchProfile = async () => {
     setLoading(true)

@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react'
 import { toast } from 'react-toastify'
+import { getBackendUrl } from '@/utils/backendUrl'
 
 export interface UserProfile {
   _id: string
@@ -40,7 +41,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [user, setUser] = useState<UserProfile | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
 
-  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_API || 'http://localhost:8000'
+  const backendUrl = getBackendUrl()
 
   // Hydrate immediately from localStorage on client mount
   useEffect(() => {

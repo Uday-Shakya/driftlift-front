@@ -22,6 +22,7 @@ import {
 } from './HeatmapCanvas'
 import './heatmap.css'
 import { toast } from 'react-toastify'
+import { getBackendUrl } from '@/utils/backendUrl'
 
 // Dynamically import Three.js canvas to disable SSR
 const HeatmapCanvas = dynamic(() => import('./HeatmapCanvas'), {
@@ -169,7 +170,7 @@ export default function MuscleHeatmapPage() {
   // Sync real workouts from backend if user is logged in
   const syncWithWorkoutLogs = async () => {
     setSyncingWorkouts(true)
-    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_API || 'http://localhost:8000'
+    const backendUrl = getBackendUrl()
     try {
       const token = typeof window !== 'undefined' ? localStorage.getItem('driftlift_token') : null
       const headers: Record<string, string> = { 'Content-Type': 'application/json' }

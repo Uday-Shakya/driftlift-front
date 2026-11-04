@@ -29,6 +29,7 @@ import {
 } from './foodScannerService'
 import './food-scanner.css'
 import { toast } from 'react-toastify'
+import { getBackendUrl } from '@/utils/backendUrl'
 
 type ScannerMode = 'plate' | 'barcode' | 'upload'
 
@@ -300,7 +301,7 @@ export default function FoodScannerPage() {
   // 1-Tap Log Meal to DriftLift Backend
   const handleLogToDriftLift = async () => {
     setLoggingMeal(true)
-    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_API || 'http://localhost:8000'
+    const backendUrl = getBackendUrl()
 
     try {
       const token = typeof window !== 'undefined' ? localStorage.getItem('driftlift_token') : null

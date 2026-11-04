@@ -21,6 +21,7 @@ import {
 import { EXERCISE_CONFIGS, ExerciseType } from './VisionEngine'
 import './vision.css'
 import { toast } from 'react-toastify'
+import { getBackendUrl } from '@/utils/backendUrl'
 
 // Dynamically import VisionEngine with SSR disabled
 const VisionEngine = dynamic(() => import('./VisionEngine'), {
@@ -122,7 +123,7 @@ export default function VisionCoachPage() {
     toast.success(`Set finished! ${reps} reps completed with ${formScore}% form accuracy.`)
 
     // Attempt to log entry to backend
-    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_API || 'http://localhost:8000'
+    const backendUrl = getBackendUrl()
     try {
       const token = typeof window !== 'undefined' ? localStorage.getItem('driftlift_token') : null
       const headers: Record<string, string> = { 'Content-Type': 'application/json' }

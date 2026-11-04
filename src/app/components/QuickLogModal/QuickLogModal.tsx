@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import Link from 'next/link'
 import { IoClose, IoWaterOutline, IoFlameOutline, IoMoonOutline, IoFootstepsOutline, IoFitnessOutline, IoScaleOutline, IoCameraOutline } from 'react-icons/io5'
 import { toast } from 'react-toastify'
+import { getBackendUrl } from '@/utils/backendUrl'
 import './QuickLogModal.css'
 
 interface QuickLogModalProps {
@@ -41,7 +42,7 @@ const QuickLogModal: React.FC<QuickLogModalProps> = ({ isOpen, onClose, onSucces
 
   if (!isOpen) return null
 
-  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_API || 'http://localhost:8000'
+  const backendUrl = getBackendUrl()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()

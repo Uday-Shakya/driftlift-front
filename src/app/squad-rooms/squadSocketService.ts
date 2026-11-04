@@ -1,4 +1,5 @@
 // driftlift-front/src/app/squad-rooms/squadSocketService.ts
+import { getBackendUrl } from '@/utils/backendUrl';
 
 export interface SquadMember {
   id: string;
@@ -92,7 +93,7 @@ export class SquadSocketClient {
     this.shouldReconnect = true;
     this.cleanupDemo();
 
-    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_API || 'http://localhost:8000';
+    const backendUrl = getBackendUrl();
     let wsUrl = backendUrl.replace(/^http:\/\//, 'ws://').replace(/^https:\/\//, 'wss://');
     wsUrl += `/squad-ws?roomId=${encodeURIComponent(roomId)}&name=${encodeURIComponent(name)}&avatar=${encodeURIComponent(avatar)}`;
 

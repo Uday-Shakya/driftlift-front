@@ -17,6 +17,7 @@ import {
   IoCameraOutline
 } from 'react-icons/io5'
 import { toast } from 'react-toastify'
+import { getBackendUrl } from '@/utils/backendUrl'
 import './workoutPage.css'
 
 interface Exercise {
@@ -96,7 +97,7 @@ const WorkoutPage = () => {
   const fetchWorkout = async (cat: string) => {
     setLoading(true)
     try {
-      const backendUrl = process.env.NEXT_PUBLIC_BACKEND_API || 'http://localhost:8000'
+      const backendUrl = getBackendUrl()
       const res = await fetch(`${backendUrl}/workoutplans/category/${cat}`)
       const data = await res.json()
 
@@ -174,7 +175,7 @@ const WorkoutPage = () => {
 
   const handleFinishWorkout = async () => {
     try {
-      const backendUrl = process.env.NEXT_PUBLIC_BACKEND_API || 'http://localhost:8000'
+      const backendUrl = getBackendUrl()
       const token = typeof window !== 'undefined' ? localStorage.getItem('driftlift_token') : null
       const headers: Record<string, string> = { 'Content-Type': 'application/json' }
       if (token) headers['Authorization'] = `Bearer ${token}`
