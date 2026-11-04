@@ -292,3 +292,4 @@ function notifyQueueChange() {
     window.dispatchEvent(new CustomEvent('driftlift:queue-updated'));
   }
 }
+
