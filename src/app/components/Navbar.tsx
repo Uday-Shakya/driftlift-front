@@ -2,9 +2,8 @@
 
 import React, { useState, useEffect, useRef } from 'react'
 import logo from '@/app/assets/logo.png'
-import { IoIosBody } from 'react-icons/io'
 import {
-  IoAddCircleOutline,
+  IoAddOutline,
   IoLogOutOutline,
   IoMenu,
   IoClose,
@@ -13,7 +12,11 @@ import {
   IoCameraOutline,
   IoScanOutline,
   IoPeopleOutline,
-  IoCloudOfflineOutline
+  IoCloudOfflineOutline,
+  IoPersonCircleOutline,
+  IoFlameOutline,
+  IoBarChartOutline,
+  IoVideocamOutline
 } from 'react-icons/io5'
 import './Navbar.css'
 import Image from 'next/image'
@@ -45,7 +48,7 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToFooter }) => {
 
   const handleQuickLogClick = () => {
     if (!isLoggedIn) {
-      toast.info('Please sign in to log your physical metrics')
+      toast.info('Sign in to log your physical metrics')
       setShowAuthPopup(true)
     } else {
       setShowQuickLog(true)
@@ -97,15 +100,15 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToFooter }) => {
   return (
     <>
       <header className="navbar-wrapper">
-        <nav className="navbar-container glass-panel">
+        <nav className="navbar-container">
           {/* Logo & Brand */}
           <Link href="/" className="navbar-brand">
-            <div className="brand-logo-glow">
-              <Image src={logo} alt="DriftLift Logo" width={32} height={32} priority />
+            <div className="brand-logo-frame">
+              <Image src={logo} alt="DriftLift" width={26} height={26} priority />
             </div>
-            <div className="brand-text">
-              <span className="brand-title">DRIFT<span className="brand-highlight">LIFT</span></span>
-              <span className="brand-tagline">Pro Fitness</span>
+            <div className="brand-identity">
+              <span className="brand-title">DRIFT<span className="brand-accent">LIFT</span></span>
+              <span className="brand-pro-tag">OS</span>
             </div>
           </Link>
 
@@ -115,7 +118,7 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToFooter }) => {
               Dashboard
             </Link>
 
-            {/* Clean AI Features Dropdown */}
+            {/* AI Suite Dropdown */}
             <div className="nav-dropdown-wrapper" ref={dropdownRef}>
               <button
                 type="button"
@@ -123,25 +126,29 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToFooter }) => {
                 onClick={() => setFeaturesDropdownOpen(!featuresDropdownOpen)}
                 aria-expanded={featuresDropdownOpen}
               >
-                <span>AI Features</span>
+                <span>AI Suite</span>
                 <IoChevronDown
-                  size={13}
+                  size={12}
                   className={`dropdown-chevron ${featuresDropdownOpen ? 'rotated' : ''}`}
                 />
               </button>
 
               {featuresDropdownOpen && (
                 <div className="nav-dropdown-menu">
+                  <div className="dropdown-section-header">Computer Vision & Intelligence</div>
                   <Link
                     href="/vision-coach"
                     className={`dropdown-item ${pathname === '/vision-coach' ? 'active' : ''}`}
                   >
                     <div className="dropdown-item-icon icon-emerald">
-                      <IoCameraOutline size={18} />
+                      <IoCameraOutline size={17} />
                     </div>
                     <div className="dropdown-item-text">
-                      <span className="item-title">AI Vision Coach</span>
-                      <span className="item-desc">Optical rep counter & form check</span>
+                      <div className="dropdown-item-title-row">
+                        <span className="item-title">Vision Coach</span>
+                        <span className="item-tag">60 FPS</span>
+                      </div>
+                      <span className="item-desc">Optical joint tracking & real-time cadence</span>
                     </div>
                   </Link>
 
@@ -150,11 +157,14 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToFooter }) => {
                     className={`dropdown-item ${pathname === '/food-scanner' ? 'active' : ''}`}
                   >
                     <div className="dropdown-item-icon icon-teal">
-                      <IoScanOutline size={18} />
+                      <IoScanOutline size={17} />
                     </div>
                     <div className="dropdown-item-text">
-                      <span className="item-title">AI Food Scanner</span>
-                      <span className="item-desc">Snap & log plate macros</span>
+                      <div className="dropdown-item-title-row">
+                        <span className="item-title">Food Scanner</span>
+                        <span className="item-tag">Multimodal</span>
+                      </div>
+                      <span className="item-desc">Macro nutrition breakdown via meal photo</span>
                     </div>
                   </Link>
 
@@ -163,24 +173,33 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToFooter }) => {
                     className={`dropdown-item ${pathname === '/heatmap' ? 'active' : ''}`}
                   >
                     <div className="dropdown-item-icon icon-cyan">
-                      <IoSparklesOutline size={18} />
+                      <IoSparklesOutline size={17} />
                     </div>
                     <div className="dropdown-item-text">
-                      <span className="item-title">3D Muscle Heatmap</span>
-                      <span className="item-desc">Recovery & DOMS scanner</span>
+                      <div className="dropdown-item-title-row">
+                        <span className="item-title">3D Muscle Heatmap</span>
+                        <span className="item-tag">WebGL</span>
+                      </div>
+                      <span className="item-desc">Kinetic DOMS recovery mapping across 14 splits</span>
                     </div>
                   </Link>
+
+                  <div className="dropdown-divider" />
+                  <div className="dropdown-section-header">Squad & Local Infrastructure</div>
 
                   <Link
                     href="/squad-rooms"
                     className={`dropdown-item ${pathname === '/squad-rooms' ? 'active' : ''}`}
                   >
                     <div className="dropdown-item-icon icon-amber">
-                      <IoPeopleOutline size={18} />
+                      <IoPeopleOutline size={17} />
                     </div>
                     <div className="dropdown-item-text">
-                      <span className="item-title">Multiplayer Squad Rooms</span>
-                      <span className="item-desc">Synced rest timers & live hype</span>
+                      <div className="dropdown-item-title-row">
+                        <span className="item-title">Squad Rooms</span>
+                        <span className="item-tag">Live Sync</span>
+                      </div>
+                      <span className="item-desc">Multiplayer timers, live hype & telemetry</span>
                     </div>
                   </Link>
 
@@ -189,11 +208,14 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToFooter }) => {
                     className={`dropdown-item ${pathname === '/offline' ? 'active' : ''}`}
                   >
                     <div className="dropdown-item-icon icon-orange">
-                      <IoCloudOfflineOutline size={18} />
+                      <IoCloudOfflineOutline size={17} />
                     </div>
                     <div className="dropdown-item-text">
-                      <span className="item-title">Offline Gym Hub</span>
-                      <span className="item-desc">Basement workouts & cloud sync</span>
+                      <div className="dropdown-item-title-row">
+                        <span className="item-title">Offline Gym Hub</span>
+                        <span className="item-tag">IndexedDB</span>
+                      </div>
+                      <span className="item-desc">Basement workouts & cloud sync queue</span>
                     </div>
                   </Link>
                 </div>
@@ -209,9 +231,6 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToFooter }) => {
             <Link href="/about" className={`nav-link ${pathname === '/about' ? 'active' : ''}`}>
               About
             </Link>
-            <a href="#footer" onClick={handleContactClick} className="nav-link">
-              Contact
-            </a>
           </div>
 
           {/* Action Area */}
@@ -220,31 +239,29 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToFooter }) => {
             <button
               className="quicklog-trigger-btn"
               onClick={handleQuickLogClick}
-              title="Quick Log Metric"
+              title="Quick Log Telemetry"
             >
-              <IoAddCircleOutline size={17} />
-              <span>Log</span>
+              <IoAddOutline size={16} />
+              <span>Log Metric</span>
             </button>
 
             {isLoggedIn ? (
               <div className="user-profile-cluster">
                 <Link href="/profile" className="profile-pill" title="View Profile">
-                  <div className="avatar-circle">
-                    <IoIosBody size={16} />
-                  </div>
-                  <span className="user-name-label">{user?.name ? user.name.split(' ')[0] : 'Profile'}</span>
+                  <span className="profile-avatar-dot" />
+                  <span className="user-name-label">{user?.name ? user.name.split(' ')[0] : 'Athlete'}</span>
                 </Link>
                 <button
                   className="nav-logout-btn"
                   onClick={handleLogout}
-                  title="Logout"
+                  title="Sign Out"
                 >
-                  <IoLogOutOutline size={19} />
+                  <IoLogOutOutline size={16} />
                 </button>
               </div>
             ) : (
               <button
-                className="btn-primary login-btn"
+                className="btn-primary nav-signin-btn"
                 onClick={() => setShowAuthPopup(true)}
               >
                 Sign In
@@ -257,52 +274,77 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToFooter }) => {
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle navigation menu"
             >
-              {mobileMenuOpen ? <IoClose size={24} /> : <IoMenu size={24} />}
+              {mobileMenuOpen ? <IoClose size={20} /> : <IoMenu size={20} />}
             </button>
           </div>
         </nav>
 
-        {/* Mobile Menu Dropdown */}
+        {/* Mobile Menu Drawer */}
         {mobileMenuOpen && (
-          <div className="mobile-menu-drawer glass-panel">
-            <Link href="/" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link">
+          <div className="mobile-menu-drawer">
+            <div className="mobile-section-label">Navigation</div>
+            <Link href="/" onClick={() => setMobileMenuOpen(false)} className={`mobile-nav-link ${pathname === '/' ? 'active' : ''}`}>
               Dashboard
             </Link>
-
-            <div className="mobile-section-label">AI Features</div>
-            <Link href="/vision-coach" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link sub">
-              <IoCameraOutline size={18} /> AI Vision Coach
-            </Link>
-            <Link href="/food-scanner" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link sub">
-              <IoScanOutline size={18} /> AI Food Scanner
-            </Link>
-            <Link href="/heatmap" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link sub">
-              <IoSparklesOutline size={18} /> 3D Muscle Heatmap
-            </Link>
-            <Link href="/squad-rooms" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link sub">
-              <IoPeopleOutline size={18} /> Multiplayer Squad Rooms
-            </Link>
-            <Link href="/offline" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link sub">
-              <IoCloudOfflineOutline size={18} /> Offline Gym Hub
-            </Link>
-
-            <div className="mobile-section-label">Core</div>
-            <Link href="/workout/chest" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link">
+            <Link href="/workout/chest" onClick={() => setMobileMenuOpen(false)} className={`mobile-nav-link ${pathname.startsWith('/workout') ? 'active' : ''}`}>
               Workouts & Tutorials
             </Link>
-            <Link href="/report/calorie" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link">
-              Analytics
+            <Link href="/report/calorie" onClick={() => setMobileMenuOpen(false)} className={`mobile-nav-link ${pathname.startsWith('/report') ? 'active' : ''}`}>
+              Analytics & Vitals
             </Link>
-            <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link">
-              About
+            <Link href="/about" onClick={() => setMobileMenuOpen(false)} className={`mobile-nav-link ${pathname === '/about' ? 'active' : ''}`}>
+              About DriftLift
             </Link>
-            <a href="#footer" onClick={handleContactClick} className="mobile-nav-link">
-              Contact
-            </a>
-            {isLoggedIn && (
-              <Link href="/profile" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link highlight">
-                User Profile & TDEE
-              </Link>
+
+            <div className="mobile-section-label">AI Telemetry Suite</div>
+            <Link href="/vision-coach" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link sub">
+              <IoCameraOutline size={16} className="text-emerald" />
+              <span>AI Vision Coach</span>
+              <span className="mobile-chip">60 FPS</span>
+            </Link>
+            <Link href="/food-scanner" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link sub">
+              <IoScanOutline size={16} className="text-teal" />
+              <span>AI Food Scanner</span>
+              <span className="mobile-chip">Vision API</span>
+            </Link>
+            <Link href="/heatmap" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link sub">
+              <IoSparklesOutline size={16} className="text-cyan" />
+              <span>3D Muscle Heatmap</span>
+              <span className="mobile-chip">WebGL</span>
+            </Link>
+            <Link href="/squad-rooms" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link sub">
+              <IoPeopleOutline size={16} className="text-amber" />
+              <span>Squad Rooms</span>
+              <span className="mobile-chip">Multiplayer</span>
+            </Link>
+            <Link href="/offline" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link sub">
+              <IoCloudOfflineOutline size={16} className="text-orange" />
+              <span>Offline Gym Hub</span>
+              <span className="mobile-chip">PWA</span>
+            </Link>
+
+            {isLoggedIn ? (
+              <div className="mobile-user-footer">
+                <Link href="/profile" onClick={() => setMobileMenuOpen(false)} className="mobile-profile-link">
+                  <IoPersonCircleOutline size={20} />
+                  <span>Profile & TDEE</span>
+                </Link>
+                <button onClick={handleLogout} className="mobile-logout-btn">
+                  <IoLogOutOutline size={16} /> Sign Out
+                </button>
+              </div>
+            ) : (
+              <div className="mobile-auth-footer">
+                <button
+                  className="btn-primary w-full"
+                  onClick={() => {
+                    setMobileMenuOpen(false)
+                    setShowAuthPopup(true)
+                  }}
+                >
+                  Sign In to DriftLift
+                </button>
+              </div>
             )}
           </div>
         )}

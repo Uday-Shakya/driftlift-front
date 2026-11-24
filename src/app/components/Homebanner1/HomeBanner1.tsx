@@ -11,7 +11,9 @@ import {
   IoScaleOutline,
   IoFitnessOutline,
   IoArrowForward,
-  IoSparkles
+  IoSparklesOutline,
+  IoTrendingUpOutline,
+  IoCheckmarkCircle
 } from 'react-icons/io5'
 import './HomeBanner1.css'
 
@@ -73,7 +75,7 @@ const HomeBanner1 = () => {
       accentColor: '#f43f5e',
     },
     {
-      name: 'Workouts Active',
+      name: 'Active Workouts',
       slug: 'workout',
       value: 4,
       goal: 5,
@@ -99,7 +101,6 @@ const HomeBanner1 = () => {
       const data = await res.json()
 
       if (data.ok && Array.isArray(data.data)) {
-        // Map backend response to our cards
         const slugMap: Record<string, string> = {
           'calorie intake': 'calorie',
           'sleep': 'sleep',
@@ -138,7 +139,7 @@ const HomeBanner1 = () => {
               value: Number(item.value) || 0,
               goal: Number(item.goal) || 100,
               unit: item.unit || '',
-              icon: iconMap[slug] || IoSparkles,
+              icon: iconMap[slug] || IoSparklesOutline,
               accentColor: colorMap[slug] || '#10b981',
             }
           })
@@ -156,68 +157,79 @@ const HomeBanner1 = () => {
     fetchLiveReport()
   }, [])
 
+  // Calculate overall day adherence
+  const overallAdherence = Math.round(
+    metrics.reduce((acc, item) => {
+      const p = item.goal > 0 ? Math.min((item.value / item.goal) * 100, 100) : 0
+      return acc + p
+    }, 0) / metrics.length
+  )
+
   return (
     <section className="dashboard-metrics-section">
-      <div className="section-title-row">
+      <div className="metrics-header-row">
         <div>
-          <span className="badge-glow">Real-Time Vitals</span>
-          <h2 className="section-main-heading">Today's Target Metrics</h2>
+          <span className="badge-glow">DAILY BIOMETRICS</span>
+          <h2 className="metrics-main-heading">Target Vitals & Energy Balance</h2>
+          <p className="metrics-subtitle">
+            Synchronized telemetry tracking caloric energy, hydration, sleep stages, and active physical volume.
+          </p>
         </div>
-        <p className="section-subtitle">
-          Synchronized tracking across hydration, caloric energy, sleep cycles, and daily output.
-        </p>
+
+        <div className="overall-adherence-card">
+          <div className="adherence-label-row">
+            <span className="adherence-label">Daily Adherence</span>
+            <span className="adherence-val">{overallAdherence}%</span>
+          </div>
+          <div className="adherence-bar-track">
+            <div className="adherence-bar-fill" style={{ width: `${overallAdherence}%` }} />
+          </div>
+        </div>
       </div>
 
       <div className="metrics-cards-grid">
         {metrics.map((item, idx) => {
           const Icon = item.icon
           const percent = item.goal > 0 ? Math.min(Math.round((item.value / item.goal) * 100), 100) : 0
+          const isComplete = percent >= 100
 
           return (
-            <div key={idx} className="metric-glass-card glass-card">
-              <div className="card-top">
-                <div
-                  className="card-icon-box"
-                  style={{
-                    backgroundColor: `${item.accentColor}18`,
-                    color: item.accentColor,
-                    borderColor: `${item.accentColor}35`,
-                  }}
-                >
-                  <Icon size={24} />
+            <div key={idx} className="metric-vitals-card">
+              <div className="card-top-bar">
+                <div className="metric-icon-box">
+                  <Icon size={18} />
                 </div>
-                <div className="progress-badge" style={{ color: item.accentColor }}>
-                  {percent}%
-                </div>
+                <span className={`metric-status-pill ${isComplete ? 'complete' : ''}`}>
+                  {isComplete ? 'Goal Met' : `${percent}%`}
+                </span>
               </div>
 
-              <div className="card-body">
-                <span className="metric-label">{item.name}</span>
-                <div className="metric-values-row">
-                  <span className="current-val">
-                    {item.value} <span className="val-unit">{item.unit}</span>
+              <div className="card-metric-info">
+                <span className="metric-name">{item.name}</span>
+                <div className="metric-numeric-row">
+                  <span className="numeric-current">
+                    {item.value} <span className="numeric-unit">{item.unit}</span>
                   </span>
-                  <span className="goal-val">
-                    Goal: {item.goal} {item.unit}
+                  <span className="numeric-target">
+                    Target: {item.goal} {item.unit}
                   </span>
                 </div>
 
-                {/* Progress Track */}
-                <div className="progress-track">
+                {/* Refined Progress Bar */}
+                <div className="vital-track">
                   <div
-                    className="progress-fill"
+                    className="vital-fill"
                     style={{
                       width: `${percent}%`,
                       backgroundColor: item.accentColor,
-                      boxShadow: `0 0 10px ${item.accentColor}60`,
                     }}
-                  ></div>
+                  />
                 </div>
               </div>
 
-              <Link href={`/report/${item.slug}`} className="view-analytics-btn">
+              <Link href={`/report/${item.slug}`} className="vital-link">
                 <span>View Trend & Analytics</span>
-                <IoArrowForward size={16} />
+                <IoArrowForward size={14} className="vital-link-arrow" />
               </Link>
             </div>
           )

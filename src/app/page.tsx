@@ -18,142 +18,104 @@ import {
   IoLayersOutline,
   IoScanOutline,
   IoPeopleOutline,
-  IoCloudOfflineOutline
+  IoCloudOfflineOutline,
+  IoCheckmarkCircle,
+  IoRadioOutline
 } from 'react-icons/io5'
 
-type ModuleType = 'vision' | 'foodScanner' | 'heatmap' | 'squad' | 'offline' | 'tutorials' | 'biometrics'
+type ModuleType = 'vision' | 'foodScanner' | 'heatmap' | 'squad' | 'offline'
 
 interface TelemetryConfig {
   badge: string
   title: string
   summary: string
   icon: any
-  iconColor: string
-  iconBg: string
-  borderColor: string
+  accentColor: string
   linkHref: string
   linkText: string
-  cells: Array<{ label: string; value: string; sub: string }>
+  statusTag: string
+  specs: Array<{ label: string; value: string; note: string }>
 }
 
 const TELEMETRY_MODULES: Record<ModuleType, TelemetryConfig> = {
   vision: {
-    badge: 'OPTICAL POSE ESTIMATION',
-    title: 'AI Vision Coach',
-    summary: 'Direct skeletal joint tracking via camera with real-time audio cadence.',
+    badge: 'MEDIA-PIPE INFERENCE',
+    title: 'Optical Vision Coach',
+    summary: 'Direct skeletal joint telemetry calculated via neural vision. Tracks concentric/eccentric tempo and flags joint collapse in real time.',
     icon: IoCameraOutline,
-    iconColor: '#10b981',
-    iconBg: 'rgba(16, 185, 129, 0.12)',
-    borderColor: 'rgba(16, 185, 129, 0.35)',
+    accentColor: '#10b981',
     linkHref: '/vision-coach',
     linkText: 'Launch Optical Engine',
-    cells: [
-      { label: 'Joint Flexion', value: '94°', sub: 'Depth standard met' },
-      { label: 'Set Cadence', value: '2.1s', sub: 'Eccentric control steady' },
-      { label: 'Completed Reps', value: '12 / 15', sub: 'Set in progress' },
-      { label: 'Optical Feed', value: '60 FPS', sub: 'Zero latency stream' },
+    statusTag: '60 FPS // ZERO LATENCY',
+    specs: [
+      { label: 'Joint Flexion Angle', value: '94.2°', note: 'Standard squat depth met' },
+      { label: 'Eccentric Cadence', value: '2.4s', note: 'Controlled velocity' },
+      { label: 'Completed Reps', value: '12 / 15', note: 'Concentric peak verified' },
+      { label: 'Inference Precision', value: '99.4%', note: '33 3D skeletal landmarks' },
     ],
   },
   foodScanner: {
-    badge: 'MULTIMODAL AI VISION',
+    badge: 'MULTIMODAL VISION AI',
     title: 'Snap & Log Food Scanner',
-    summary: 'Instant macro breakdown (protein, carbs, fats, fiber) from any meal photo or barcode.',
+    summary: 'Computer-vision plate macro analysis. Instantly decomposes meals into exact protein, carbohydrate, lipid, and fiber ratios.',
     icon: IoScanOutline,
-    iconColor: '#10b981',
-    iconBg: 'rgba(16, 185, 129, 0.12)',
-    borderColor: 'rgba(16, 185, 129, 0.35)',
+    accentColor: '#14b8a6',
     linkHref: '/food-scanner',
     linkText: 'Launch Plate Scanner',
-    cells: [
-      { label: 'Plate Analysis', value: 'Gemini 1.5', sub: 'Multimodal Vision API' },
-      { label: 'Macro Precision', value: '4 Pillars', sub: 'Protein, Carbs, Fats, Fiber' },
-      { label: 'Barcode Registry', value: '3M+ Foods', sub: 'OpenFoodFacts database' },
-      { label: 'Profile Sync', value: '1-Tap Log', sub: 'Instant calorie tracking' },
+    statusTag: 'GEMINI MULTIMODAL API',
+    specs: [
+      { label: 'Protein Synthesis', value: '42g', note: 'Optimal per-meal leucine' },
+      { label: 'Complex Carbs', value: '58g', note: 'Glycogen replenishment' },
+      { label: 'Essential Lipids', value: '14g', note: 'Hormonal support' },
+      { label: 'Total Energy', value: '526 kcal', note: 'Synchronized with TDEE' },
     ],
   },
   heatmap: {
     badge: '3D KINETIC TOPOGRAPHY',
-    title: 'Muscle Fatigue Heatmap',
-    summary: 'Dynamic recovery mapping and volume load across all 14 major splits.',
+    title: '3D Muscle Fatigue Heatmap',
+    summary: 'Dynamic recovery indexing and volume load across all 14 biomechanical muscle splits. Prevents overtraining through scientific DOMS telemetry.',
     icon: IoSparklesOutline,
-    iconColor: '#06b6d4',
-    iconBg: 'rgba(6, 182, 212, 0.12)',
-    borderColor: 'rgba(6, 182, 212, 0.35)',
+    accentColor: '#06b6d4',
     linkHref: '/heatmap',
     linkText: 'Inspect 3D Heatmap',
-    cells: [
-      { label: 'Pectoralis Major', value: '82%', sub: 'Prime / Ready to load' },
-      { label: 'Anterior Deltoids', value: '58%', sub: 'Active recovery state' },
-      { label: 'Latissimus Dorsi', value: '91%', sub: 'Full recovery threshold' },
-      { label: 'Core / Abs', value: '45%', sub: 'Moderate exertion load' },
+    statusTag: 'THREE.JS ACCELERATED',
+    specs: [
+      { label: 'Pectoralis Major', value: '84%', note: 'Prime readiness / Loadable' },
+      { label: 'Latissimus Dorsi', value: '91%', note: 'Full recovery threshold' },
+      { label: 'Quadriceps Group', value: '42%', note: 'Active hypertrophic DOMS' },
+      { label: 'System Readiness', value: '78 / 100', note: 'High capacity for training' },
     ],
   },
   squad: {
-    badge: 'WEBSOCKETS REAL-TIME MULTIPLAYER',
+    badge: 'WEBSOCKET SYNCHRONIZATION',
     title: 'Multiplayer Squad Rooms',
-    summary: 'Train concurrently with your lifting squad: synchronized rest timers, live set logs & hype reactions.',
+    summary: 'Synchronized rest timers, shared training rooms, live set telemetry, and instant hype reactions for lifting partners worldwide.',
     icon: IoPeopleOutline,
-    iconColor: '#f59e0b',
-    iconBg: 'rgba(245, 158, 11, 0.12)',
-    borderColor: 'rgba(245, 158, 11, 0.35)',
+    accentColor: '#f59e0b',
     linkHref: '/squad-rooms',
-    linkText: 'Enter Squad Rooms',
-    cells: [
-      { label: 'Timer Sync', value: 'RFC 6455', sub: 'Sub-10ms rest cadence' },
-      { label: 'Active Roster', value: '4 Lifters', sub: 'Shared session telemetry' },
-      { label: 'Hype Engine', value: 'Instant', sub: 'Interactive cheers & audio' },
-      { label: 'Gym Buddies', value: 'AI Peers', sub: 'Elena, Marcus & Tariq' },
+    linkText: 'Enter Squad Lounge',
+    statusTag: 'RFC 6455 DUPLEX',
+    specs: [
+      { label: 'Active Roster', value: '4 Lifters', note: 'Marcus, Elena, Tariq, You' },
+      { label: 'Rest Timer Delta', value: '< 8ms', note: 'Sub-frame synchronization' },
+      { label: 'Active Routine', value: 'Push Heavy', note: 'Bench & Overhead press' },
+      { label: 'Hype Reactions', value: 'Instant', note: 'Synthesized audio cues' },
     ],
   },
   offline: {
-    badge: 'OFFLINE-FIRST PROGRESSIVE WEB APP',
-    title: 'Offline Gym Hub & Sync',
-    summary: 'Basement gym logging with zero cellular connection, local IndexedDB persistence & automatic cloud replay.',
+    badge: 'LOCAL-FIRST ARCHITECTURE',
+    title: 'Offline Gym Hub & Cloud Sync',
+    summary: 'Built for basement gyms and zero-signal barbell caves. Logs to local IndexedDB and automatically reconciles when reconnection occurs.',
     icon: IoCloudOfflineOutline,
-    iconColor: '#f97316',
-    iconBg: 'rgba(249, 115, 22, 0.12)',
-    borderColor: 'rgba(249, 115, 22, 0.35)',
+    accentColor: '#f97316',
     linkHref: '/offline',
-    linkText: 'Enter Offline Hub',
-    cells: [
-      { label: 'Storage Engine', value: 'IndexedDB', sub: 'Native zero-latency cache' },
-      { label: 'Cloud Replay', value: 'Auto-Sync', sub: 'Replays on reconnection' },
-      { label: 'Service Worker', value: 'v1.0 Ready', sub: 'Cache-first static shell' },
-      { label: 'Platform Mode', value: 'PWA App', sub: 'Installable on iOS & Android' },
-    ],
-  },
-  tutorials: {
-    badge: 'HD BIOMECHANICAL STANDARDS',
-    title: 'Curated Form Guides',
-    summary: 'Professional kinematic walkthroughs prioritizing joint longevity over ego.',
-    icon: IoPlayCircleOutline,
-    iconColor: '#f59e0b',
-    iconBg: 'rgba(245, 158, 11, 0.12)',
-    borderColor: 'rgba(245, 158, 11, 0.35)',
-    linkHref: '/workout/chest',
-    linkText: 'Browse Form Repository',
-    cells: [
-      { label: 'Current Module', value: 'Chest Press', sub: '45° Scapular Plane' },
-      { label: 'Tempo Ratio', value: '3-0-1-0', sub: 'Eccentric emphasis' },
-      { label: 'Available Splits', value: '6 Groups', sub: 'Chest, Back, Arms, Legs' },
-      { label: 'Video Quality', value: '1080p HD', sub: 'Multi-angle cues' },
-    ],
-  },
-  biometrics: {
-    badge: 'METABOLIC EXPENDITURE ENGINE',
-    title: 'Biometric Analytics',
-    summary: 'Mifflin-St Jeor TDEE and BMR equations with daily nutritional telemetry.',
-    icon: IoCalculatorOutline,
-    iconColor: '#a855f7',
-    iconBg: 'rgba(168, 85, 247, 0.12)',
-    borderColor: 'rgba(168, 85, 247, 0.35)',
-    linkHref: '/profile',
-    linkText: 'Calculate Personal BMR',
-    cells: [
-      { label: 'Calculated BMR', value: '1,840 kcal', sub: 'Basal metabolic baseline' },
-      { label: 'Target TDEE', value: '2,550 kcal', sub: 'Hypertrophy target' },
-      { label: 'Hydration Intake', value: '3,200 ml', sub: 'Daily optimal quota' },
-      { label: 'Database Sync', value: 'Encrypted', sub: 'Per-user biometric log' },
+    linkText: 'Open Offline Hub',
+    statusTag: 'INDEXED-DB REPLAY',
+    specs: [
+      { label: 'Local Persistence', value: '100% IDB', note: 'Zero cloud blocking' },
+      { label: 'Sync Queue Replay', value: 'Automatic', note: 'Replays on reconnection' },
+      { label: 'Service Worker', value: 'Active', note: 'Pre-cached static shell' },
+      { label: 'Platform Mode', value: 'PWA Ready', note: 'Installable app experience' },
     ],
   },
 }
@@ -165,230 +127,212 @@ const Home = () => {
 
   return (
     <main className={styles.main}>
-      {/* ── Architectural Hero Section ── */}
+      {/* ── Precision Hero Section ── */}
       <section className={styles.heroSection}>
-        <div className={styles.ambientGlowLeft} />
-        <div className={styles.ambientGlowRight} />
-
-        <div className={styles.heroGrid}>
-          {/* Left Column: Lead Architectural Headline & Actions */}
-          <div className={styles.leadColumn}>
-            <div className={styles.systemTag}>
-              <span className={styles.pulseDot} />
-              <span>DRIFTLIFT PLATFORM</span>
-              <span className={styles.systemVersion}>// v2.4 PRO</span>
-            </div>
-
-            <h1 className={styles.heroTitle}>
-              Engineered for precision.
-              <span className={styles.heroTitleEm}>Trained by computer vision.</span>
-            </h1>
-
-            <p className={styles.heroSubtitle}>
-              Real-time skeletal joint analysis, interactive 3D recovery heatmaps, and
-              biomechanical volume tracking. Built for athletes who measure progress with data,
-              not guesswork.
-            </p>
-
-            <div className={styles.ctaRow}>
-              <Link href="/vision-coach" className={styles.primaryCta}>
-                <IoCameraOutline size={20} />
-                <span>Launch Vision Engine</span>
-                <IoArrowForward size={16} />
-              </Link>
-
-              <Link href="/food-scanner" className={styles.secondaryCta} style={{ borderColor: 'rgba(16, 185, 129, 0.4)', color: '#34d399' }}>
-                <IoScanOutline size={18} />
-                <span>Snap & Log Food</span>
-              </Link>
-
-              <Link href="/heatmap" className={styles.secondaryCta}>
-                <IoSparklesOutline size={18} />
-                <span>3D Heatmap</span>
-              </Link>
-
-              <Link href="/squad-rooms" className={styles.secondaryCta} style={{ borderColor: 'rgba(245, 158, 11, 0.4)', color: '#fbbf24' }}>
-                <IoPeopleOutline size={18} />
-                <span>Squad Rooms</span>
-              </Link>
-
-              <Link href="/offline" className={styles.secondaryCta} style={{ borderColor: 'rgba(249, 115, 22, 0.4)', color: '#f97316' }}>
-                <IoCloudOfflineOutline size={18} />
-                <span>Offline Hub</span>
-              </Link>
-            </div>
-
-            {/* Platform Telemetry Specs Strip */}
-            <div className={styles.specsStrip}>
-              <div className={styles.specItem}>
-                <span className={styles.specValue}>33 Points</span>
-                <span className={styles.specLabel}>Skeletal Detection</span>
-              </div>
-              <div className={styles.specDivider} />
-              <div className={styles.specItem}>
-                <span className={styles.specValue}>60 FPS</span>
-                <span className={styles.specLabel}>Optical Cadence</span>
-              </div>
-              <div className={styles.specDivider} />
-              <div className={styles.specItem}>
-                <span className={styles.specValue}>14 Regions</span>
-                <span className={styles.specLabel}>Recovery Topography</span>
-              </div>
-            </div>
+        <div className={styles.heroHeaderArea}>
+          <div className={styles.heroStatusChip}>
+            <span className={styles.statusPulse} />
+            <span className={styles.statusLabel}>DRIFTLIFT PRO OS // v2.4</span>
+            <span className={styles.statusSeparator}>/</span>
+            <span className={styles.statusContext}>KINEMATIC PLATFORM</span>
           </div>
 
-          {/* Right Column: Interactive Biometrics Telemetry Deck */}
-          <div className={styles.consoleWrapper}>
-            <div className={styles.consoleCard}>
-              {/* Telemetry Status Bar */}
-              <div className={styles.consoleHeader}>
-                <div className={styles.consoleStatus}>
-                  <span className={styles.liveBadgeDot} />
-                  <span>KINETIC TELEMETRY CONSOLE</span>
-                </div>
-                <span className={styles.consoleId}>SYS.FEED // LIVE</span>
-              </div>
+          <h1 className={styles.heroTitle}>
+            The athletic operating system for serious lifters.
+          </h1>
 
-              {/* Module Switcher Tabs */}
-              <div className={styles.moduleTabs}>
-                {(['vision', 'foodScanner', 'heatmap', 'squad', 'offline', 'tutorials', 'biometrics'] as ModuleType[]).map((tab) => (
+          <p className={styles.heroLead}>
+            Real-time skeletal joint analysis, interactive 3D recovery topographies, and
+            offline-first biometric tracking. Built for athletes who measure progress with data,
+            not guesswork.
+          </p>
+
+          <div className={styles.heroActionRow}>
+            <Link href="/vision-coach" className="btn-primary">
+              <IoCameraOutline size={18} />
+              <span>Launch Vision Coach</span>
+              <IoArrowForward size={15} />
+            </Link>
+
+            <Link href="/workout/chest" className="btn-secondary">
+              <IoPlayCircleOutline size={18} />
+              <span>Browse Form Repository</span>
+            </Link>
+          </div>
+
+          {/* Quick-Launch Module Ribbon */}
+          <div className={styles.quickLaunchRibbon}>
+            <span className={styles.ribbonLabel}>QUICK LAUNCH:</span>
+            <div className={styles.ribbonLinks}>
+              <Link href="/vision-coach" className={styles.ribbonLink}>
+                <IoCameraOutline size={14} className={styles.emerald} /> Vision Coach
+              </Link>
+              <span className={styles.ribbonDot}>•</span>
+              <Link href="/food-scanner" className={styles.ribbonLink}>
+                <IoScanOutline size={14} className={styles.teal} /> Food Scanner
+              </Link>
+              <span className={styles.ribbonDot}>•</span>
+              <Link href="/heatmap" className={styles.ribbonLink}>
+                <IoSparklesOutline size={14} className={styles.cyan} /> 3D Heatmap
+              </Link>
+              <span className={styles.ribbonDot}>•</span>
+              <Link href="/squad-rooms" className={styles.ribbonLink}>
+                <IoPeopleOutline size={14} className={styles.amber} /> Squad Rooms
+              </Link>
+              <span className={styles.ribbonDot}>•</span>
+              <Link href="/offline" className={styles.ribbonLink}>
+                <IoCloudOfflineOutline size={14} className={styles.orange} /> Offline Hub
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* ── Interactive Kinematic Telemetry Deck ── */}
+        <div className={styles.telemetryDeckWrapper}>
+          <div className={styles.deckWindow}>
+            {/* Window Top Titlebar */}
+            <div className={styles.deckTitlebar}>
+              <div className={styles.titlebarLeft}>
+                <div className={styles.windowControls}>
+                  <span className={styles.windowDot} />
+                  <span className={styles.windowDot} />
+                  <span className={styles.windowDot} />
+                </div>
+                <span className={styles.deckTitle}>DRIFTLIFT KINEMATIC CONSOLE</span>
+              </div>
+              <div className={styles.titlebarRight}>
+                <span className={styles.moduleStatusTag}>{currentModule.statusTag}</span>
+              </div>
+            </div>
+
+            {/* Segmented Module Navigation Tabs */}
+            <div className={styles.segmentedTabs}>
+              {(['vision', 'foodScanner', 'heatmap', 'squad', 'offline'] as ModuleType[]).map((tabKey) => {
+                const mod = TELEMETRY_MODULES[tabKey]
+                const TabIcon = mod.icon
+                return (
                   <button
-                    key={tab}
+                    key={tabKey}
                     type="button"
-                    onClick={() => setActiveTab(tab)}
-                    className={`${styles.moduleTabBtn} ${activeTab === tab ? styles.moduleTabActive : ''}`}
+                    onClick={() => setActiveTab(tabKey)}
+                    className={`${styles.tabBtn} ${activeTab === tabKey ? styles.tabBtnActive : ''}`}
                   >
-                    {tab === 'vision' && '01. Vision'}
-                    {tab === 'foodScanner' && '02. Food AI'}
-                    {tab === 'heatmap' && '03. Heatmap'}
-                    {tab === 'squad' && '04. Squad'}
-                    {tab === 'offline' && '05. Offline'}
-                    {tab === 'tutorials' && '06. Guides'}
-                    {tab === 'biometrics' && '07. Metrics'}
+                    <TabIcon size={15} />
+                    <span>{mod.title.split(' ')[0]}</span>
                   </button>
-                ))}
-              </div>
+                )
+              })}
+            </div>
 
-              {/* Telemetry Body */}
-              <div className={styles.telemetryBody}>
-                <div className={styles.moduleHeaderRow}>
-                  <div className={styles.moduleMeta}>
-                    <span className={styles.moduleBadge}>{currentModule.badge}</span>
-                    <h2 className={styles.moduleTitle}>{currentModule.title}</h2>
-                    <p className={styles.moduleSummary}>{currentModule.summary}</p>
-                  </div>
-                  <div
-                    className={styles.moduleIconPill}
-                    style={{
-                      color: currentModule.iconColor,
-                      background: currentModule.iconBg,
-                      borderColor: currentModule.borderColor,
-                    }}
-                  >
-                    <IconComponent />
-                  </div>
+            {/* Console Body Area */}
+            <div className={styles.deckContent}>
+              <div className={styles.deckMetaHeader}>
+                <div className={styles.deckMetaLeft}>
+                  <span className={styles.deckBadge}>{currentModule.badge}</span>
+                  <h2 className={styles.deckHeading}>{currentModule.title}</h2>
+                  <p className={styles.deckSummary}>{currentModule.summary}</p>
                 </div>
 
-                {/* 4 Telemetry Metric Cells */}
-                <div className={styles.telemetryGrid}>
-                  {currentModule.cells.map((cell) => (
-                    <div key={cell.label} className={styles.telemetryCell}>
-                      <span className={styles.telemetryLabel}>{cell.label}</span>
-                      <span className={styles.telemetryVal}>{cell.value}</span>
-                      <span className={styles.telemetrySub}>{cell.sub}</span>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Console Action Link */}
-                <div className={styles.consoleFooter}>
-                  <Link href={currentModule.linkHref} className={styles.consoleLaunchLink}>
+                <div className={styles.deckMetaAction}>
+                  <Link href={currentModule.linkHref} className="btn-primary">
                     <span>{currentModule.linkText}</span>
-                    <IoArrowForward size={14} />
+                    <IoArrowForward size={15} />
                   </Link>
                 </div>
+              </div>
+
+              {/* 4 Precision Spec Cells */}
+              <div className={styles.specsGrid}>
+                {currentModule.specs.map((item) => (
+                  <div key={item.label} className={styles.specCard}>
+                    <span className={styles.specCardLabel}>{item.label}</span>
+                    <div className={styles.specCardValueRow}>
+                      <span className={styles.specCardValue}>{item.value}</span>
+                    </div>
+                    <span className={styles.specCardNote}>{item.note}</span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </div>
 
-        {/* ── Performance Architecture Pipeline (Bottom 4-Card Index) ── */}
-        <div className={styles.pipelineSection}>
-          <div className={styles.pipelineHeader}>
-            <span className={styles.pipelineTitle}>SYSTEM CAPABILITIES ARCHITECTURE</span>
-            <span className={styles.pipelineStatus}>04 MODULES DEPLOYED</span>
+        {/* ── Bento Architecture Strip ── */}
+        <div className={styles.bentoSection}>
+          <div className={styles.sectionHeader}>
+            <span className={styles.sectionOverline}>ENGINEERED ARCHITECTURE</span>
+            <h2 className={styles.sectionTitle}>Precision tools built for high-output training.</h2>
+            <p className={styles.sectionLead}>
+              Every module is designed to eliminate friction between your workout and your progression data.
+            </p>
           </div>
 
-          <div className={styles.pipelineGrid}>
-            <Link href="/vision-coach" className={styles.pipelineCard}>
-              <div className={styles.cardTopRow}>
-                <span className={styles.cardIndex}>01 // OPTICAL</span>
-                <span className={styles.cardIconBox} style={{ color: '#10b981' }}>
-                  <IoCameraOutline />
-                </span>
-              </div>
-              <div className={styles.cardContent}>
-                <div className={styles.cardTitle}>
-                  <span>AI Vision Coach</span>
-                  <IoArrowForward className={styles.cardArrow} />
+          <div className={styles.bentoGrid}>
+            <Link href="/vision-coach" className={styles.bentoCard}>
+              <div className={styles.bentoHeader}>
+                <div className={`${styles.bentoIconBox} ${styles.bgEmerald}`}>
+                  <IoCameraOutline size={22} className={styles.emerald} />
                 </div>
-                <p className={styles.cardDesc}>
-                  Live joint angle inference and cadence cues without wearables.
-                </p>
+                <span className={styles.bentoTag}>01 // OPTICAL</span>
+              </div>
+              <h3 className={styles.bentoTitle}>AI Vision Coach</h3>
+              <p className={styles.bentoDesc}>
+                Real-time 33-point skeletal landmark detection directly in browser. Audio tempo cues and form breakdown without wearables.
+              </p>
+              <div className={styles.bentoFooter}>
+                <span>Explore optical engine</span>
+                <IoArrowForward size={14} className={styles.arrowIcon} />
               </div>
             </Link>
 
-            <Link href="/heatmap" className={styles.pipelineCard}>
-              <div className={styles.cardTopRow}>
-                <span className={styles.cardIndex}>02 // TOPOGRAPHY</span>
-                <span className={styles.cardIconBox} style={{ color: '#06b6d4' }}>
-                  <IoSparklesOutline />
-                </span>
-              </div>
-              <div className={styles.cardContent}>
-                <div className={styles.cardTitle}>
-                  <span>3D Muscle Heatmap</span>
-                  <IoArrowForward className={styles.cardArrow} />
+            <Link href="/food-scanner" className={styles.bentoCard}>
+              <div className={styles.bentoHeader}>
+                <div className={`${styles.bentoIconBox} ${styles.bgTeal}`}>
+                  <IoScanOutline size={22} className={styles.teal} />
                 </div>
-                <p className={styles.cardDesc}>
-                  Interactive DOMS recovery mapping across 14 muscle groups.
-                </p>
+                <span className={styles.bentoTag}>02 // MULTIMODAL</span>
+              </div>
+              <h3 className={styles.bentoTitle}>Snap & Log Food Scanner</h3>
+              <p className={styles.bentoDesc}>
+                Point camera at your meal. Advanced AI multimodal inference extracts protein, carbohydrate, and caloric metrics in one tap.
+              </p>
+              <div className={styles.bentoFooter}>
+                <span>Decompose plate macros</span>
+                <IoArrowForward size={14} className={styles.arrowIcon} />
               </div>
             </Link>
 
-            <Link href="/workout/chest" className={styles.pipelineCard}>
-              <div className={styles.cardTopRow}>
-                <span className={styles.cardIndex}>03 // BIOMECHANICS</span>
-                <span className={styles.cardIconBox} style={{ color: '#f59e0b' }}>
-                  <IoPlayCircleOutline />
-                </span>
-              </div>
-              <div className={styles.cardContent}>
-                <div className={styles.cardTitle}>
-                  <span>HD Form Guides</span>
-                  <IoArrowForward className={styles.cardArrow} />
+            <Link href="/heatmap" className={styles.bentoCard}>
+              <div className={styles.bentoHeader}>
+                <div className={`${styles.bentoIconBox} ${styles.bgCyan}`}>
+                  <IoSparklesOutline size={22} className={styles.cyan} />
                 </div>
-                <p className={styles.cardDesc}>
-                  Kinematic execution standards engineered for safety and hypertrophy.
-                </p>
+                <span className={styles.bentoTag}>03 // TOPOGRAPHY</span>
+              </div>
+              <h3 className={styles.bentoTitle}>3D Muscle Heatmap</h3>
+              <p className={styles.bentoDesc}>
+                Interactive 3D anatomical model highlighting acute muscle fatigue and recovery readiness across 14 major kinetic chains.
+              </p>
+              <div className={styles.bentoFooter}>
+                <span>View recovery map</span>
+                <IoArrowForward size={14} className={styles.arrowIcon} />
               </div>
             </Link>
 
-            <Link href="/report/calorie" className={styles.pipelineCard}>
-              <div className={styles.cardTopRow}>
-                <span className={styles.cardIndex}>04 // METRICS</span>
-                <span className={styles.cardIconBox} style={{ color: '#a855f7' }}>
-                  <IoShieldCheckmarkOutline />
-                </span>
-              </div>
-              <div className={styles.cardContent}>
-                <div className={styles.cardTitle}>
-                  <span>Biometric Analytics</span>
-                  <IoArrowForward className={styles.cardArrow} />
+            <Link href="/offline" className={styles.bentoCard}>
+              <div className={styles.bentoHeader}>
+                <div className={`${styles.bentoIconBox} ${styles.bgOrange}`}>
+                  <IoCloudOfflineOutline size={22} className={styles.orange} />
                 </div>
-                <p className={styles.cardDesc}>
-                  Scientific calorie, water, sleep, and step trend telemetry.
-                </p>
+                <span className={styles.bentoTag}>04 // LOCAL-FIRST</span>
+              </div>
+              <h3 className={styles.bentoTitle}>Offline Hub & Replay</h3>
+              <p className={styles.bentoDesc}>
+                Zero cellular connection needed. Native IndexedDB logging with background sync replay when you return to cell service.
+              </p>
+              <div className={styles.bentoFooter}>
+                <span>Access offline hub</span>
+                <IoArrowForward size={14} className={styles.arrowIcon} />
               </div>
             </Link>
           </div>

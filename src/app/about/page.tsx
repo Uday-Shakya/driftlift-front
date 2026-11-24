@@ -11,9 +11,10 @@ import {
   IoVideocamOutline,
   IoPeopleOutline,
   IoArrowForward,
+  IoShieldCheckmarkOutline,
+  IoCheckmarkCircle
 } from "react-icons/io5";
 
-// ── Fade-in on scroll ────────────────────────────────────
 function useFadeIn() {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -38,14 +39,13 @@ function useFadeIn() {
 
   const style: React.CSSProperties = {
     opacity: 0,
-    transform: "translateY(24px)",
-    transition: "opacity 0.7s ease, transform 0.7s ease",
+    transform: "translateY(20px)",
+    transition: "opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
   };
 
   return { ref, style };
 }
 
-// ── Component ────────────────────────────────────────────
 export default function AboutPage() {
   const heroFade = useFadeIn();
   const statsFade = useFadeIn();
@@ -55,172 +55,164 @@ export default function AboutPage() {
 
   return (
     <div className={styles.page}>
-      {/* ── Hero ──────────────────────────────────────── */}
+      {/* ── Editorial Hero ── */}
       <section className={styles.hero} ref={heroFade.ref} style={heroFade.style}>
         <div className={styles.heroText}>
-          <span className={styles.eyebrow}>About DriftLift</span>
+          <div className={styles.statusPill}>
+            <span className={styles.dot} />
+            <span>ORIGIN & ATHLETIC MANIFESTO</span>
+          </div>
+
           <h1 className={styles.heroTitle}>
-            Built for people who <em>actually</em> train.
+            Built for athletes who reject guesswork.
           </h1>
+
           <p className={styles.heroParagraph}>
-            DriftLift combines HD form tutorials, AI-powered vision coaching,
-            and real-time biometric tracking into one platform — designed by
-            athletes, for athletes.
+            DriftLift was engineered to solve a fundamental breakdown in modern fitness: the gap between
+            exercise science, computer vision, and real-world weightroom execution.
           </p>
         </div>
 
         <div className={styles.heroImageWrap}>
           <Image
             src={teamImage}
-            alt="The DriftLift team"
+            alt="The DriftLift Engineering & Coaching Team"
             fill
             sizes="(max-width: 860px) 100vw, 50vw"
             className={styles.heroImage}
             priority
           />
-          <div className={styles.heroImageOverlay} />
+          <div className={styles.heroImageBorder} />
         </div>
       </section>
 
-      {/* ── Divider ───────────────────────────────────── */}
-      <div className={styles.divider}>
-        <div className={styles.dividerLine} />
+      {/* ── Stat Metric Strip ── */}
+      <div className={styles.statContainer} ref={statsFade.ref} style={statsFade.style}>
+        <div className={styles.statStrip}>
+          {[
+            { number: "33 Points", label: "Optical Joint Landmarks", sub: "MediaPipe 3D pipeline" },
+            { number: "14 Splits", label: "Recovery Topography", sub: "DOMS volume load tracking" },
+            { number: "0 Latency", label: "Local-First Persistence", sub: "Offline IndexedDB engine" },
+            { number: "100%", label: "Biomechanical Rigor", sub: "Grounded in exercise literature" },
+          ].map((stat) => (
+            <div key={stat.label} className={styles.statBlock}>
+              <div className={styles.statNumber}>{stat.number}</div>
+              <div className={styles.statLabel}>{stat.label}</div>
+              <div className={styles.statSub}>{stat.sub}</div>
+            </div>
+          ))}
+        </div>
       </div>
 
-      {/* ── Stats ─────────────────────────────────────── */}
-      <section
-        className={styles.statStrip}
-        ref={statsFade.ref}
-        style={statsFade.style}
-      >
-        {[
-          { number: "5K+", label: "Active Athletes" },
-          { number: "200+", label: "HD Tutorials" },
-          { number: "50+", label: "Live Sessions / mo" },
-          { number: "98%", label: "Satisfaction Rate" },
-        ].map((stat) => (
-          <div key={stat.label} className={styles.statBlock}>
-            <div className={styles.statNumber}>{stat.number}</div>
-            <div className={styles.statLabel}>{stat.label}</div>
-          </div>
-        ))}
-      </section>
-
-      {/* ── Divider ───────────────────────────────────── */}
-      <div className={styles.divider}>
-        <div className={styles.dividerLine} />
-      </div>
-
-      {/* ── Story ─────────────────────────────────────── */}
+      {/* ── Narrative Story ── */}
       <section
         className={styles.storySection}
         ref={storyFade.ref}
         style={storyFade.style}
       >
         <div className={styles.storyColumn}>
-          <span className={styles.sectionLabel}>Our Story</span>
+          <span className={styles.sectionLabel}>THE FRUSTRATION</span>
           <h2 className={styles.storyHeading}>
-            We got tired of fragmented fitness tools.
+            Fitness tools became toy trackers, not athletic instruments.
           </h2>
           <p className={styles.storyParagraph}>
-            Most fitness platforms give you one thing — a library of videos, a
-            calorie counter, or a workout timer. But real training doesn&apos;t
-            work in silos. You need to see your form, track your volume, and
-            adapt your program — all in one place.
+            Most fitness applications are either generic calorie counters or social feed clones.
+            They track whether you opened the app, but they have zero understanding of whether your knees caved on rep 4
+            or whether your eccentric tempo was controlled.
           </p>
           <p className={styles.storyParagraph}>
-            DriftLift was born from that frustration. We built a platform where
-            every rep matters: AI vision tracks your movement in real-time, a 3D
-            anatomical heatmap shows exactly which muscles you&apos;re working,
-            and HD tutorials teach you proper form before you ever touch a
-            barbell.
+            Real physical transformation requires telemetry: joint angle kinematics, accurate macro decomposition,
+            and honest recovery mapping. We built DriftLift to deliver the precision of an Olympic training lab
+            straight to your pocket.
           </p>
         </div>
 
         <div className={styles.storyColumn}>
-          <span className={styles.sectionLabel}>Our Approach</span>
+          <span className={styles.sectionLabel}>OUR ARCHITECTURE</span>
           <h2 className={styles.storyHeading}>
-            Technology that stays out of your way.
+            Technology that lives in the background of your workout.
           </h2>
           <p className={styles.storyParagraph}>
-            We believe the best tools are invisible. You shouldn&apos;t need to
-            wrestle with an interface when you&apos;re mid-set. That&apos;s why
-            DriftLift uses your phone&apos;s camera for AI rep counting, sends
-            bite-sized progress summaries, and keeps the UI stripped back to what
-            matters.
+            You should never have to fight your phone while holding a 100kg barbell. DriftLift runs on-device
+            neural computer vision for automatic rep counting, speaks tempo cues through your headphones,
+            and operates completely offline in basement gyms.
           </p>
           <p className={styles.storyParagraph}>
-            Our engineering team ships weekly. Every feature starts as a
-            hypothesis, gets tested by real athletes, and only ships when
-            it&apos;s genuinely useful — not just impressive in a demo.
+            Every feature we ship is tested under real load by competitive powerlifters, bodybuilders,
+            and endurance athletes before reaching production.
           </p>
         </div>
       </section>
 
-      {/* ── Values ────────────────────────────────────── */}
+      {/* ── Principles ── */}
       <section
         className={styles.valuesSection}
         ref={valuesFade.ref}
         style={valuesFade.style}
       >
         <div className={styles.valuesHeader}>
-          <span className={styles.sectionLabel}>What We Stand For</span>
-          <h2 className={styles.valuesTitle}>Principles, not slogans.</h2>
+          <span className={styles.sectionLabel}>CORE PRINCIPLES</span>
+          <h2 className={styles.valuesTitle}>Standards over marketing slogans.</h2>
         </div>
 
         <div className={styles.valuesGrid}>
           <div className={styles.valueCard}>
-            <div className={styles.valueIconGreen}>
-              <IoFitnessOutline />
+            <div className={styles.valueIconBox}>
+              <IoFitnessOutline size={22} className={styles.emerald} />
             </div>
-            <h3 className={styles.valueCardTitle}>Form Over Ego</h3>
+            <h3 className={styles.valueCardTitle}>Kinematic Safety First</h3>
             <p className={styles.valueCardText}>
-              Every tutorial and AI feedback loop reinforces technique first. We
-              don&apos;t gamify PRs at the expense of safety — because longevity
-              beats a highlight reel.
+              Every optical cue and tutorial reinforces joint longevity. We never gamify dangerous personal records
+              at the expense of spinal integrity. Longevity always beats a highlight reel.
             </p>
           </div>
 
           <div className={styles.valueCard}>
-            <div className={styles.valueIconCyan}>
-              <IoVideocamOutline />
+            <div className={styles.valueIconBox}>
+              <IoVideocamOutline size={22} className={styles.cyan} />
             </div>
-            <h3 className={styles.valueCardTitle}>Honest Progress</h3>
+            <h3 className={styles.valueCardTitle}>Uncompromised Accuracy</h3>
             <p className={styles.valueCardText}>
-              Our tracking doesn&apos;t inflate numbers to make you feel good. BMR
-              calculations, calorie estimates, and volume metrics are grounded in
-              exercise-science literature.
+              Our nutritional and biometric calculations are grounded in peer-reviewed Mifflin-St Jeor and TDEE formulas.
+              We don&apos;t inflate burned calories to make you feel comfortable.
             </p>
           </div>
 
           <div className={styles.valueCard}>
-            <div className={styles.valueIconAmber}>
-              <IoPeopleOutline />
+            <div className={styles.valueIconBox}>
+              <IoPeopleOutline size={22} className={styles.amber} />
             </div>
-            <h3 className={styles.valueCardTitle}>Open Community</h3>
+            <h3 className={styles.valueCardTitle}>Synchronized Training</h3>
             <p className={styles.valueCardText}>
-              Live sessions are peer-driven. Coaches give form checks, athletes
-              share routines, and nobody gets paywalled out of the fundamentals.
+              Training alone is hard; training together builds consistency. Our multiplayer squad rooms provide
+              real-time rest timer synchronization and live set telemetry with zero friction.
             </p>
           </div>
         </div>
       </section>
 
-      {/* ── CTA ───────────────────────────────────────── */}
+      {/* ── CTA Banner ── */}
       <section
         className={styles.ctaBanner}
         ref={ctaFade.ref}
         style={ctaFade.style}
       >
         <div className={styles.ctaInner}>
-          <h2 className={styles.ctaTitle}>Ready to train smarter?</h2>
+          <span className={styles.ctaBadge}>JOIN THE DRIFTLIFT SQUAD</span>
+          <h2 className={styles.ctaTitle}>Ready to train with real telemetry?</h2>
           <p className={styles.ctaText}>
-            Create a free account and get instant access to HD tutorials, the AI
-            vision coach, and the 3D muscle heatmap.
+            Sign up in 30 seconds for immediate access to optical rep counting, multimodal meal logging,
+            and 3D recovery topographies.
           </p>
-          <Link href="/signup" className={styles.ctaButton}>
-            Get Started <IoArrowForward />
-          </Link>
+          <div className={styles.ctaActionGroup}>
+            <Link href="/signup" className="btn-primary">
+              <span>Create Athlete Account</span>
+              <IoArrowForward size={15} />
+            </Link>
+            <Link href="/" className="btn-secondary">
+              <span>Explore Dashboard</span>
+            </Link>
+          </div>
         </div>
       </section>
 

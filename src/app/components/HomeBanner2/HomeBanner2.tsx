@@ -1,8 +1,8 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
-import { IoPlayCircle, IoTimeOutline, IoFitnessOutline, IoFlameOutline } from 'react-icons/io5'
+import { IoPlay, IoTimeOutline, IoFitnessOutline, IoFlameOutline, IoArrowForward } from 'react-icons/io5'
 import './HomeBanner2.css'
 
 interface WorkoutCategory {
@@ -12,6 +12,7 @@ interface WorkoutCategory {
   durationInMin: number
   exercisesCount: number
   intensity: 'Medium' | 'High' | 'Extreme'
+  splitCode: string
 }
 
 const HomeBanner2 = () => {
@@ -23,46 +24,52 @@ const HomeBanner2 = () => {
       durationInMin: 45,
       exercisesCount: 5,
       intensity: 'High',
+      splitCode: 'SPLIT // 01',
     },
     {
-      type: 'V-Taper Back',
+      type: 'V-Taper Back & Lats',
       slug: 'back',
       imageUrl: 'https://images.unsplash.com/photo-1603287681836-b174ce5074c2?auto=format&fit=crop&w=800&q=80',
       durationInMin: 50,
       exercisesCount: 6,
       intensity: 'High',
+      splitCode: 'SPLIT // 02',
     },
     {
-      type: 'Core & 6-Pack Abs',
+      type: 'Core & Trunk Stability',
       slug: 'abs',
       imageUrl: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=800&q=80',
       durationInMin: 25,
       exercisesCount: 4,
       intensity: 'Medium',
+      splitCode: 'SPLIT // 03',
     },
     {
-      type: 'Boulder Shoulders',
+      type: 'Deltoid Caps & Shoulders',
       slug: 'shoulder',
       imageUrl: 'https://images.unsplash.com/photo-1532029837206-abbe2b7620e3?auto=format&fit=crop&w=800&q=80',
       durationInMin: 40,
       exercisesCount: 5,
       intensity: 'High',
+      splitCode: 'SPLIT // 04',
     },
     {
-      type: 'Arm Cannon (Biceps)',
+      type: 'Biceps & Triceps (Arms)',
       slug: 'biceps',
       imageUrl: 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=800&q=80',
       durationInMin: 35,
       exercisesCount: 4,
       intensity: 'Medium',
+      splitCode: 'SPLIT // 05',
     },
     {
-      type: 'Quads & Glutes (Legs)',
+      type: 'Quads, Posterior Chain & Legs',
       slug: 'legs',
       imageUrl: 'https://images.unsplash.com/photo-1434608519344-49d77a699e1d?auto=format&fit=crop&w=800&q=80',
       durationInMin: 55,
       exercisesCount: 6,
       intensity: 'Extreme',
+      splitCode: 'SPLIT // 06',
     },
   ])
 
@@ -70,12 +77,17 @@ const HomeBanner2 = () => {
     <section className="workout-categories-section">
       <div className="section-title-row">
         <div>
-          <span className="badge-glow">Video Training Series</span>
+          <span className="badge-glow">VIDEO FORM STANDARDS</span>
           <h2 className="section-main-heading">Targeted Workout Programs</h2>
+          <p className="section-subtitle">
+            Curated kinematic guides with embedded HD instructional cues, joint safety standards, and live set tracking.
+          </p>
         </div>
-        <p className="section-subtitle">
-          Curated training plans with embedded HD video instruction, biomechanical form cues, and live set tracking.
-        </p>
+
+        <Link href="/workout/chest" className="browse-all-link">
+          <span>View All 6 Splits</span>
+          <IoArrowForward size={14} />
+        </Link>
       </div>
 
       <div className="workout-cards-grid">
@@ -83,30 +95,36 @@ const HomeBanner2 = () => {
           <Link
             key={index}
             href={`/workout/${item.slug}`}
-            className="workout-program-card glass-card"
-            style={{ backgroundImage: `url(${item.imageUrl})` }}
+            className="workout-program-card"
           >
-            <div className="card-gradient-overlay"></div>
+            <div
+              className="card-bg-image"
+              style={{ backgroundImage: `url(${item.imageUrl})` }}
+            />
+            <div className="card-scrim-overlay" />
 
-            <div className="workout-card-badge">
-              <span className="hd-tag">HD Video</span>
-              <span className={`intensity-tag ${item.intensity.toLowerCase()}`}>
-                <IoFlameOutline /> {item.intensity}
+            <div className="card-top-chips">
+              <span className="split-code-chip">{item.splitCode}</span>
+              <span className={`intensity-chip ${item.intensity.toLowerCase()}`}>
+                <IoFlameOutline size={13} /> {item.intensity}
               </span>
             </div>
 
-            <div className="play-button-overlay">
-              <IoPlayCircle size={56} className="play-icon" />
+            <div className="card-center-action">
+              <div className="play-button-circle">
+                <IoPlay size={20} className="play-icon" />
+              </div>
             </div>
 
-            <div className="workout-card-bottom">
+            <div className="card-bottom-info">
               <h3 className="workout-program-name">{item.type}</h3>
               <div className="workout-program-meta">
                 <span>
-                  <IoTimeOutline /> {item.durationInMin} mins
+                  <IoTimeOutline size={14} /> {item.durationInMin} min
                 </span>
+                <span className="meta-dot">•</span>
                 <span>
-                  <IoFitnessOutline /> {item.exercisesCount} Exercises
+                  <IoFitnessOutline size={14} /> {item.exercisesCount} Movements
                 </span>
               </div>
             </div>

@@ -20,3 +20,4 @@ export function getBackendUrl(): string {
   // Deployed production fallback
   return 'https://driftlift-backend.onrender.com'
 }
+

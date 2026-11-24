@@ -1,8 +1,12 @@
+/* ═══════════════════════════════════════════════════════
+   DriftLift Footer — High-Precision Architecture
+   ═══════════════════════════════════════════════════════ */
+
 .footer {
   width: 100%;
-  background: #080c14;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 60px 20px 30px;
+  background: #06070a;
+  border-top: 1px solid var(--border-subtle);
+  padding: 60px 20px 36px;
   margin-top: 80px;
 }
 
@@ -11,25 +15,85 @@
   margin: 0 auto;
 }
 
-.footerTop {
+/* Status Banner */
+.footerTopBanner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.systemStatusBlock {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.statusLiveDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 8px var(--primary);
+}
+
+.statusText {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+}
+
+.engineBuild {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+/* 4-Column Grid */
+.footerGrid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  gap: 40px;
-  padding-bottom: 40px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  grid-template-columns: 1.6fr 1fr 1fr 1.2fr;
+  gap: 48px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.brandCol {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .logoRow {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 14px;
+  gap: 10px;
+}
+
+.logoFrame {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .brandName {
   font-family: var(--font-heading);
-  font-size: 1.4rem;
+  font-size: 1.25rem;
   font-weight: 800;
+  letter-spacing: -0.04em;
   color: var(--text-primary);
 }
 
@@ -39,19 +103,23 @@
 
 .brandMotto {
   color: var(--text-secondary);
-  font-size: 0.9rem;
-  line-height: 1.6;
-  max-width: 420px;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  max-width: 380px;
 }
 
-.linksCol h4, .contactCol h4 {
-  font-size: 1rem;
-  color: var(--text-primary);
-  margin-bottom: 16px;
+.colTitle {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
   font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 18px;
 }
 
-.linksCol ul, .contactCol ul {
+.linksList,
+.contactList {
   list-style: none;
   padding: 0;
   display: flex;
@@ -59,59 +127,73 @@
   gap: 10px;
 }
 
-.linksCol a {
+.linksList a {
   color: var(--text-secondary);
   text-decoration: none;
-  font-size: 0.9rem;
-  transition: color 0.2s;
+  font-size: 0.88rem;
+  transition: color 0.15s ease;
 }
 
-.linksCol a:hover {
-  color: var(--primary);
+.linksList a:hover {
+  color: var(--text-primary);
 }
 
-.contactCol li {
+.contactList li {
   display: flex;
   align-items: center;
   gap: 10px;
   color: var(--text-secondary);
-  font-size: 0.9rem;
+  font-size: 0.88rem;
 }
 
-.contactCol a {
+.contactIcon {
+  color: var(--text-muted);
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.contactList a {
   color: var(--text-secondary);
   text-decoration: none;
-  transition: color 0.2s;
+  transition: color 0.15s ease;
 }
 
-.contactCol a:hover {
+.contactList a:hover {
   color: var(--primary);
 }
 
+/* Bottom Strip */
 .footerBottom {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   gap: 16px;
-  padding-top: 24px;
-  font-size: 0.82rem;
+  padding-top: 28px;
+  font-size: 0.8rem;
   color: var(--text-muted);
 }
 
-.loveTag {
+.footerBottomLinks {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
-.heartIcon {
-  color: var(--accent-rose);
+.dividerDot {
+  color: var(--border-strong);
 }
 
-@media (max-width: 800px) {
-  .footerTop {
+@media (max-width: 900px) {
+  .footerGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+}
+
+@media (max-width: 600px) {
+  .footerGrid {
     grid-template-columns: 1fr;
-    gap: 30px;
+    gap: 28px;
   }
 }
