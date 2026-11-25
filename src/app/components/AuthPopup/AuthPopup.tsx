@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import logo from '@/app/assets/logo.png'
 import {
@@ -10,10 +10,11 @@ import {
   IoPersonOutline,
   IoEyeOutline,
   IoEyeOffOutline,
-  IoShieldCheckmark,
+  IoShieldCheckmarkOutline,
   IoPlayCircleOutline,
   IoFlameOutline,
-  IoCalendarOutline
+  IoCalendarOutline,
+  IoArrowForward
 } from 'react-icons/io5'
 import { toast } from 'react-toastify'
 import { useAuth } from '@/context/AuthContext'
@@ -44,6 +45,14 @@ const AuthPopup: React.FC<AuthPopupProps> = ({ setShowpopup }) => {
   const [activityLevel, setActivityLevel] = useState('moderate')
   const [dob, setDob] = useState('2000-01-01')
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setShowpopup(false)
+    }
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [setShowpopup])
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
     const trimmedEmail = loginEmail.trim()
@@ -57,7 +66,7 @@ const AuthPopup: React.FC<AuthPopupProps> = ({ setShowpopup }) => {
     setLoading(false)
 
     if (res.ok) {
-      toast.success(res.message || 'Welcome back to DriftLift! 🔥')
+      toast.success(res.message || 'Welcome back to DriftLift!')
       setShowpopup(false)
       await checkLogin()
       if (typeof window !== 'undefined') {
@@ -113,47 +122,54 @@ const AuthPopup: React.FC<AuthPopupProps> = ({ setShowpopup }) => {
 
   return (
     <div className="auth-overlay" onClick={() => setShowpopup(false)}>
-      <div className="auth-modal glass-panel" onClick={(e) => e.stopPropagation()}>
+      <div className="auth-modal" onClick={(e) => e.stopPropagation()}>
         {/* Close Button */}
         <button
           className="auth-close-btn"
           onClick={() => setShowpopup(false)}
           aria-label="Close auth dialog"
         >
-          <IoClose size={22} />
+          <IoClose size={20} />
         </button>
 
         <div className="auth-content-grid">
           {/* Left Brand Showcase Banner */}
           <div className="auth-brand-sidebar">
-            <div className="brand-glow-halo">
-              <Image src={logo} alt="DriftLift Logo" width={68} height={68} priority />
+            <div>
+              <div className="brand-logo-frame-modal">
+                <Image src={logo} alt="DriftLift Logo" width={32} height={32} priority />
+              </div>
+
+              <div className="brand-copy-modal">
+                <h2>DRIFT<span className="brand-accent">LIFT</span></h2>
+                <p>The athletic operating system for precision training & biometric telemetry.</p>
+              </div>
+
+              <div className="auth-feature-pills">
+                <div className="feature-pill-modal">
+                  <IoPlayCircleOutline size={16} className="feature-icon-emerald" />
+                  <span>HD Video Form Standards</span>
+                </div>
+                <div className="feature-pill-modal">
+                  <IoFlameOutline size={16} className="feature-icon-amber" />
+                  <span>Real-Time Macro & Water Telemetry</span>
+                </div>
+                <div className="feature-pill-modal">
+                  <IoShieldCheckmarkOutline size={16} className="feature-icon-cyan" />
+                  <span>Scientific TDEE / BMR Computation</span>
+                </div>
+              </div>
             </div>
 
-            <div className="brand-copy">
-              <h2>DRIFT<span className="brand-accent">LIFT</span></h2>
-              <p>Your Ultimate Biometric & Workout Progression Platform</p>
-            </div>
-
-            <div className="auth-feature-pills">
-              <div className="feature-pill">
-                <IoPlayCircleOutline size={18} />
-                <span>HD Video Form Tutorials</span>
-              </div>
-              <div className="feature-pill">
-                <IoFlameOutline size={18} />
-                <span>Real-Time Macro & Water Log</span>
-              </div>
-              <div className="feature-pill">
-                <IoShieldCheckmark size={18} />
-                <span>Scientific TDEE Calculation</span>
-              </div>
+            <div className="modal-sidebar-footer">
+              <span className="status-live-dot" />
+              <span>Zero-telemetry leak · Local-first ready</span>
             </div>
           </div>
 
           {/* Right Form Area */}
           <div className="auth-form-wrapper">
-            {/* Tab Header Switcher */}
+            {/* Segmented Tab Header Switcher */}
             <div className="auth-tab-switch">
               <button
                 type="button"
@@ -176,7 +192,7 @@ const AuthPopup: React.FC<AuthPopupProps> = ({ setShowpopup }) => {
               <form onSubmit={handleLogin} className="auth-form-body">
                 <div className="form-heading-block">
                   <h3>Welcome Back</h3>
-                  <p>Enter your credentials to access your fitness dashboard</p>
+                  <p>Enter your credentials to access your athlete dashboard.</p>
                 </div>
 
                 <div className="auth-input-group">
@@ -201,27 +217,29 @@ const AuthPopup: React.FC<AuthPopupProps> = ({ setShowpopup }) => {
                       type={showPassword ? 'text' : 'password'}
                       value={loginPassword}
                       onChange={(e) => setLoginPassword(e.target.value)}
-                      placeholder="••••••••"
+                      placeholder="••••••••••••"
                       required
                     />
                     <button
                       type="button"
                       className="eye-toggle-btn"
                       onClick={() => setShowPassword(!showPassword)}
+                      aria-label="Toggle password visibility"
                     >
-                      {showPassword ? <IoEyeOffOutline size={18} /> : <IoEyeOutline size={18} />}
+                      {showPassword ? <IoEyeOffOutline size={17} /> : <IoEyeOutline size={17} />}
                     </button>
                   </div>
                 </div>
 
-                <button type="submit" className="btn-primary auth-submit-btn" disabled={loading}>
+                <button type="submit" className="auth-submit-btn" disabled={loading}>
                   {loading ? 'Authenticating...' : 'Sign In to DriftLift'}
+                  {!loading && <IoArrowForward size={15} />}
                 </button>
 
                 <p className="auth-switch-prompt">
                   Don't have an account?{' '}
                   <button type="button" onClick={() => setIsSignup(true)} className="switch-text-btn">
-                    Create one now
+                    Create an account
                   </button>
                 </p>
               </form>
@@ -229,8 +247,8 @@ const AuthPopup: React.FC<AuthPopupProps> = ({ setShowpopup }) => {
               /* SIGNUP FORM */
               <form onSubmit={handleSignup} className="auth-form-body signup-scrollable">
                 <div className="form-heading-block">
-                  <h3>Join the Movement</h3>
-                  <p>Start your personalized journey with science-backed metrics</p>
+                  <h3>Create Athlete Account</h3>
+                  <p>Initialize your personal biometric telemetry baseline.</p>
                 </div>
 
                 <div className="auth-input-group">
@@ -269,15 +287,16 @@ const AuthPopup: React.FC<AuthPopupProps> = ({ setShowpopup }) => {
                       type={showPassword ? 'text' : 'password'}
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      placeholder="At least 6 characters"
+                      placeholder="Minimum 6 characters"
                       required
                     />
                     <button
                       type="button"
                       className="eye-toggle-btn"
                       onClick={() => setShowPassword(!showPassword)}
+                      aria-label="Toggle password visibility"
                     >
-                      {showPassword ? <IoEyeOffOutline size={18} /> : <IoEyeOutline size={18} />}
+                      {showPassword ? <IoEyeOffOutline size={17} /> : <IoEyeOutline size={17} />}
                     </button>
                   </div>
                 </div>
@@ -288,20 +307,26 @@ const AuthPopup: React.FC<AuthPopupProps> = ({ setShowpopup }) => {
                     <input
                       type="number"
                       step="0.1"
+                      min="30"
+                      max="250"
                       value={weightKg}
                       onChange={(e) => setWeightKg(e.target.value)}
                       placeholder="72"
                       required
+                      className="input-bare"
                     />
                   </div>
                   <div className="auth-input-group">
                     <label>Height (cm)</label>
                     <input
                       type="number"
+                      min="100"
+                      max="250"
                       value={heightCm}
                       onChange={(e) => setHeightCm(e.target.value)}
                       placeholder="178"
                       required
+                      className="input-bare"
                     />
                   </div>
                 </div>
@@ -309,7 +334,11 @@ const AuthPopup: React.FC<AuthPopupProps> = ({ setShowpopup }) => {
                 <div className="two-col-inputs">
                   <div className="auth-input-group">
                     <label>Gender</label>
-                    <select value={gender} onChange={(e) => setGender(e.target.value)}>
+                    <select
+                      value={gender}
+                      onChange={(e) => setGender(e.target.value)}
+                      className="select-bare"
+                    >
                       <option value="male">Male</option>
                       <option value="female">Female</option>
                       <option value="other">Other</option>
@@ -324,44 +353,50 @@ const AuthPopup: React.FC<AuthPopupProps> = ({ setShowpopup }) => {
                         value={dob}
                         max={new Date().toISOString().split('T')[0]}
                         onChange={(e) => setDob(e.target.value)}
-                        onClick={(e) => {
-                          try {
-                            e.currentTarget.showPicker?.()
-                          } catch {}
-                        }}
                         required
                       />
                     </div>
                   </div>
                 </div>
 
-                <div className="auth-input-group">
-                  <label>Primary Fitness Goal</label>
-                  <select value={goal} onChange={(e) => setGoal(e.target.value)}>
-                    <option value="weightLoss">Fat Loss & Definition</option>
-                    <option value="weightGain">Muscle Hypertrophy / Bulking</option>
-                    <option value="maintain">Body Recomposition & Health</option>
-                  </select>
+                <div className="two-col-inputs">
+                  <div className="auth-input-group">
+                    <label>Primary Goal</label>
+                    <select
+                      value={goal}
+                      onChange={(e) => setGoal(e.target.value)}
+                      className="select-bare"
+                    >
+                      <option value="weightLoss">Fat Loss & Definition</option>
+                      <option value="weightGain">Hypertrophy / Muscle</option>
+                      <option value="maintain">Body Recomposition</option>
+                    </select>
+                  </div>
+
+                  <div className="auth-input-group">
+                    <label>Activity Level</label>
+                    <select
+                      value={activityLevel}
+                      onChange={(e) => setActivityLevel(e.target.value)}
+                      className="select-bare"
+                    >
+                      <option value="sedentary">Sedentary</option>
+                      <option value="light">Light (1-3 days/wk)</option>
+                      <option value="moderate">Moderate (3-5 days/wk)</option>
+                      <option value="veryActive">Intense (6-7 days/wk)</option>
+                    </select>
+                  </div>
                 </div>
 
-                <div className="auth-input-group">
-                  <label>Activity Level</label>
-                  <select value={activityLevel} onChange={(e) => setActivityLevel(e.target.value)}>
-                    <option value="sedentary">Sedentary (Little or no exercise)</option>
-                    <option value="light">Lightly Active (1-3 days/week)</option>
-                    <option value="moderate">Moderately Active (3-5 days/week)</option>
-                    <option value="veryActive">Very Active (6-7 intense days/week)</option>
-                  </select>
-                </div>
-
-                <button type="submit" className="btn-primary auth-submit-btn" disabled={loading}>
+                <button type="submit" className="auth-submit-btn" disabled={loading}>
                   {loading ? 'Creating Profile...' : 'Complete Registration'}
+                  {!loading && <IoArrowForward size={15} />}
                 </button>
 
                 <p className="auth-switch-prompt">
                   Already have an account?{' '}
                   <button type="button" onClick={() => setIsSignup(false)} className="switch-text-btn">
-                    Sign In
+                    Sign in here
                   </button>
                 </p>
               </form>

@@ -239,58 +239,123 @@
   color: var(--text-secondary);
 }
 
-/* ── CTA Banner ──────────────────────────────────────── */
-.ctaBanner {
+/* ── Contact Section ─────────────────────────────────── */
+.contactSection {
   max-width: 1200px;
   margin: 0 auto 40px;
   padding: 0 24px;
 }
 
-.ctaInner {
-  background: linear-gradient(180deg, var(--bg-surface) 0%, #080a11 100%);
-  border: 1px solid var(--border-medium);
-  border-radius: var(--radius-xl);
-  padding: 60px 40px;
-  text-align: center;
+.contactCard {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.contactInfo {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  box-shadow: var(--shadow-xl);
+  gap: 14px;
 }
 
-.ctaBadge {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
+.contactTitle {
+  font-size: clamp(1.8rem, 3vw, 2.3rem);
   font-weight: 700;
-  letter-spacing: 0.1em;
-  color: var(--primary);
-  text-transform: uppercase;
-}
-
-.ctaTitle {
-  font-size: clamp(2rem, 3.5vw, 2.8rem);
-  font-weight: 800;
   letter-spacing: -0.03em;
   color: var(--text-primary);
-  max-width: 640px;
   line-height: 1.15;
 }
 
-.ctaText {
-  font-size: 1rem;
+.contactText {
+  font-size: 0.96rem;
   color: var(--text-secondary);
-  max-width: 540px;
-  line-height: 1.6;
-  margin-bottom: 12px;
+  line-height: 1.65;
+  max-width: 400px;
 }
 
-.ctaActionGroup {
+.contactDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 12px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.contactDetailRow {
   display: flex;
   align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  justify-content: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+a.contactDetailRow:hover {
+  color: var(--primary);
+}
+
+.contactForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fieldGroup label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.textareaField {
+  width: 100%;
+  padding: 10px 14px;
+  background: rgba(7, 8, 12, 0.6);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  font-family: var(--font-body);
+  resize: vertical;
+  min-height: 110px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.textareaField:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--primary-subtle);
+  background: rgba(7, 8, 12, 0.85);
+}
+
+.contactSuccess {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid var(--primary-border);
+  color: var(--primary);
+  font-size: 0.86rem;
+  font-weight: 500;
 }
 
 .emerald { color: #10b981; }
@@ -312,6 +377,10 @@
   .valuesGrid {
     grid-template-columns: 1fr;
   }
+  .contactCard {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
 }
 
 @media (max-width: 600px) {
@@ -319,7 +388,10 @@
     grid-template-columns: 1fr;
     padding: 20px;
   }
-  .ctaInner {
-    padding: 40px 20px;
+  .contactCard {
+    padding: 24px 20px;
+  }
+  .formRow {
+    grid-template-columns: 1fr;
   }
 }

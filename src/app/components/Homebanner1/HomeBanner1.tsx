@@ -169,10 +169,9 @@ const HomeBanner1 = () => {
     <section className="dashboard-metrics-section">
       <div className="metrics-header-row">
         <div>
-          <span className="badge-glow">DAILY BIOMETRICS</span>
-          <h2 className="metrics-main-heading">Target Vitals & Energy Balance</h2>
+          <h2 className="metrics-main-heading">Today&apos;s Vitals</h2>
           <p className="metrics-subtitle">
-            Synchronized telemetry tracking caloric energy, hydration, sleep stages, and active physical volume.
+            Daily calories, hydration, sleep, and activity compared against your targets.
           </p>
         </div>
 

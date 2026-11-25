@@ -73,15 +73,25 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToFooter }) => {
     checkLogin()
   }, [showAuthPopup])
 
-  // Close dropdown on outside click
+  // Close dropdown and mobile menu on outside click or Escape
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
         setFeaturesDropdownOpen(false)
       }
     }
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setFeaturesDropdownOpen(false)
+        setMobileMenuOpen(false)
+      }
+    }
     document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
+    document.addEventListener('keydown', handleKeyDown)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('keydown', handleKeyDown)
+    }
   }, [])
 
   // Close dropdown on navigation
@@ -107,8 +117,7 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToFooter }) => {
               <Image src={logo} alt="DriftLift" width={26} height={26} priority />
             </div>
             <div className="brand-identity">
-              <span className="brand-title">DRIFT<span className="brand-accent">LIFT</span></span>
-              <span className="brand-pro-tag">OS</span>
+              <span className="brand-title">Drift<span className="brand-accent">Lift</span></span>
             </div>
           </Link>
 
@@ -126,7 +135,7 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToFooter }) => {
                 onClick={() => setFeaturesDropdownOpen(!featuresDropdownOpen)}
                 aria-expanded={featuresDropdownOpen}
               >
-                <span>AI Suite</span>
+                <span>Tools</span>
                 <IoChevronDown
                   size={12}
                   className={`dropdown-chevron ${featuresDropdownOpen ? 'rotated' : ''}`}
@@ -135,20 +144,17 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToFooter }) => {
 
               {featuresDropdownOpen && (
                 <div className="nav-dropdown-menu">
-                  <div className="dropdown-section-header">Computer Vision & Intelligence</div>
+                  <div className="dropdown-section-header">Training &amp; Nutrition</div>
                   <Link
                     href="/vision-coach"
                     className={`dropdown-item ${pathname === '/vision-coach' ? 'active' : ''}`}
                   >
-                    <div className="dropdown-item-icon icon-emerald">
+                    <div className="dropdown-item-icon">
                       <IoCameraOutline size={17} />
                     </div>
                     <div className="dropdown-item-text">
-                      <div className="dropdown-item-title-row">
-                        <span className="item-title">Vision Coach</span>
-                        <span className="item-tag">60 FPS</span>
-                      </div>
-                      <span className="item-desc">Optical joint tracking & real-time cadence</span>
+                      <span className="item-title">Vision Coach</span>
+                      <span className="item-desc">Live pose tracking &amp; rep counter</span>
                     </div>
                   </Link>
 
@@ -156,15 +162,12 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToFooter }) => {
                     href="/food-scanner"
                     className={`dropdown-item ${pathname === '/food-scanner' ? 'active' : ''}`}
                   >
-                    <div className="dropdown-item-icon icon-teal">
+                    <div className="dropdown-item-icon">
                       <IoScanOutline size={17} />
                     </div>
                     <div className="dropdown-item-text">
-                      <div className="dropdown-item-title-row">
-                        <span className="item-title">Food Scanner</span>
-                        <span className="item-tag">Multimodal</span>
-                      </div>
-                      <span className="item-desc">Macro nutrition breakdown via meal photo</span>
+                      <span className="item-title">Food Scanner</span>
+                      <span className="item-desc">Meal photo &amp; barcode macro log</span>
                     </div>
                   </Link>
 
@@ -172,34 +175,28 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToFooter }) => {
                     href="/heatmap"
                     className={`dropdown-item ${pathname === '/heatmap' ? 'active' : ''}`}
                   >
-                    <div className="dropdown-item-icon icon-cyan">
+                    <div className="dropdown-item-icon">
                       <IoSparklesOutline size={17} />
                     </div>
                     <div className="dropdown-item-text">
-                      <div className="dropdown-item-title-row">
-                        <span className="item-title">3D Muscle Heatmap</span>
-                        <span className="item-tag">WebGL</span>
-                      </div>
-                      <span className="item-desc">Kinetic DOMS recovery mapping across 14 splits</span>
+                      <span className="item-title">3D Muscle Heatmap</span>
+                      <span className="item-desc">Muscle recovery &amp; fatigue map</span>
                     </div>
                   </Link>
 
                   <div className="dropdown-divider" />
-                  <div className="dropdown-section-header">Squad & Local Infrastructure</div>
+                  <div className="dropdown-section-header">Sessions &amp; Offline</div>
 
                   <Link
                     href="/squad-rooms"
                     className={`dropdown-item ${pathname === '/squad-rooms' ? 'active' : ''}`}
                   >
-                    <div className="dropdown-item-icon icon-amber">
+                    <div className="dropdown-item-icon">
                       <IoPeopleOutline size={17} />
                     </div>
                     <div className="dropdown-item-text">
-                      <div className="dropdown-item-title-row">
-                        <span className="item-title">Squad Rooms</span>
-                        <span className="item-tag">Live Sync</span>
-                      </div>
-                      <span className="item-desc">Multiplayer timers, live hype & telemetry</span>
+                      <span className="item-title">Squad Rooms</span>
+                      <span className="item-desc">Shared rest timers &amp; live set logs</span>
                     </div>
                   </Link>
 
@@ -207,15 +204,12 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToFooter }) => {
                     href="/offline"
                     className={`dropdown-item ${pathname === '/offline' ? 'active' : ''}`}
                   >
-                    <div className="dropdown-item-icon icon-orange">
+                    <div className="dropdown-item-icon">
                       <IoCloudOfflineOutline size={17} />
                     </div>
                     <div className="dropdown-item-text">
-                      <div className="dropdown-item-title-row">
-                        <span className="item-title">Offline Gym Hub</span>
-                        <span className="item-tag">IndexedDB</span>
-                      </div>
-                      <span className="item-desc">Basement workouts & cloud sync queue</span>
+                      <span className="item-title">Offline Gym Hub</span>
+                      <span className="item-desc">Local workout logging &amp; sync</span>
                     </div>
                   </Link>
                 </div>
@@ -248,13 +242,14 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToFooter }) => {
             {isLoggedIn ? (
               <div className="user-profile-cluster">
                 <Link href="/profile" className="profile-pill" title="View Profile">
-                  <span className="profile-avatar-dot" />
-                  <span className="user-name-label">{user?.name ? user.name.split(' ')[0] : 'Athlete'}</span>
+                  <IoPersonCircleOutline size={18} />
+                  <span className="user-name-label">{user?.name ? user.name.split(' ')[0] : 'Profile'}</span>
                 </Link>
                 <button
                   className="nav-logout-btn"
                   onClick={handleLogout}
                   title="Sign Out"
+                  aria-label="Sign Out"
                 >
                   <IoLogOutOutline size={16} />
                 </button>
@@ -296,31 +291,26 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToFooter }) => {
               About DriftLift
             </Link>
 
-            <div className="mobile-section-label">AI Telemetry Suite</div>
-            <Link href="/vision-coach" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link sub">
-              <IoCameraOutline size={16} className="text-emerald" />
-              <span>AI Vision Coach</span>
-              <span className="mobile-chip">60 FPS</span>
+            <div className="mobile-section-label">Tools</div>
+            <Link href="/vision-coach" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link">
+              <IoCameraOutline size={16} />
+              <span>Vision Coach</span>
             </Link>
-            <Link href="/food-scanner" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link sub">
-              <IoScanOutline size={16} className="text-teal" />
-              <span>AI Food Scanner</span>
-              <span className="mobile-chip">Vision API</span>
+            <Link href="/food-scanner" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link">
+              <IoScanOutline size={16} />
+              <span>Food Scanner</span>
             </Link>
-            <Link href="/heatmap" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link sub">
-              <IoSparklesOutline size={16} className="text-cyan" />
+            <Link href="/heatmap" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link">
+              <IoSparklesOutline size={16} />
               <span>3D Muscle Heatmap</span>
-              <span className="mobile-chip">WebGL</span>
             </Link>
-            <Link href="/squad-rooms" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link sub">
-              <IoPeopleOutline size={16} className="text-amber" />
+            <Link href="/squad-rooms" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link">
+              <IoPeopleOutline size={16} />
               <span>Squad Rooms</span>
-              <span className="mobile-chip">Multiplayer</span>
             </Link>
-            <Link href="/offline" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link sub">
-              <IoCloudOfflineOutline size={16} className="text-orange" />
+            <Link href="/offline" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-link">
+              <IoCloudOfflineOutline size={16} />
               <span>Offline Gym Hub</span>
-              <span className="mobile-chip">PWA</span>
             </Link>
 
             {isLoggedIn ? (

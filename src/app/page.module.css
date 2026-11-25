@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════
-   DriftLift Command Center — Architectural Precision UI
+   DriftLift Home — Editorial Split Layout
    ═══════════════════════════════════════════════════════ */
 
 .main {
@@ -8,476 +8,148 @@
   min-height: 100vh;
 }
 
-/* ── Hero Master Section ────────────────────────────── */
 .heroSection {
   max-width: 1240px;
   margin: 0 auto;
-  padding: 64px 20px 40px;
+  padding: 56px 24px 32px;
 }
 
-.heroHeaderArea {
+.heroGrid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 56px;
+  align-items: center;
+  margin-bottom: 56px;
+}
+
+.heroContent {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  max-width: 860px;
-  margin: 0 auto 52px;
-}
-
-/* System Status Chip */
-.heroStatusChip {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 5px 12px;
-  border-radius: var(--radius-full);
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--border-medium);
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  color: var(--text-secondary);
-  margin-bottom: 24px;
-}
-
-.statusPulse {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background-color: var(--primary);
-  box-shadow: 0 0 8px var(--primary);
-}
-
-.statusLabel {
-  font-weight: 700;
-  color: var(--text-primary);
-}
-
-.statusSeparator {
-  color: var(--text-muted);
-}
-
-.statusContext {
-  color: var(--text-muted);
-}
-
-/* Main Heading */
-.heroTitle {
-  font-family: var(--font-heading);
-  font-size: clamp(2.4rem, 5.2vw, 4.2rem);
-  font-weight: 800;
-  line-height: 1.08;
-  letter-spacing: -0.04em;
-  color: var(--text-primary);
-  margin-bottom: 20px;
-}
-
-.heroLead {
-  font-size: clamp(1.02rem, 1.6vw, 1.2rem);
-  line-height: 1.65;
-  color: var(--text-secondary);
-  max-width: 680px;
-  margin-bottom: 32px;
-}
-
-/* Primary Action Group */
-.heroActionRow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-bottom: 32px;
-}
-
-/* Quick-Launch Ribbon */
-.quickLaunchRibbon {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 0.78rem;
-  color: var(--text-muted);
-  flex-wrap: wrap;
-  justify-content: center;
-  padding: 8px 16px;
-  border-radius: var(--radius-full);
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid var(--border-subtle);
-}
-
-.ribbonLabel {
-  font-family: var(--font-mono);
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  color: var(--text-subtle);
-}
-
-.ribbonLinks {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.ribbonLink {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  color: var(--text-secondary);
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.15s ease;
-}
-
-.ribbonLink:hover {
-  color: var(--text-primary);
-}
-
-.ribbonDot {
-  color: var(--border-strong);
-}
-
-/* ── Interactive Kinematic Telemetry Deck ──────────── */
-.telemetryDeckWrapper {
-  margin-bottom: 80px;
-  position: relative;
-}
-
-.deckWindow {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-medium);
-  border-radius: var(--radius-xl);
-  box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  overflow: hidden;
-}
-
-.deckTitlebar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 18px;
-  background: rgba(7, 8, 12, 0.6);
-  border-bottom: 1px solid var(--border-subtle);
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-}
-
-.titlebarLeft {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.windowControls {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.windowDot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.12);
-}
-
-.deckTitle {
-  color: var(--text-muted);
-  font-weight: 600;
-  letter-spacing: 0.06em;
-}
-
-.moduleStatusTag {
-  color: var(--primary);
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  padding: 2px 8px;
-  border-radius: 4px;
-  background: rgba(16, 185, 129, 0.08);
-  border: 1px solid var(--primary-border);
-}
-
-/* Segmented Tabs Bar */
-.segmentedTabs {
-  display: flex;
-  gap: 4px;
-  padding: 8px 12px;
-  background: rgba(7, 8, 12, 0.3);
-  border-bottom: 1px solid var(--border-subtle);
-  overflow-x: auto;
-}
-
-.segmentedTabs::-webkit-scrollbar {
-  display: none;
-}
-
-.tabBtn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 14px;
-  border-radius: var(--radius-sm);
-  background: transparent;
-  border: none;
-  color: var(--text-muted);
-  font-family: var(--font-heading);
-  font-size: 0.82rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.15s ease;
-  white-space: nowrap;
-}
-
-.tabBtn:hover {
-  color: var(--text-secondary);
-  background: rgba(255, 255, 255, 0.03);
-}
-
-.tabBtnActive {
-  color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.08);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
-}
-
-/* Console Content */
-.deckContent {
-  padding: 32px;
-}
-
-.deckMetaHeader {
-  display: flex;
   align-items: flex-start;
-  justify-content: space-between;
-  gap: 24px;
-  margin-bottom: 32px;
-  flex-wrap: wrap;
-}
-
-.deckMetaLeft {
-  max-width: 640px;
-}
-
-.deckBadge {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  color: var(--primary);
-  text-transform: uppercase;
-  display: inline-block;
-  margin-bottom: 8px;
-}
-
-.deckHeading {
-  font-size: 1.8rem;
-  font-weight: 800;
-  color: var(--text-primary);
-  margin-bottom: 8px;
-  letter-spacing: -0.03em;
-}
-
-.deckSummary {
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: var(--text-secondary);
-}
-
-.deckMetaAction {
-  flex-shrink: 0;
-}
-
-/* Precision Spec Cells */
-.specsGrid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-}
-
-.specCard {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  padding: 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  transition: border-color 0.2s ease;
-}
-
-.specCard:hover {
-  border-color: var(--border-medium);
-}
-
-.specCardLabel {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--text-muted);
-}
-
-.specCardValueRow {
-  margin: 6px 0 2px;
-}
-
-.specCardValue {
-  font-family: var(--font-heading);
-  font-size: 1.6rem;
-  font-weight: 800;
-  color: var(--text-primary);
-  letter-spacing: -0.03em;
-  line-height: 1.1;
-}
-
-.specCardNote {
-  font-size: 0.78rem;
-  color: var(--text-muted);
-}
-
-/* ── Bento Architecture Section ────────────────────── */
-.bentoSection {
-  margin-bottom: 60px;
-}
-
-.sectionHeader {
-  margin-bottom: 36px;
-}
-
-.sectionOverline {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--primary);
-  display: block;
-  margin-bottom: 8px;
-}
-
-.sectionTitle {
-  font-size: clamp(1.8rem, 3.2vw, 2.5rem);
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  color: var(--text-primary);
-  margin-bottom: 8px;
-}
-
-.sectionLead {
-  font-size: 1rem;
-  color: var(--text-secondary);
-  max-width: 600px;
-}
-
-.bentoGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
 }
 
-.bentoCard {
-  background: var(--bg-card);
+.heroTitle {
+  font-family: var(--font-heading);
+  font-size: clamp(2.3rem, 4.2vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+}
+
+.heroLead {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  max-width: 500px;
+}
+
+.heroActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.heroMedia {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
-  padding: 28px;
+  background: var(--bg-card);
+}
+
+.heroImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: contrast(1.04) brightness(0.92);
+}
+
+/* ── Tool Index Strip ───────────────────────────────── */
+.toolsStrip {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.toolItem {
+  padding: 22px 18px;
+  text-decoration: none;
+  border-right: 1px solid var(--border-subtle);
+  transition: background-color 0.15s ease;
   display: flex;
   flex-direction: column;
-  text-decoration: none;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  position: relative;
+  gap: 8px;
 }
 
-.bentoCard:hover {
-  background: var(--bg-card-hover);
-  border-color: var(--border-medium);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
+.toolItem:last-child {
+  border-right: none;
 }
 
-.bentoHeader {
+.toolItem:hover {
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.toolHeader {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
+  gap: 8px;
 }
 
-.bentoIconBox {
-  width: 44px;
-  height: 44px;
-  border-radius: var(--radius-md);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--border-subtle);
+.toolIcon {
+  color: var(--primary);
+  flex-shrink: 0;
 }
 
-.bgEmerald { background: rgba(16, 185, 129, 0.08); }
-.bgTeal { background: rgba(20, 184, 166, 0.08); }
-.bgCyan { background: rgba(6, 182, 212, 0.08); }
-.bgOrange { background: rgba(249, 115, 22, 0.08); }
-
-.bentoTag {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
+.toolTitle {
+  font-family: var(--font-heading);
+  font-size: 0.94rem;
   font-weight: 600;
-  letter-spacing: 0.08em;
+  color: var(--text-primary);
+}
+
+.toolDesc {
+  font-size: 0.82rem;
+  line-height: 1.5;
   color: var(--text-muted);
 }
 
-.bentoTitle {
-  font-size: 1.35rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 10px;
-  letter-spacing: -0.02em;
-}
-
-.bentoDesc {
-  font-size: 0.92rem;
-  line-height: 1.6;
-  color: var(--text-secondary);
-  margin-bottom: 24px;
-  flex-grow: 1;
-}
-
-.bentoFooter {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-family: var(--font-heading);
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--primary);
-}
-
-.arrowIcon {
-  transition: transform 0.2s ease;
-}
-
-.bentoCard:hover .arrowIcon {
-  transform: translateX(4px);
-}
-
-/* Color Tokens */
-.emerald { color: #10b981; }
-.teal { color: #14b8a6; }
-.cyan { color: #06b6d4; }
-.amber { color: #f59e0b; }
-.orange { color: #f97316; }
-
-@media (max-width: 900px) {
-  .specsGrid {
+@media (max-width: 1024px) {
+  .toolsStrip {
     grid-template-columns: repeat(2, 1fr);
   }
-  .bentoGrid {
+  .toolItem:nth-child(2n) {
+    border-right: none;
+  }
+  .toolItem {
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .toolItem:last-child {
+    border-bottom: none;
+  }
+}
+
+@media (max-width: 860px) {
+  .heroGrid {
     grid-template-columns: 1fr;
+    gap: 32px;
   }
 }
 
 @media (max-width: 600px) {
-  .specsGrid {
+  .heroSection {
+    padding: 36px 20px 24px;
+  }
+  .toolsStrip {
     grid-template-columns: 1fr;
   }
-  .deckContent {
-    padding: 20px;
+  .toolItem {
+    border-right: none;
   }
 }

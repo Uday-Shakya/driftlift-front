@@ -17,15 +17,6 @@ const Footer = () => {
   return (
     <footer className={styles.footer} id="footer">
       <div className={styles.footerContainer}>
-        {/* Top Status & Brand Strip */}
-        <div className={styles.footerTopBanner}>
-          <div className={styles.systemStatusBlock}>
-            <span className={styles.statusLiveDot} />
-            <span className={styles.statusText}>ALL KINEMATIC & TELEMETRY ENGINES OPERATIONAL</span>
-          </div>
-          <div className={styles.engineBuild}>BUILD // v2.4.2 PRODUCTION READY</div>
-        </div>
-
         <div className={styles.footerGrid}>
           {/* Brand Col */}
           <div className={styles.brandCol}>
@@ -90,13 +81,13 @@ const Footer = () => {
 
         {/* Bottom Legal Bar */}
         <div className={styles.footerBottom}>
-          <p>© {new Date().getFullYear()} DriftLift Pro Platform. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} DriftLift. All rights reserved.</p>
           <div className={styles.footerBottomLinks}>
-            <span>Biomechanical Standards</span>
+            <span>Exercise Science</span>
             <span className={styles.dividerDot}>•</span>
-            <span>Local IndexedDB Privacy</span>
+            <span>Local IndexedDB Storage</span>
             <span className={styles.dividerDot}>•</span>
-            <span>Zero-Telemetry Leak</span>
+            <span>Privacy-First</span>
           </div>
         </div>
       </div>

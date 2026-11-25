@@ -84,9 +84,9 @@ interface FloatingEmojiItem {
 }
 
 const PRESET_ROOMS = [
-  { id: 'room-push-beasts', name: 'Heavy Push Syndicate 🔥', split: 'Chest, Shoulders & Triceps' },
-  { id: 'room-leg-day-cult', name: 'Leg Day Survivors 💀', split: 'Quads, Hamstrings & Calves' },
-  { id: 'room-hypertrophy-lab', name: 'Hypertrophy Lab 🧬', split: 'Full Body / Upper Hypertrophy' },
+  { id: 'room-push-beasts', name: 'Upper Push Session', split: 'Chest, Shoulders & Triceps' },
+  { id: 'room-leg-day-cult', name: 'Lower Body Strength', split: 'Quads, Hamstrings & Calves' },
+  { id: 'room-hypertrophy-lab', name: 'Full-Body Hypertrophy', split: 'Compound & Accessory Split' },
 ];
 
 export default function SquadRoomsPage() {

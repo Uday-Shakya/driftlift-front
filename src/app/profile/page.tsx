@@ -123,7 +123,7 @@ const ProfilePage = () => {
       })
       const data = await res.json()
       if (data.ok) {
-        toast.success('Fitness Profile & Goals Updated Successfully! 🎉')
+        toast.success('Fitness profile and targets updated.')
       } else {
         toast.error(data.message || 'Error updating profile')
       }

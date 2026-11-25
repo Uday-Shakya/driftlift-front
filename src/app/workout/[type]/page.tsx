@@ -192,7 +192,7 @@ const WorkoutPage = () => {
       })
       const data = await res.json()
       if (data.ok) {
-        toast.success('Workout completed and logged to your activity history! 🔥')
+        toast.success('Workout completed and logged to your activity history.')
       } else {
         toast.info('Workout finished! (Sign in to save to your personal cloud log)')
       }
@@ -270,16 +270,8 @@ const WorkoutPage = () => {
                   <Link
                     href="/vision-coach"
                     className="btn-secondary"
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '0.5rem',
-                      background: 'rgba(16, 185, 129, 0.12)',
-                      borderColor: 'rgba(16, 185, 129, 0.4)',
-                      color: '#6ee7b7',
-                    }}
                   >
-                    <IoCameraOutline size={20} /> AI Vision Rep Counter
+                    <IoCameraOutline size={18} /> AI Vision Rep Counter
                   </Link>
                 </>
               ) : (
@@ -386,8 +378,8 @@ const WorkoutPage = () => {
 
           {/* Mode B: Detailed Video Tutorial & Form Guide Cards */}
           <div className="exercise-section-header">
-            <h2>Exercise & Video Form Tutorials</h2>
-            <p>Master flawless biomechanics with step-by-step video instruction and cues</p>
+            <h2>Exercises &amp; Form Guides</h2>
+            <p>Step-by-step video demonstrations and coaching cues for each movement</p>
           </div>
 
           <div className="exercise-list-grid">
@@ -429,7 +421,7 @@ const WorkoutPage = () => {
                   {item.tips && item.tips.length > 0 && (
                     <div className="exercise-tips-box">
                       <div className="tips-title">
-                        <IoSparkles /> Form Perfection Cues:
+                        <IoSparkles /> Form Cues
                       </div>
                       <ul className="tips-list">
                         {item.tips.map((tip, tIdx) => (

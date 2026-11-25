@@ -28,34 +28,11 @@ export default function RouteGuard({ children }: { children: React.ReactNode }) 
     return <>{children}</>
   }
 
-  // If initial auth check is ongoing, show high-tech minimal loader
   if (loading) {
     return (
-      <div
-        style={{
-          minHeight: '70vh',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '16px',
-          color: '#94a3b8',
-          fontFamily: 'var(--font-heading)',
-        }}
-      >
-        <div
-          style={{
-            width: '42px',
-            height: '42px',
-            border: '3px solid rgba(16, 185, 129, 0.2)',
-            borderTopColor: '#10b981',
-            borderRadius: '50%',
-            animation: 'spin 0.8s linear infinite',
-          }}
-        />
-        <span style={{ fontSize: '0.9rem', letterSpacing: '0.05em' }}>
-          VERIFYING DRIFTLIFT CREDENTIALS...
-        </span>
+      <div className="page-loader">
+        <div className="loader-spinner" />
+        <span>Verifying session...</span>
       </div>
     )
   }

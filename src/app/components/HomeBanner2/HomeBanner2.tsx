@@ -18,22 +18,22 @@ interface WorkoutCategory {
 const HomeBanner2 = () => {
   const [categories] = useState<WorkoutCategory[]>([
     {
-      type: 'Chest Hypertrophy',
+      type: 'Chest & Triceps',
       slug: 'chest',
       imageUrl: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=800&q=80',
       durationInMin: 45,
       exercisesCount: 5,
       intensity: 'High',
-      splitCode: 'SPLIT // 01',
+      splitCode: '01 · Push',
     },
     {
-      type: 'V-Taper Back & Lats',
+      type: 'Back & Posterior Chain',
       slug: 'back',
       imageUrl: 'https://images.unsplash.com/photo-1603287681836-b174ce5074c2?auto=format&fit=crop&w=800&q=80',
       durationInMin: 50,
       exercisesCount: 6,
       intensity: 'High',
-      splitCode: 'SPLIT // 02',
+      splitCode: '02 · Pull',
     },
     {
       type: 'Core & Trunk Stability',
@@ -42,34 +42,34 @@ const HomeBanner2 = () => {
       durationInMin: 25,
       exercisesCount: 4,
       intensity: 'Medium',
-      splitCode: 'SPLIT // 03',
+      splitCode: '03 · Core',
     },
     {
-      type: 'Deltoid Caps & Shoulders',
+      type: 'Shoulders & Deltoids',
       slug: 'shoulder',
       imageUrl: 'https://images.unsplash.com/photo-1532029837206-abbe2b7620e3?auto=format&fit=crop&w=800&q=80',
       durationInMin: 40,
       exercisesCount: 5,
       intensity: 'High',
-      splitCode: 'SPLIT // 04',
+      splitCode: '04 · Shoulders',
     },
     {
-      type: 'Biceps & Triceps (Arms)',
+      type: 'Biceps & Forearms',
       slug: 'biceps',
       imageUrl: 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=800&q=80',
       durationInMin: 35,
       exercisesCount: 4,
       intensity: 'Medium',
-      splitCode: 'SPLIT // 05',
+      splitCode: '05 · Arms',
     },
     {
-      type: 'Quads, Posterior Chain & Legs',
+      type: 'Quads, Hamstrings & Glutes',
       slug: 'legs',
       imageUrl: 'https://images.unsplash.com/photo-1434608519344-49d77a699e1d?auto=format&fit=crop&w=800&q=80',
       durationInMin: 55,
       exercisesCount: 6,
       intensity: 'Extreme',
-      splitCode: 'SPLIT // 06',
+      splitCode: '06 · Legs',
     },
   ])
 
@@ -77,15 +77,14 @@ const HomeBanner2 = () => {
     <section className="workout-categories-section">
       <div className="section-title-row">
         <div>
-          <span className="badge-glow">VIDEO FORM STANDARDS</span>
-          <h2 className="section-main-heading">Targeted Workout Programs</h2>
+          <h2 className="section-main-heading">Workout Programs</h2>
           <p className="section-subtitle">
-            Curated kinematic guides with embedded HD instructional cues, joint safety standards, and live set tracking.
+            Guided splits with HD video demonstrations, form cues, and built-in rest timers.
           </p>
         </div>
 
         <Link href="/workout/chest" className="browse-all-link">
-          <span>View All 6 Splits</span>
+          <span>View all splits</span>
           <IoArrowForward size={14} />
         </Link>
       </div>
@@ -104,7 +103,6 @@ const HomeBanner2 = () => {
             <div className="card-scrim-overlay" />
 
             <div className="card-top-chips">
-              <span className="split-code-chip">{item.splitCode}</span>
               <span className={`intensity-chip ${item.intensity.toLowerCase()}`}>
                 <IoFlameOutline size={13} /> {item.intensity}
               </span>

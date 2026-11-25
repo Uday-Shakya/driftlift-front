@@ -15,10 +15,10 @@ import { syncManager, SyncStatus } from '@/utils/syncManager';
 import { toast } from 'react-toastify';
 import './offline.css';
 
-// Pre-cached offline routines for basement gyms
+// Pre-cached offline routines for low-signal gyms
 const PRESET_ROUTINES = [
   {
-    name: 'Basement Beast (Heavy Push)',
+    name: 'Heavy Push Routine',
     muscle: 'Chest & Shoulders',
     sets: [
       { setNumber: 1, weight: 80, reps: 10, rpe: 8 },

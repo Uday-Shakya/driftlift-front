@@ -226,15 +226,6 @@ const ReportPage = () => {
             <Link
               href="/food-scanner"
               className="btn-secondary"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.4rem',
-                borderColor: 'rgba(16, 185, 129, 0.4)',
-                color: '#34d399',
-                background: 'rgba(16, 185, 129, 0.1)',
-                textDecoration: 'none',
-              }}
             >
               <IoCameraOutline size={18} />
               <span>AI Food Scanner</span>
@@ -323,41 +314,16 @@ const ReportPage = () => {
               margin={{ left: 50, right: 20, top: 20, bottom: 40 }}
             />
           ) : (
-            <div
-              className="no-data-notice"
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                minHeight: '300px',
-                gap: '14px',
-                color: '#94a3b8',
-                textAlign: 'center',
-                padding: '40px 20px',
-              }}
-            >
+            <div className="no-data-notice">
               <div
-                style={{
-                  width: '56px',
-                  height: '56px',
-                  borderRadius: '16px',
-                  background: `${config.color}15`,
-                  color: config.color,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '1.75rem',
-                  border: `1px solid ${config.color}35`,
-                }}
+                className="no-data-icon"
+                style={{ color: config.color, borderColor: `${config.color}35` }}
               >
-                <Icon size={28} />
+                <Icon size={26} />
               </div>
-              <div style={{ maxWidth: '420px' }}>
-                <h4 style={{ color: '#f8fafc', fontSize: '1.1rem', marginBottom: '6px', fontWeight: 600 }}>
-                  No {config.name} Recorded Yet
-                </h4>
-                <p style={{ fontSize: '0.88rem', color: '#64748b', lineHeight: 1.5 }}>
+              <div className="no-data-copy">
+                <h4>No {config.name} Recorded Yet</h4>
+                <p>
                   You haven&apos;t logged any {config.name.toLowerCase()} entries in the selected {daysLimit}-day timeframe.
                   Log your first entry to start generating analytics.
                 </p>
@@ -366,11 +332,6 @@ const ReportPage = () => {
                 type="button"
                 onClick={() => setShowLogModal(true)}
                 className="btn-primary"
-                style={{
-                  marginTop: '6px',
-                  background: `linear-gradient(135deg, ${config.color} 0%, #059669 100%)`,
-                  boxShadow: `0 4px 16px ${config.color}30`,
-                }}
               >
                 <IoAddCircleOutline size={18} />
                 <span>Log {config.name}</span>

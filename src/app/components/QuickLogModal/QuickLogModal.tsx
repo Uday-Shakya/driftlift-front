@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { IoClose, IoWaterOutline, IoFlameOutline, IoMoonOutline, IoFootstepsOutline, IoFitnessOutline, IoScaleOutline, IoCameraOutline } from 'react-icons/io5'
 import { toast } from 'react-toastify'
@@ -39,6 +39,15 @@ const QuickLogModal: React.FC<QuickLogModalProps> = ({ isOpen, onClose, onSucces
   // Workout form
   const [workoutName, setWorkoutName] = useState('')
   const [workoutDuration, setWorkoutDuration] = useState('')
+
+  useEffect(() => {
+    if (!isOpen) return
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+    }
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [isOpen, onClose])
 
   if (!isOpen) return null
 
@@ -113,8 +122,8 @@ const QuickLogModal: React.FC<QuickLogModalProps> = ({ isOpen, onClose, onSucces
             <h2>Quick Track</h2>
             <p>Log your daily fitness & wellness stats</p>
           </div>
-          <button className="quicklog-close-btn" onClick={onClose}>
-            <IoClose size={22} />
+          <button className="quicklog-close-btn" onClick={onClose} aria-label="Close modal">
+            <IoClose size={20} />
           </button>
         </div>
 
@@ -196,24 +205,10 @@ const QuickLogModal: React.FC<QuickLogModalProps> = ({ isOpen, onClose, onSucces
               <Link
                 href="/food-scanner"
                 onClick={onClose}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '0.5rem',
-                  padding: '0.65rem 1rem',
-                  marginBottom: '1rem',
-                  background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(6, 182, 212, 0.2) 100%)',
-                  border: '1px solid rgba(16, 185, 129, 0.4)',
-                  borderRadius: '12px',
-                  color: '#34d399',
-                  fontSize: '0.85rem',
-                  fontWeight: 700,
-                  textDecoration: 'none',
-                }}
+                className="scanner-shortcut-link"
               >
                 <IoCameraOutline size={18} />
-                <span>📸 Snap & Log with AI Food Scanner</span>
+                <span>Snap &amp; Log with AI Food Scanner</span>
               </Link>
 
               <label>Meal / Food Item</label>

@@ -468,3 +468,46 @@
     height: 500px;
   }
 }
+
+/* 3D Hover HUD Tooltip */
+.heatmap-hud-tooltip {
+  position: fixed;
+  pointer-events: none;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  z-index: 9999;
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-50%);
+  min-width: 180px;
+}
+
+.tooltip-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.tooltip-title {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.tooltip-fatigue-badge {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: #042f20;
+}
+
+.tooltip-sub {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
