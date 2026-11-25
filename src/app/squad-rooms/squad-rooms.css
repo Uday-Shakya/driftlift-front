@@ -206,8 +206,14 @@
 
 .timer-svg-wrap {
   position: relative;
-  width: 200px;
-  height: 200px;
+  width: 240px;
+  height: 240px;
+}
+
+.timer-svg-wrap svg {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .timer-ring-bg {
@@ -448,7 +454,7 @@
 
 .members-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 12px;
 }
 
@@ -457,14 +463,12 @@
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   padding: 16px;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  position: relative;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
 }
 
 .member-card:hover {
   background: var(--bg-card-hover);
   border-color: var(--border-medium);
-  transform: translateY(-2px);
 }
 
 .member-card.is-you {
@@ -476,117 +480,231 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 10px;
+  gap: 10px;
+  margin-bottom: 12px;
 }
 
-.member-avatar-box {
-  width: 32px;
-  height: 32px;
-  border-radius: var(--radius-xs);
+.member-info-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.member-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
   background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1rem;
+  flex-shrink: 0;
 }
 
-.member-name-text {
+.member-name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   font-family: var(--font-heading);
   font-weight: 700;
   font-size: 0.92rem;
   color: var(--text-primary);
+  flex-wrap: wrap;
 }
 
-.member-status-chip {
+.badge-you {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
-  font-weight: 600;
-  padding: 2px 7px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid var(--primary-border);
+  color: var(--primary);
+}
+
+.member-status-tag {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 700;
+  padding: 3px 8px;
   border-radius: 4px;
   border: 1px solid var(--border-subtle);
+  flex-shrink: 0;
 }
 
-.member-status-chip.lifting {
+.member-status-tag.status-lifting {
   background: rgba(245, 158, 11, 0.1);
   color: var(--accent-amber);
   border-color: rgba(245, 158, 11, 0.25);
 }
 
-.member-status-chip.resting {
+.member-status-tag.status-resting {
   background: rgba(16, 185, 129, 0.1);
   color: var(--primary);
   border-color: var(--primary-border);
 }
 
-.member-status-chip.hydrating {
+.member-status-tag.status-hydrating {
   background: rgba(6, 182, 212, 0.1);
   color: var(--accent-cyan);
   border-color: rgba(6, 182, 212, 0.25);
 }
 
-.member-last-set {
-  font-family: var(--font-mono);
+.member-exercise-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+
+.member-exercise-val {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+
+.member-last-set-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: rgba(7, 8, 12, 0.45);
+  border: 1px solid var(--border-subtle);
   font-size: 0.78rem;
   color: var(--text-secondary);
 }
 
-/* Sidebar Feed */
+.member-last-set-box strong {
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+}
+
+/* Sidebar: Hype Pad & Live Stream */
+.squad-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.hype-pad-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-xl);
+  padding: 20px;
+}
+
+.hype-pad-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+  font-family: var(--font-heading);
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.hype-buttons-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+}
+
+.btn-hype {
+  height: 40px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  font-size: 1.15rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+}
+
+.btn-hype:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: var(--border-medium);
+  transform: translateY(-2px);
+}
+
 .squad-feed-card {
   background: var(--bg-surface);
   border: 1px solid var(--border-medium);
   border-radius: var(--radius-xl);
-  padding: 24px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  height: 600px;
+  height: 520px;
 }
 
 .feed-header {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--text-muted);
+  color: var(--text-primary);
   margin-bottom: 14px;
   padding-bottom: 12px;
   border-bottom: 1px solid var(--border-subtle);
 }
 
-.feed-items-list {
+.feed-stream {
   flex: 1;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
+  padding-right: 4px;
 }
 
-.feed-items-list::-webkit-scrollbar {
+.feed-stream::-webkit-scrollbar {
   width: 4px;
 }
-.feed-items-list::-webkit-scrollbar-thumb {
+.feed-stream::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.1);
   border-radius: 4px;
 }
 
 .feed-item {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-sm);
-  padding: 10px 12px;
+  padding: 9px 12px;
   font-size: 0.84rem;
+  line-height: 1.45;
 }
 
-.feed-item-time {
+.feed-time {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.7rem;
   color: var(--text-muted);
-  margin-bottom: 2px;
+  flex-shrink: 0;
 }
 
-.feed-item-msg {
+.feed-sender {
+  font-weight: 700;
+  color: var(--text-primary);
+  flex-shrink: 0;
+}
+
+.feed-text {
   color: var(--text-secondary);
-  line-height: 1.4;
 }
 
 /* Hype Reactions Floating Dock */

@@ -28,7 +28,7 @@ const PRESET_ROUTINES = [
     ],
   },
   {
-    name: 'Basement Pull & Deadlift',
+    name: 'Heavy Pull & Deadlift',
     muscle: 'Back & Biceps',
     sets: [
       { setNumber: 1, weight: 100, reps: 8, rpe: 8 },
@@ -37,7 +37,7 @@ const PRESET_ROUTINES = [
     ],
   },
   {
-    name: 'Iron Leg Day (Squats & Split)',
+    name: 'Lower Body Strength',
     muscle: 'Quads & Hamstrings',
     sets: [
       { setNumber: 1, weight: 90, reps: 10, rpe: 8 },
@@ -263,12 +263,9 @@ export default function OfflinePage() {
         {/* Header */}
         <div className="offline-header">
           <div className="offline-title-area">
-            <h1>
-              <span>📴</span> Offline Gym Hub
-            </h1>
+            <h1>Offline Gym Hub</h1>
             <p className="offline-subtitle">
-              Train freely in cellular dead zones, basement gym vaults, or airplane mode.
-              All sets, workouts, and biometrics are preserved in browser IndexedDB and automatically replayed to the cloud once reconnected.
+              Log workouts in low-signal gyms or airplane mode. Sets and metrics are saved locally in IndexedDB and synced automatically when you reconnect.
             </p>
           </div>
 
@@ -303,11 +300,9 @@ export default function OfflinePage() {
             {/* Workout Logger Card */}
             <div className="offline-card">
               <div className="offline-card-header">
-                <div className="offline-card-title">
-                  <span>🏋️</span> Offline Workout Logger
-                </div>
+                <div className="offline-card-title">Offline Workout Logger</div>
                 <span style={{ fontSize: '0.8rem', color: '#f59e0b', fontWeight: 600 }}>
-                  IndexedDB Engine
+                  Local IndexedDB
                 </span>
               </div>
 
@@ -414,12 +409,12 @@ export default function OfflinePage() {
                       onClick={handleQuickWater}
                       title="Quick log 500mL water"
                     >
-                      💧 +500mL Water
+                      +500mL Water
                     </button>
                   </div>
 
                   <button type="submit" className="btn-save-workout">
-                    Save Offline & Sync Later ⚡
+                    Save Offline &amp; Sync Later
                   </button>
                 </div>
               </form>
@@ -428,9 +423,7 @@ export default function OfflinePage() {
             {/* Pre-Cached Offline Routine Vault */}
             <div className="offline-card">
               <div className="offline-card-header">
-                <div className="offline-card-title">
-                  <span>📦</span> Pre-Cached Basement Routines
-                </div>
+                <div className="offline-card-title">Saved Offline Routines</div>
                 <span style={{ fontSize: '0.78rem', color: '#94a3b8' }}>
                   No network required
                 </span>
@@ -460,8 +453,8 @@ export default function OfflinePage() {
           <div>
             {/* Offline Rest Timer */}
             <div className="offline-timer-box">
-              <div style={{ fontSize: '0.85rem', fontWeight: 700, color: '#f59e0b', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                Offline Synthesizer Timer
+              <div style={{ fontSize: '0.8rem', fontWeight: 600, color: '#f59e0b' }}>
+                Rest Timer
               </div>
               <div className="timer-digits-offline">
                 {timerActive ? formatTimer(timerSeconds) : '0:00'}
@@ -512,7 +505,7 @@ export default function OfflinePage() {
               <div className="queue-items-list">
                 {queueItems.length === 0 ? (
                   <div style={{ textAlign: 'center', padding: '2rem 1rem', color: '#64748b', fontSize: '0.82rem' }}>
-                    ✨ Queue is empty. All offline metrics are synced to the cloud!
+                    Queue is empty. All offline entries are synced.
                   </div>
                 ) : (
                   queueItems.map((item) => (
@@ -548,7 +541,7 @@ export default function OfflinePage() {
                   onClick={handleManualSync}
                   disabled={syncStatus.isSyncing}
                 >
-                  {syncStatus.isSyncing ? 'Syncing...' : 'Sync All to Cloud Now 🔄'}
+                  {syncStatus.isSyncing ? 'Syncing...' : 'Sync All to Cloud'}
                 </button>
               )}
             </div>

@@ -451,7 +451,7 @@ export default function SquadRoomsPage() {
                     +15s
                   </button>
                   <button className="btn-timer-skip" onClick={handleStopTimer}>
-                    Skip Rest ⚡
+                    Skip Rest
                   </button>
                 </div>
               ) : (
@@ -520,7 +520,7 @@ export default function SquadRoomsPage() {
                   }`}
                   onClick={() => handleStatusChange('HYDRATING')}
                 >
-                  💧 Hydrating
+                  Hydrating
                 </button>
               </div>
 
@@ -548,7 +548,7 @@ export default function SquadRoomsPage() {
                   onChange={(e) => setRepsInput(Number(e.target.value))}
                 />
                 <button type="submit" className="btn-log-set">
-                  Log & Sync ⏱️
+                  Log &amp; Sync
                 </button>
               </form>
             </div>
@@ -593,7 +593,7 @@ export default function SquadRoomsPage() {
 
                     {member.lastSet ? (
                       <div className="member-last-set-box">
-                        <span>📊 Last Set:</span>
+                        <span>Last Set</span>
                         <strong>
                           {member.lastSet.weight}
                           {member.lastSet.unit} × {member.lastSet.reps} reps
@@ -618,7 +618,7 @@ export default function SquadRoomsPage() {
             {/* Hype Reaction Pad */}
             <div className="hype-pad-card">
               <div className="hype-pad-title">
-                <span>🔥 Hype Reaction Pad</span>
+                <span>Quick Reactions</span>
                 <span style={{ fontSize: '0.75rem', color: '#10b981' }}>
                   Tap to cheer squad
                 </span>
@@ -640,7 +640,7 @@ export default function SquadRoomsPage() {
             {/* Live Squad Activity Feed */}
             <div className="squad-feed-card">
               <div className="feed-header">
-                <span>⚡ Live Squad Stream</span>
+                <span>Live Squad Stream</span>
                 <span style={{ fontSize: '0.75rem', color: '#64748b' }}>
                   Real-time updates
                 </span>
